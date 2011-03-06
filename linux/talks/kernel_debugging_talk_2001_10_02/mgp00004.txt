@@ -1,0 +1,18 @@
+
+dbg() macro
+
+
+ #if !defined(CONFIG_FOO_MODULE)
+   #define MY_NAME "foo_driver"
+ #else
+   #define MY_NAME THIS_MODULE->name
+ #endif
+
+ #define dbg(fmt, arg...) do {
+   if (debug)
+     printk(KERN_DEBUG "%s: "__FUNCTION__": "
+             fmt "\n" , MY_NAME , ## arg);
+   } while (0)
+
+ static int debug;
+ MODULE_PARM(debug, "i");

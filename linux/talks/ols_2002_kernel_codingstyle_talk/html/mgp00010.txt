@@ -1,0 +1,17 @@
+
+Braces
+
+
+Opening brace last on the line.
+
+Closing brace first on the line:
+      if (x is true) {
+              we do y
+      }
+
+Exception for functions:
+      int function(int x)
+      {
+              body of function
+      }
+

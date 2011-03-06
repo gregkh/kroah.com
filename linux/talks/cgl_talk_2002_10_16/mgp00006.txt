@@ -1,0 +1,13 @@
+
+Specific examples - bad
+
+
+Driver Hardening
+sprung a huge package on community
+initially reacted poorly to criticism
+saved themselves by listening, only time will tell if they really do.
+
+cPCI hotplug
+code was never submitted
+ignored comments and community
+code will probably never be merged

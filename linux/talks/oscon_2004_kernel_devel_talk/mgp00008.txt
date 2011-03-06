@@ -1,0 +1,14 @@
+
+Stabilization time
+
+2.6.1 - January 9
+538 patches
+
+2.6.2 - February 3
+1472 patches
+
+2.6.3 - February 17
+863 patches
+
+2.6.4 - March 10
+1385 patches

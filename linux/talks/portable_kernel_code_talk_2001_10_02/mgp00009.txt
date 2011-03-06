@@ -1,0 +1,16 @@
+
+Endian issues
+
+  #include <asm/byteorder.h>
+
+    u64 __cpu_to_le64 (u64);    u64 __le64_to_cpu (u64);
+    u32 __cpu_to_le32 (u32);    u32 __le32_to_cpu (u32);
+    u16 __cpu_to_le16 (u16);    u16 __le16_to_cpu (u16);
+
+    u64 __cpu_to_be64 (u64);    u64 __be64_to_cpu (u64);
+    u32 __cpu_to_be32 (u32);    u32 __be32_to_cpu (u32);
+    u16 __cpu_to_be16 (u16);    u16 __be16_to_cpu (u16);
+
+    many more...
+
+The leading "__" is optional

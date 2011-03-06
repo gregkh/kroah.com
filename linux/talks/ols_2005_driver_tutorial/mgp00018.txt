@@ -1,0 +1,12 @@
+
+"Real" USB data transfers
+
+struct urb;
+
+dynamically created
+
+fire and forget
+
+high data rates
+
+Like network skb packets

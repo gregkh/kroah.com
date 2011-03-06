@@ -1,0 +1,7 @@
+
+
+
+
+
+typedef is evil
+

@@ -1,0 +1,11 @@
+
+pre BitKeeper
+
+
+maintainer send patches to Linus
+
+wait for next release to see if accepted
+
+resend any dropped patches
+
+lather, rinse, repeat

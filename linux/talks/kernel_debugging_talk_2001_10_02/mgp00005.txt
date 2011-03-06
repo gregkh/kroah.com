@@ -1,0 +1,17 @@
+
+Using dbg()
+
+
+  dbg ("Added slot %d to the list", 
+         slot->physical_number);
+
+  shows up as:
+  hotplug_pci: pci_hp_register: Added slot 2 to the list
+
+
+  dbg ("");
+
+  shows up as:
+  hotplug_pci: pci_hp_register:
+
+

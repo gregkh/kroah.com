@@ -1,0 +1,18 @@
+
+typedef - examples
+
+
+Bad: 
+include/raid/md*.h
+every structure has a typedef assigned to it
+
+drivers/acpi/include/*.h
+some structures do not have a name, only a typedef
+
+drivers/usb/host/usb-uhci.h
+             typedef struct {
+                     __u32 link;
+                     __u32 status;
+                     __u32 info;
+                     __u32 buffer;
+             } uhci_td_t, *puhci_td_t;

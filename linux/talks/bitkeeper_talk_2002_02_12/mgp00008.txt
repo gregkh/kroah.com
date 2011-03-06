@@ -1,0 +1,7 @@
+
+Merging tools
+
+
+merge point is an actual point in time
+
+three way merge tool

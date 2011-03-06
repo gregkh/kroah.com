@@ -1,0 +1,12 @@
+
+/dev problems
+
+
+no dynamic allocation of entries
+
+/dev is big (18 thousand entries)
+
+which entry is which device?
+
+no persistent naming
+

@@ -1,0 +1,26 @@
+
+Simple USB data transfer
+
+send_cmd() continued:
+        retval = usb_control_msg(gdev->udev,
+                                 usb_sndctrlpipe(gdev->udev, 0),
+                                 0x09,    /* bRequest = SET_REPORT */
+                                 0x21,    /* bRequestType = 00100001 */
+                                 0x0200,  /* or is it 0x0002? */
+                                 0x0000,  /* interface 0 */
+                                 pkt, sizeof(*pkt), 10000);
+        if (retval == sizeof(*pkt))
+                retval = 0;
+        kfree(pkt);
+        return retval;
+}
+
+static void init_dev(struct gotemp *gdev)
+{
+        /* First send an init message */
+        send_cmd(gdev, CMD_ID_INIT);
+
+        /* Start sending measurements */
+        send_cmd(gdev, CMD_ID_START_MEASUREMENTS);
+}
+

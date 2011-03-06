@@ -1,0 +1,10 @@
+
+sequence of events
+
+
+/sbin/hotplug
+
+udevstart
+
+udevd
+

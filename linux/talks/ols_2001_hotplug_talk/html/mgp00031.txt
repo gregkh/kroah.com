@@ -1,0 +1,17 @@
+
+
+
+Linux Hotplugging
+
+http://linux-hotplug.sourceforge.net/
+
+
+
+
+
+
+
+Greg Kroah-Hartman
+
+greg@kroah.com       http://www.kroah.com/linux/
+

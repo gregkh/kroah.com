@@ -1,0 +1,28 @@
+linux.conf.au 2003
+Create the superblock - cont.
+
+static int pcihpfs_fill_super(struct super_block *sb, void *data, int silent)
+{       
+        struct inode *inode;
+        struct dentry *root;
+        
+        sb->s_blocksize = PAGE_CACHE_SIZE;
+        sb->s_blocksize_bits = PAGE_CACHE_SHIFT;
+        sb->s_magic = PCIHPFS_MAGIC;
+        sb->s_op = &pcihpfs_ops;
+
+        inode = pcihpfs_get_inode(sb, S_IFDIR | 0755, 0);
+        if (!inode) {
+                dbg("%s: could not get inode!\n",__FUNCTION__);
+                return -ENOMEM;
+        }       
+                
+        root = d_alloc_root(inode);
+        if (!root) {
+                dbg("%s: could not get root dentry!\n",__FUNCTION__);
+                iput(inode);
+                return -ENOMEM;
+        }
+        sb->s_root = root;
+        return 0;
+}

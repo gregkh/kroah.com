@@ -1,0 +1,10 @@
+linux.conf.au 2003
+Disadvantages
+
+
+more complex driver
+for 2.5 libfs helps out a lot
+
+have to mount the filesystem somewhere
+
+user training

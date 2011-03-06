@@ -1,0 +1,9 @@
+
+
+
+        "Remember: if another thread can find your data 
+         structure, and you don't have a reference count on 
+         it, you almost certainly have a bug."
+                             -Documentation/CodingStyle
+ 
+

@@ -1,0 +1,13 @@
+
+More details
+
+
+symlinks to make userspace happy
+
+class interface?
+virtual bus?
+SCSI makes me want to cry
+
+move things where?
+/sys/class/mem
+

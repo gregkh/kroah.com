@@ -1,0 +1,13 @@
+
+example release
+
+
+void foo_release(struct kref *kref)
+{
+       struct foo *foo;
+
+       foo = container_of(foo, struct foo,
+                          kref);
+       kfree(foo);
+}
+

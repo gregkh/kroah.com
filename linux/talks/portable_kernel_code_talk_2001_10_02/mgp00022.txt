@@ -1,0 +1,17 @@
+
+Other tips
+
+
+unsigned int generates faster/smaller code than int on all platforms except sh5
+bad:
+             int i;
+             for (i = 0; i < 10; ++i)...
+good:
+             unsigned int i;
+             for (i = 0; i < 10; ++i)...
+
+unitialized static variables are 0
+bad:
+             static struct *foo = NULL;
+good:
+             static struct *foo;   /* = NULL */

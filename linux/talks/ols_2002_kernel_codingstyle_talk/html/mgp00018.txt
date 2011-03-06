@@ -1,0 +1,13 @@
+
+Comment format
+
+
+Kernel-doc, variant of GNOME-doc
+
+Creates standalone documentation
+make psdocs
+make htmldocs
+
+Documentation/kernel-doc-nano-HOWTO.txt
+scripts/kernel-doc
+

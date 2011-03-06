@@ -1,0 +1,219 @@
+%% use our own settings
+#%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+#%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+#%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+#%deffont "typewriter"	xfont "monospace:bold"
+%deffont "typewriter"	xfont "bitstream vera sans mono:bold"
+%deffont "email"	xfont "bitstream vera sans mono"
+#%deffont "typewriter"	xfont "bitstream sans mono"
+%deffont "standard"	xfont "bitstream charter"
+#%deffont "standard"	xfont "P22 Typewriter"
+#%deffont "standard"	xfont "bitstream vera sans"
+#%deffont "standard"	xfont "monospace"
+%deffont "title"	xfont "P22 Typewriter"
+#%deffont "thick"	xfont "bitstream vera sans:bold"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 1, fore "black", back "white"
+%default 2 size 10, vgap 10, prefix " ", fore "black", font "title"
+#%default 3 size 2, bar "gray70", vgap 10, fore "black"
+%default 3 size 2, bar "steel blue", vgap 10, fore "black"
+%default 4 size 8, fore "white", vgap 10, prefix " ", font "standard", fore "black"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 7.5, vgap 20, prefix "   ", icon arc "steel blue" 40
+%tab 2 size 4.5, vgap 20, prefix "       ", icon arc "darkgreen" 50
+%tab 3 size 3.5, vgap 20, prefix "             ", icon delta3 "red" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+
+%size 30, font "title"
+#%font "typewriter"
+struct kref
+%size 1
+
+
+%size 10
+Reference counting made easy
+
+%font "standard"
+%size 8
+
+Greg Kroah-Hartman
+%size 7
+%font "email"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 8, font "title", fore "black", back "white", leftfill
+
+
+
+%font "standard", size 8
+        "Remember: if another thread can find your data 
+         structure, and you don't have a reference count on 
+         it, you almost certainly have a bug."
+%font "typewriter", size 6
+                             -Documentation/CodingStyle
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Reference counting is essential
+
+
+	keeps memory leaks from happening
+
+	protects from accessing freed memory
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What is a reference count
+
+
+	an atomic counter
+
+	not a lock
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How to use it
+
+
+	embed a 
+%cont, font "typewriter"
+struct kref
+%cont, font "standard"
+ in your structure:
+
+%font "typewriter"
+      struct foo {
+              int baz;
+              struct kref kref;
+              ...
+      };
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How to use it (cont.)
+
+
+	allocate an instance:
+%font "typewriter"
+     foo = kmalloc(sizeof(*foo), GFP_KERNEL);
+%font "standard"
+
+	initialize the kref:
+%font "typewriter"
+     kref_init(&foo->kref);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How to use it (cont.)
+
+
+	increment the count before giving it to anyone else:
+%font "typewriter"
+     kref_get(&foo->kref);
+%font "standard"
+
+	decrement the count when you are finished with it:
+%font "typewriter"
+     kref_put(&foo->kref, foo_release);
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+release
+
+
+	called when last reference is freed.
+
+	must look like:
+%font "typewriter"
+     void foo_release(struct kref *kref);
+%font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+example release
+
+
+%font "typewriter"
+void foo_release(struct kref *kref)
+{
+       struct foo *foo;
+
+       foo = container_of(foo, struct foo,
+                          kref);
+       kfree(foo);
+}
+%font "standard"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+3 rules of use
+
+
+	
+%cont, font "typewriter"
+kref_get()
+%cont, font "standard"
+ before giving to others
+
+	after 
+%cont, font "typewriter"
+kref_put()
+%cont, font "standard"
+ do not touch
+
+	serialize last expected 
+%cont, font "typewriter"
+kref_put()
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Future stuff
+
+
+	rcu version of 
+%cont, font "typewriter"
+kref_get()
+%cont, font "standard"
+ and 
+%cont, font "typewriter"
+kref_put()
+%font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+
+%size 30, font "title"
+#%font "typewriter"
+struct kref
+%size 1
+
+
+%size 10
+Reference counting made easy
+
+%font "standard"
+%size 8
+
+Greg Kroah-Hartman
+%size 7
+%font "email"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,14 @@
+
+Stabilization time ???
+
+2.6.5 - April 3
+1222 patches
+
+2.6.6 - May 9
+1757 patches
+
+2.6.7 - June 16
+2306 patches
+
+2.6.0 - 2.6.7
+2.2 patches an hour

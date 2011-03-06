@@ -1,0 +1,20 @@
+linux.conf.au 2003
+Create a file - cont.
+
+
+
+        *dentry = NULL;
+        down(&parent->d_inode->i_sem);
+        *dentry = get_dentry (parent, name);
+        if (!IS_ERR(dentry)) {
+                if ((mode & S_IFMT) == S_IFDIR)
+                        error = usbfs_mkdir (parent->d_inode, *dentry, mode);
+                else
+                        error = usbfs_create (parent->d_inode, *dentry, mode);
+        } else
+                error = PTR_ERR(dentry);
+
+        up(&parent->d_inode->i_sem);
+
+        return error;
+}

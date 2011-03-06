@@ -1,0 +1,25 @@
+linux.conf.au 2003
+File operations - read cont.
+
+
+        retval = get_power_status (slot, &value);
+        if (retval)
+                goto exit;
+        len = sprintf (page, "%d\n", value);
+
+        if (copy_to_user (buf, page, len)) {
+                retval = -EFAULT;
+                goto exit;
+        }
+        *offset += len;
+        retval = len;
+
+exit:
+        free_page((unsigned long)page);
+        return retval;
+}
+
+Result
+        $ cat /proc/bus/pci/slots/slot2/power
+        1
+

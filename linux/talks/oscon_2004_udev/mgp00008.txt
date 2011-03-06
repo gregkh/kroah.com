@@ -1,0 +1,12 @@
+
+putting the two together - udev
+
+
+device naming from userspace
+
+provides persistant device naming solution
+
+only 56kb big (smaller than /bin/cp)
+
+shipping in all 2.6 Linux distros
+

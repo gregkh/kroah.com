@@ -1,0 +1,412 @@
+%%  udev - to conquor the world!
+%%  last modified 2003_07_07
+%%  Greg Kroah-Hartman
+%%  <greg@kroah.com>
+%%  <gregkh@us.ibm.com>
+%%  Released under the GNU GPL v2
+%%
+%% use our own settings
+%deffont "typewriter"	xfont "bitstream vera sans mono:bold"
+%deffont "email"	xfont "bitstream vera sans mono"
+%deffont "standard"	xfont "bitstream charter"
+%deffont "title"	xfont "P22 Typewriter"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 1, fore "black", back "white"
+%default 2 size 10, vgap 10, prefix " ", fore "black", font "title"
+#%default 3 size 2, bar "gray70", vgap 10, fore "black"
+%default 3 size 2, bar "steel blue", vgap 10, fore "black"
+%default 4 size 8, fore "white", vgap 10, prefix " ", font "standard", fore "black"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+%tab 1 size 7.5, vgap 20, prefix "   ", icon arc "steel blue" 40
+%tab 2 size 6.0, vgap 20, prefix "           ", icon arc "sea green" 50
+%tab 3 size 4.5, vgap 20, prefix "                     ", icon arc "violet red" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+%size 42, font "title"
+#%font "typewriter"
+udev
+%size 15
+Managing Linux device names in userspace
+%size 3
+
+
+%size 8
+www.kroah.com/linux/
+%size 8
+Greg Kroah-Hartman
+%size 5
+%font "typewriter"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+/dev
+
+
+	how userspace talks to devices
+
+	all devices need a major and minor number
+%font "typewriter", size 4
+       brw-------    1 gregkh   disk       3,   0 Jan 30 02:24 /dev/hda
+       brw-------    1 gregkh   disk       3,  64 Jan 30 02:24 /dev/hdb
+       crw-rw-rw-    1 root     uucp     188,   0 Jan 30 02:24 /dev/ttyUSB0
+       crw-rw-rw-    1 root     uucp     188,   1 Jan 30 02:24 /dev/ttyUSB1
+%font "standard"
+
+	new major and minor number freeze during 2.3
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+/dev problems
+
+
+	no dynamic allocation of entries
+
+	/dev is big (18 thousand entries)
+
+	which entry is which device?
+
+	no persistent naming
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+devfs
+
+
+	everyone else does it
+		standard in FreeBSD
+
+	solves "/dev is too big" issue
+
+	solves dynamic allocation of entries
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+devfs problems
+
+
+	implementation...
+
+	requires lots of system configuration changes
+
+	different /dev namespace from LSB standard
+
+	forces device naming policy into the kernel
+
+	no dynamic allocation of numbers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+sysfs
+
+
+	shows all devices in the system
+
+	shows lots of information about these devices
+		location
+		attributes (names, serial numbers)
+		major/minor number
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+/sbin/hotplug
+
+
+	called whenever a device is added or removed
+
+	runs outside of the kernel
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+putting the two together - udev
+
+
+	device naming from userspace
+
+	provides persistant device naming solution
+
+	only 56kb big (smaller than /bin/cp)
+
+	shipping in all 2.6 Linux distros
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+udev's goals
+
+
+	run in userspace
+
+	create a dynamic /dev
+
+	allow everyone to not care about major/minor numbers
+
+	provide LSB standard names
+
+	provide consistent device naming if wanted
+
+	easy to use
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+three major pieces
+
+
+	
+%cont, font "typewriter"
+udevsend
+%font "standard"
+		handles the basic 
+%cont, font "typewriter"
+/sbin/hotplug
+%cont, font "standard" 
+ call
+		4kb
+
+	
+%cont, font "typewriter"
+udevd
+%font "standard"
+		serialize access to 
+%cont, font "typewriter"
+udev
+%font "standard"
+		7kb
+
+	
+%cont, font "typewriter"
+udev
+%font "standard"
+		does the device naming and 
+%cont, font "typewriter"
+/etc/dev.d
+%cont, font "standard" 
+ callbacks
+		56kb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+three extra programs
+
+
+	
+%cont, font "typewriter"
+udevinfo
+%font "standard"
+		allows querying of all device information
+		46kb
+
+	
+%cont, font "typewriter"
+udevstart
+%font "standard"
+		helper program to seed 
+%cont, font "typewriter"
+/dev
+%cont, font "standard"
+ at boot time
+%font "standard"
+		6kb
+
+	
+%cont, font "typewriter"
+udevtest
+%font "standard"
+		tests udev rules
+		57kb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+udev
+
+
+	allow pluggable naming schemes
+		LSB standard
+		devfs "standard"
+
+	persistent device naming policy
+
+	uses 
+%cont, font "typewriter"
+tdb
+%cont, font "standard"
+ as backing store
+
+	text configuration files
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Main udev config file
+
+
+	
+%cont, font "typewriter"
+/etc/udev/udev.conf
+%font "standard"
+		location of 
+%cont, font "typewriter"
+/dev
+%font "standard"
+		location of udev database
+		location of rules files
+		location of permission files
+		default mode
+		default owner
+		default group
+		logging enabled or not
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+udev rules config file
+
+%font "typewriter", size 3.5
+%fore "darkblue"
+ # Looking for scsi bus id 42:0:0:1
+%fore "black"
+ BUS="scsi", PROGRAM="/bin/echo -n test-%b", RESULT="test-42:0:0:1", NAME="%c"
+
+%fore "darkblue"
+ # A usb camera.
+%fore "black"
+ BUS="usb", SYSFS{vendor}="FUJIFILM", SYSFS{model}="M100", NAME="camera%n"
+
+%fore "darkblue"
+ # USB Epson printer to be called lp_epson
+%fore "black"
+ BUS="usb", SYSFS_serial="HXOLL0012202323480", NAME="lp_epson"
+
+%fore "darkblue"
+ # sound card with PCI bus id 00:0b.0 to be the first sound card
+%fore "black"
+ BUS="pci", ID="00:0b.0", NAME="dsp"
+
+%fore "darkblue"
+ # sound card with PCI bus id 00:07.1 to be the second sound card
+%fore "black"
+ BUS="pci", ID="00:07.1", NAME="dsp1" 
+
+%fore "darkblue"
+ # USB mouse plugged into the third port of the first hub to be called mouse0
+%fore "black"
+ BUS="usb", PLACE="1.3", NAME="mouse0"
+
+%fore "darkblue"
+ # USB tablet plugged into the third port of the second hub to be called mouse1
+%fore "black"
+ BUS="usb", PLACE="2.3", NAME="mouse1"
+
+%fore "darkblue"
+ # ttyUSB1 should always be called treo300
+%fore "black"
+ KERNEL="ttyUSB1", NAME="treo300"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+udev permissions config file
+
+
+%font "typewriter", size 4
+%fore "darkblue"
+ # name:user:group:mode
+%fore "black"
+ ttyUSB0:root:uucp:0660
+ ttyUSB1:root:uucp:0666
+ visor:root:uucp:0666
+ dsp1:::0666
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+sequence of events
+
+
+	/sbin/hotplug
+
+	udevstart
+
+	udevd
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+sequence of events - continued
+
+
+	udev
+		reads config files
+		matches device to rules
+		calls /etc/dev.d scripts
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+/etc/dev.d
+
+
+	allows notification when devices are created or removed
+
+	three levels of notification:
+%font "typewriter", size 7
+          /etc/dev.d/DEVNAME/*.dev
+          /etc/dev.d/SUBSYSTEM/*.dev
+          /etc/dev.d/default/*.dev
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Where is it?
+
+
+	in your distro
+
+	source:
+%font "typewriter", size 6
+        kernel.org/pub/linux/utils/kernel/hotplug/
+%font "standard"
+
+	BitKeeper tree:
+%font "typewriter", size 6
+        bk://kernel.bkbits.net/gregkh/udev/
+%font "standard"
+
+	mailing list:
+%font "typewriter", size 6
+        linux-hotplug-devel@lists.sourceforge.net
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+%size 42, font "title"
+#%font "typewriter"
+udev
+%size 15
+Managing Linux device names in userspace
+%size 3
+
+
+%size 8
+www.kroah.com/linux/
+%size 8
+Greg Kroah-Hartman
+%size 5
+%font "typewriter"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

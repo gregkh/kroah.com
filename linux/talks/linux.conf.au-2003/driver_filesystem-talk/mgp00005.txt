@@ -1,0 +1,28 @@
+linux.conf.au 2003
+Example - pcihpfs
+
+                     /proc/bus/pci/slots/
+                     |-- slot3
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   `-- power
+                     |-- slot4
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   `-- power
+                     |-- slot5
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   |-- power
+                     |   `-- test
+                     `-- slot6
+                         ...

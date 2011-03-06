@@ -1,0 +1,16 @@
+
+Docking station event environment
+
+argv[0] = hotplug_path
+argv[1] = dock
+argv[2] = 0
+
+HOME = /
+PATH = /sbin:/bin:/usr/sbin:/usr/bin
+ACTION = action
+DOCK = location_id/serial/capabilities
+
+action=(add|remove)
+
+red is actual values
+green is replaced with runtime information

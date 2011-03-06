@@ -1,0 +1,15 @@
+
+three major pieces
+
+
+udevsend
+handles the basic /sbin/hotplug call
+4kb
+
+udevd
+serialize access to udev
+7kb
+
+udev
+does the device naming and /etc/dev.d callbacks
+56kb

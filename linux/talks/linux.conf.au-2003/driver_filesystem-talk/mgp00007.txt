@@ -1,0 +1,13 @@
+linux.conf.au 2003
+How
+
+
+create struct file_system_type
+
+register filesystem
+
+mount filesystem
+
+create superblock
+
+create files

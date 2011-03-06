@@ -1,0 +1,12 @@
+
+Other printk() macros
+
+
+ #define err(fmt, arg...)
+      printk(KERN_ERR "%s: " fmt "\n" , MY_NAME , ## arg)
+
+ #define info(fmt, arg...)
+      printk(KERN_INFO "%s: " fmt "\n" , MY_NAME , ## arg)
+
+ #define warn(fmt, arg...)
+      printk(KERN_WARNING "%s: " fmt "\n" , MY_NAME , ## arg)

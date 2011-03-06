@@ -1,0 +1,24 @@
+linux.conf.au 2003
+Create a file - cont.
+
+static int fs_create_by_name (const char *name, mode_t mode,
+                                 struct dentry *parent, struct dentry **dentry)
+{
+        int error = 0;
+
+        /* If the parent is not specified, we create it in the root.
+         * We need the root dentry to do this, which is in the super 
+         * block. A pointer to that is in the struct vfsmount that we
+         * have around.
+         */
+        if (!parent ) {
+                if (usbfs_mount && usbfs_mount->mnt_sb) {
+                        parent = usbfs_mount->mnt_sb->s_root;
+                }
+        }
+
+        if (!parent) {
+                dbg("Ah! can not find a parent!");
+                return -EFAULT;
+        }
+

@@ -1,0 +1,16 @@
+
+Small is good
+
+
+
+
+ #!/bin/sh
+ if [ "$1" = "usb" ]; then
+     if [ "$INTERFACE" = "3/1/2" ]; then
+         if [ "$ACTION" = "add" ]; then
+             modprobe usbmouse
+         else
+             rmmod usbmouse
+         fi
+     fi
+ fi

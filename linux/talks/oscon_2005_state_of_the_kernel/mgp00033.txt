@@ -1,0 +1,11 @@
+
+What the kernel needs
+
+no central repository
+each copy is self contained
+
+fast import of patches
+
+handle lots of changesets
+
+fast import of patches

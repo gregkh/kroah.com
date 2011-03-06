@@ -1,0 +1,11 @@
+
+How to use it
+
+
+embed a struct kref in your structure:
+
+      struct foo {
+              int baz;
+              struct kref kref;
+              ...
+      };

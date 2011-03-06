@@ -1,0 +1,9 @@
+
+How to use it (cont.)
+
+
+allocate an instance:
+     foo = kmalloc(sizeof(*foo), GFP_KERNEL);
+
+initialize the kref:
+     kref_init(&foo->kref);

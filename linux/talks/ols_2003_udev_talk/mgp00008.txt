@@ -1,0 +1,10 @@
+
+putting the two together - udev
+
+
+device naming from userspace
+
+does everything devfs does today
+
+only 6kb big (smaller than /bin/true)
+

@@ -1,0 +1,22 @@
+
+Braces - examples
+
+
+Bad: 
+fs/devfs/*
+            if (type == DEVFS_SPECIAL_CHR)
+            {
+                semaphore = &char_semaphore;
+                list = &char_list;
+            }
+            else
+            {
+                semaphore = &block_semaphore;
+                list = &block_list;
+            }   
+
+Good: 
+kernel/*.c
+drivers/scsi/qla1280.c
+thanks to Jes Sorensen
+    

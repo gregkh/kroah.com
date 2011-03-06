@@ -1,0 +1,14 @@
+
+Why care?
+
+
+"Code formatting doesn't matter."
+
+"Why is your style better than mine?"
+
+"Doesn't affect compiled size."
+
+"Doesn't affect execution speed."
+
+"K&R style is out of date."
+

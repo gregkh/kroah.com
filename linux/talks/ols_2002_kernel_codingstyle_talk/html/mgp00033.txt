@@ -1,0 +1,16 @@
+
+Labeled identifiers
+
+
+Use them in initializers
+
+Keeps structure changes from breaking code
+
+If a field is not specified, it is set to zero
+
+Easier to search for
+
+Automatic documentation
+
+OK to use C99 style
+              .a = A_INIT,

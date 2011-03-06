@@ -1,0 +1,9 @@
+
+What are your goals with CGL?
+
+
+Do you want to maintain this patchset yourselves forever?
+
+Do you want the community to take these patches?
+
+You use the community's product, shouldn't you give something back?

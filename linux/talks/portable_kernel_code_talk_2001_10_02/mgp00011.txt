@@ -1,0 +1,7 @@
+
+Data alignment
+
+    __attribute__ ((packed))
+
+Prevents "holes" in memory mapped structures
+

@@ -1,0 +1,15 @@
+
+evil evil evil!
+
+
+It hides the real type of the variable.
+
+Allows programmers to get into trouble:
+large structures on the stack
+large structures passed as return values
+
+Can hide long structure definitions:
+pick a better name
+
+typedef just to signify a pointer type?
+could you be lazier?

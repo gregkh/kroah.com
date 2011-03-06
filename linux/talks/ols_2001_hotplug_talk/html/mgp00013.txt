@@ -1,0 +1,18 @@
+
+Automatically sync your visor
+
+
+
+
+ #!/bin/sh
+ USER=gregkh
+ if [ "$1" = "usb" ]; then
+     if [ "$PRODUCT" = "82d/100/0" ]; then
+         if [ "$ACTION" = "add" ]; then
+             modprobe visor
+             su $USER - -c "/usr/bin/coldsync"
+         else
+             rmmod visor
+         fi
+     fi
+ fi

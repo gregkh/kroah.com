@@ -1,0 +1,18 @@
+
+Labeled identifiers explained
+
+
+       struct foo {
+               int a;
+               int b;
+       };
+
+Old way:
+       static struct foo bar =
+               {A_INIT, B_INIT};
+
+Labeled way:
+       static struct foo bar = {
+               a:  A_INIT,
+               b:  B_INIT,
+       };

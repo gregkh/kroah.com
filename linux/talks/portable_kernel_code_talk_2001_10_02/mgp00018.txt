@@ -1,0 +1,12 @@
+
+Writing to a PCI memory region
+
+
+pci_write_config_byte
+writes 8 bits
+
+pci_write_config_word
+writes 16 bits
+
+pci_write_config_dword
+writes 32 bits

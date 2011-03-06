@@ -1,0 +1,205 @@
+%% use our own settings
+#%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+#%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+#%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+#%deffont "typewriter"	xfont "monospace:bold"
+%deffont "typewriter"	xfont "bitstream vera sans mono:bold"
+%deffont "email"	xfont "bitstream vera sans mono"
+#%deffont "typewriter"	xfont "bitstream sans mono"
+%deffont "standard"	xfont "bitstream charter"
+#%deffont "standard"	xfont "P22 Typewriter"
+#%deffont "standard"	xfont "bitstream vera sans"
+#%deffont "standard"	xfont "monospace"
+%deffont "title"	xfont "P22 Typewriter"
+#%deffont "thick"	xfont "bitstream vera sans:bold"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 1, fore "black", back "white"
+%default 2 size 10, vgap 10, prefix " ", fore "black", font "title"
+#%default 3 size 2, bar "gray70", vgap 10, fore "black"
+%default 3 size 2, bar "steel blue", vgap 10, fore "black"
+%default 4 size 8, fore "white", vgap 10, prefix " ", font "standard", fore "black"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 7.5, vgap 20, prefix "   ", icon arc "steel blue" 40
+%tab 2 size 6.0, vgap 20, prefix "           ", icon arc "sea green" 50
+%tab 3 size 4.5, vgap 20, prefix "                     ", icon arc "violet red" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+
+%size 15, font "title"
+#%font "typewriter"
+Linux Kernel Patch Flow
+%size 1
+
+
+%size 8
+#What do you mean, no more stable kernel?
+Ah, so that's what a maintainer does...
+%font "standard"
+%size 6
+
+
+
+
+Greg Kroah-Hartman
+%size 5
+%font "email"
+greg@kroah.com
+gregkh@us.ibm.com
+
+%font "standard"
+OLS 2004
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+pre BitKeeper
+
+
+	maintainer send patches to Linus
+
+	wait for next release to see if accepted
+
+	resend any dropped patches
+
+	lather, rinse, repeat
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Patch penguin lkml flame fest
+
+
+	release 2.5.3, Feb 2, 2002
+
+	BitKeeper is now used by Linus
+
+	License weenies get their panties in a bind
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+bk changed how things worked
+
+
+	BitKeeper using maintainer
+		built bk tree out of patches to be sent off
+		Linus sucks all patches in at once
+		Linus merges minor conflicts
+		Linus discards crappy trees
+
+	non-BitKeeper using maintainer
+		sent patches just like always
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+unexpected consequences
+
+
+	bk provided an up-to-hour copy of Linus's tree
+
+	-bk nightly snapshots
+
+	bk2cvs, bk2svn
+
+	bkcommits-head mailing list
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Things start changing
+
+
+	Feature freeze October 31, 2002
+
+	2.6.0-test1, July 7, 2003
+
+	All patches start to go through Andrew Morton
+
+	All bk pushes stay the same, direct to Linus
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.0 December 17, 2003
+
+	680 days of development
+
+	27149 different patches
+
+	1.66 patches per hour
+
+	at least 916 different contributors
+
+	top 5 developers made/handled 6956 patches
+
+%font "typewriter", size 3.5
+    bk -R prs -rv2.5.0..v2.6.0 -h -d'$unless(:MERGE:){:P:\n}' | sort | uniq -c | sort -n
+%font "standard"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Stabilization time
+
+	2.6.1 - January 9
+		538 patches
+
+	2.6.2 - February 3
+		1472 patches
+
+	2.6.3 - February 17
+		863 patches
+
+	2.6.4 - March 10
+		1385 patches
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Stabilization time ???
+
+	2.6.5 - April 3
+		1222 patches
+
+	2.6.6 - May 9
+		1757 patches
+
+	2.6.7 - June 16
+		2306 patches
+
+	2.6.0 - 2.6.7
+		2.2 patches an hour
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How can we do this and stay sane?
+
+
+	All patches end up in the -mm tree
+
+	All bk trees end up in the -mm tree
+		17 different trees
+			acpi, agpgart, alsa, cpu_freq, dma, driver_core, drm, ieee1394, input, jfs, libata, mpc52xx, netdev, utfs, pnp, scsi, usb
+
+	Andrew sends the patches to Linus
+
+	Maintainers still get Linus to pull from bk trees
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+
+
+
+
+
+%font "title"
+%size 15
+Almost everything is tested in the -mm tree before going to Linus.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

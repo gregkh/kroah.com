@@ -1,0 +1,9 @@
+
+The magic of modutils
+
+
+depmod works wonders
+
+/lib/modules/<kernel_version>/modules.pcimap
+
+/lib/modules/<kernel_version>/modules.usbmap

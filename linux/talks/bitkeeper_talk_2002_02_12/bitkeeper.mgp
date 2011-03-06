@@ -1,0 +1,160 @@
+%%  Writing Portable Linux Drivers
+%%  last modified 2001_10_02
+%%  Greg Kroah-Hartman
+%%  <greg@kroah.com>
+%%  <gregkh@us.ibm.com>
+%%  Released under the GNU FDL
+%%
+%% use our own settings
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 2, fore "white", back "black", font "thick"
+%default 2 size 7, vgap 10, prefix " "
+%default 3 size 2, bar "gray70", vgap 10
+%default 4 size 5, fore "white", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 5, vgap 40, prefix "  ", icon arc "green" 40
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "yellow" 50
+%tab 3 size 3, vgap 40, prefix "            ", icon delta3 "white" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+Introduction to BitKeeper
+%size 6
+%size 4
+
+
+Feb. 12, 2002
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+gregkh@us.ibm.com
+greg@kroah.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What is BitKeeper
+
+
+	A source code control system
+		like CVS, SCCS, Perforce, etc.
+
+	License
+		Free if the world can see your change logs:
+%font "typewriter", size 4
+            http://www.openlogging.org/
+%font "standard"
+		$$ if you want to keep your change logs private
+
+	Download from 
+%cont, font "typewriter"
+http://www.bitkeeper.com/
+%font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Differences from other products
+
+
+	Disconnected operation
+
+	Compressed repositories
+
+	Execellent merging tools
+
+	Tracks structural changes easily
+
+	Change sets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Disconnected operation
+
+
+	Everyone has a entire copy of the repository
+
+	Work disconnected and resync when connected
+
+	Make multiple copies of repositories locally to do different types of development
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+CVS repository model
+
+%center
+%newimage -xyscrzoom 80 80 "bitkeeper_repo_cvs.eps"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+BitKeeper repository model
+
+%center
+%newimage -xyscrzoom 80 80 "bitkeeper_repo_bk.eps"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Compressed repositories
+
+
+	~300Mb for all 2.4 versions (with -pre patches)
+
+	can link repositories for size savings ~180Mb
+
+	Data is sent compressed over the wire
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Merging tools
+
+
+	merge point is an actual point in time
+
+	three way merge tool
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Change sets
+
+
+	One or more changes to one or more files
+
+	Saves the state of the repository at that moment in time
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Examples
+
+
+	Go through tutorial on web site
+%font "typewriter", size 4
+            http://www.bitkeeper.com/Test.html
+%font "standard"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%center
+%newimage -xyscrzoom 100 100 "bitkeeper_repo_gregkh.eps"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%center
+%newimage -xyscrzoom 100 100 "bitkeeper_repo_linus.eps"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+	<title>Greg's Linux task lists</title>
+	<META NAME="author" CONTENT="Greg Kroah-Hartman">
+</head>
+
+<body text="#000000" bgcolor="#fffff0" link="#0000ff" vlink="#000066">
+
+<table width="100%">
+<font face="lucida,helvetica,sans-serif">
+<tr>
+<td width="5%" valign="top">
+<br></td>
+
+<td width="%80" valign="top">
+<font face="lucida,helvetica,sans-serif">
+
+This is a list of what I want to fix/add to my opensource projects. If anyone knows of anything that I've missed, or has any bugs to report in any of these packages, please send them to <a href="mailto:greg@kroah.com">greg@kroah.com</a>.<br>
+<br>
+
+Last updated on Sat Sep  2 21:17:20 PDT 2000<br>
+<br>
+
+<h3>TODO</h3>
+<b><a href="http://www.kroah.com/linux-usb/">usbview</a></b><br>
+<ul>
+<li>add startup bus scan patch that is in RedHat's shipping version</li> 
+<li>implement autorefresh</li>
+<li>change layout to look something like gproc (removing the buttons and right info bar, only having a tree.) The device info would be accessed differently (come on, who really reads all of that stuff all the time...)</li>
+<li>make into a Gnome applet</li>
+</ul>
+
+<b>Linux USB drivers</b>
+<ul>
+<li>fix MOD_INC races in a few drivers (plusb.c and uss720.c and maybe more?) (these were pointed out in a linux-kernel message)</li>
+<li>add __init startup logic to the remaining USB drivers that are not using it yet (patch made and sent to the linux-usb-devel mailing list, but need to look into if this should be done for the host controller drivers also.)</li>
+<li>fix SMP issues in as many drivers as I can (sent a list of which drivers look safe and which do not to the linux-usb-devel list)</li>
+</ul>
+
+<b>Linux USB Serial core</b>
+<ul>
+<li>revamp probe code, giving more control to the individual drivers if they want it (some want it)</li>
+<li>add /proc/drivers/usbserial to contain driver specific info (see <a href="http://www.geocrawler.com/lists/3/SourceForge/1170/0/4187336/">usbvisor-devel mailing list message</a>)</li>
+</ul>
+
+<b>Linux USB Visor driver</b><br>
+<ul>
+<li>fix occasional oops when rmmoding the driver</li>
+<li>figure  out why coldsync doesn't work with the driver anymore</li>  
+<li>fix OHCI problems (but I bet this is a userspace issue)</li>
+<li>don't allocate a hunk of memory for every write, reuse urb data like bluetooth.c does</li>
+<li>add /proc/drivers/visor to contain which port does what (see <a href="http://www.geocrawler.com/lists/3/SourceForge/1170/0/4187336/">usbvisor-devel mailing list message</a>)</li>
+</ul>
+
+<b>Linux USB Keyspan serial driver</b><br>
+<ul>
+<li>fix SMP issues</li>
+<li>fix MOD_INC and  MOD_DEC logic</li>
+<li>fix multiple open and close logic</li>
+</ul>
+
+<b>Linux USB WhiteHEAT serial driver</b><br>
+<ul>
+<li>fix SMP issues</li>
+<li>fix MOD_INC and  MOD_DEC logic</li>
+<li>fix multiple open and close logic</li>
+<li>fix command sending problem (patch made, but needs to be tested)</li>
+</ul>
+
+<b>Linux USB Xircom (entrega) serial driver</b><br>
+<ul>
+<li>modify the Keyspan_pda firmware to work with this device</li>
+<li>create driver framework</li>
+<li>submit it to be included in the kernel source tree</li>
+<li>(all the other fun things a new driver takes)</li>
+</ul>
+
+<b>Linux USB Bluetooth driver</b><br>
+<ul>
+<li>fix SMP issues</li>
+<li>fix control urb pool, as it doesn't look like I can really do that :)</li>
+<li>fix potential memory leak in ctl type writes</li>
+<li>get a real major/minor number assigned (applied for)</li>
+<li>actually get a bluetooth device so I can test this thing :)</li>
+<li>Remember potential problem with tty flip buffers getting larger than 2048 bytes, and figure out a way to keep the driver from going over this maximum when reconstructing the packets</li>
+</ul>
+
+<br><br>
+
+<h3>Fixes</h3>
+And here's the fixes that I remember to document, and which kernel version / source release they have made it into:<br>
+<br>
+
+<b>Linux USB drivers</b>
+<ul>
+<li>fix /proc/bus/usb/devices last modified time to allow <a href="http://www.kroah.com/linux-usb/">usbview</a> to be able to do automatic refresh when the tree changes (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/50/4233104/">submitted</a> but not yet merged)</li>
+</ul>
+
+<b>Linux USB Serial core</b>
+<ul>
+<li>fix SMP issues (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+</ul>
+
+<b>Linux USB FTDI SIO serial driver</b><br>
+<ul>
+<li>fix SMP issues (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix MOD_INC and  MOD_DEC logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix multiple open and close logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+</ul>
+
+<b>Linux USB Keyspan PDA serial driver</b><br>
+<ul>
+<li>fix SMP issues (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix MOD_INC and  MOD_DEC logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix multiple open and close logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+</ul>
+
+<b>Linux USB OmniNet driver</b><br>
+<ul>
+<li>fix SMP issues (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix MOD_INC and  MOD_DEC logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix multiple open and close logic (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+</ul>
+
+<b>Linux USB Visor driver</b><br>
+<ul>
+<li>fix SMP issues (patch <a href="http://www.geocrawler.com/lists/3/SourceForge/2571/0/4259569/">submitted</a> but not yet merged)</li>
+<li>fix MOD_INC and  MOD_DEC logic (2.4.0-test7-pre4)</li>
+<li>fix multiple open and close logic (2.4.0-test7-pre4)</li>
+<li>fix endian bug in startup code (2.4.0-test7-pre4)</li>
+</ul>
+
+<b>Linux USB Bluetooth driver</b><br>
+<ul>
+<li>Fix ctrl message bug (2.4.0-test7-pre4)</li>
+<li>fix write ctl message not looking for the error bug (2.4.0-test7-pre4)</li>
+<li>fix when tty_hangup is called (2.4.0-test7-pre4)</li>
+</ul>
+
+
+
+<td width="5%" valign="top">
+<br></td>
+
+</tr>
+</table>
+
+
+
+</body>
+</html>
+

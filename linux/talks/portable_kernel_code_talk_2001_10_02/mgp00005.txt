@@ -1,0 +1,11 @@
+
+Use Native kernel data types
+
+
+pid_t
+
+gid_t
+
+size_t
+
+don't use long

@@ -1,0 +1,9 @@
+
+Future possible work
+
+
+work with fb/drm developers
+
+convert block subsystem
+
+kobject/kset/subsystem/attribute

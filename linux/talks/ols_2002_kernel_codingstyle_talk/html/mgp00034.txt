@@ -1,0 +1,7 @@
+
+Labeled identifiers - examples
+
+
+struct file_operations
+if fields are not set, default VFS operations are used
+

@@ -1,0 +1,21 @@
+Begin4
+Title:		pcihpview
+Version:	0.5
+Entered-date:	03/03/03
+Description:	PCIHpView is gtk+ program that displays the PCI Hotplug
+		slots in a machine, and allows different settings of
+		them to be changed (powered on or off, flash lights on
+		or off, etc.)
+		http://www.kroah.com/linux/hotplug/
+
+Keywords:	Linux, pci, pci hotplug, gtk+
+Author:		greg@kroah.com (Greg Kroah-Hartman)
+Maintained-by:	greg@kroah.com (Greg Kroah-Hartman)
+Primary-site:	metalab.unc.edu /pub/Linux/X11/xutils
+		28 kb pcihpview-0.5.tar.gz
+		1 kb pcihpview-0.5.lsm
+		61 kb pcihpview-0.5-1.src.rpm
+		24 kb pcihpview-0.5-1.i386.rpm
+Platforms:	Linux, X11 with glib, gtk+, usb-proc
+Copying-policy:	GPL
+End

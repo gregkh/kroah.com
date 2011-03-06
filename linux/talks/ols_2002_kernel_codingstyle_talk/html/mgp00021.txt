@@ -1,0 +1,16 @@
+
+Comments - examples
+
+
+Bad: 
+arch/i386/kernel/mtrr.c
+mix of old and new style comments
+
+drivers/scsi/pci2220i.c
+how to NOT create function comment blocks
+
+
+Good: 
+drivers/usb/core/*.c
+
+    

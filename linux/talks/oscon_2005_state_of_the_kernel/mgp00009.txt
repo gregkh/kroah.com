@@ -1,0 +1,11 @@
+
+Patch penguin flame fest
+
+
+release 2.5.3, Feb 2, 2002
+
+BitKeeper is now used by Linus
+
+License weenies went apeshit
+They were right
+But Linux is better for not listening to them

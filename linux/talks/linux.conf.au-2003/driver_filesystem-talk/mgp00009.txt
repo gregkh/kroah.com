@@ -1,0 +1,15 @@
+linux.conf.au 2003
+Tell the kernel about the filesystem
+
+
+register the filesystem
+        result = register_filesystem(&pcihpfs_fs_type);
+        if (result) {
+                err("register_filesystem failed with"
+                    " %d\n", result);
+                goto exit;
+        }
+
+unregister the filesystem
+        unregister_filesystem(&pcihpfs_fs_type);
+

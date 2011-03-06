@@ -1,0 +1,13 @@
+
+Classes
+
+
+kernel meets userspace
+tty
+mouse
+keyboard
+misc
+mem
+
+many to one relationship
+

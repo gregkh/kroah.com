@@ -1,0 +1,33 @@
+0.5
+	- Fixed a warning on ia64 machines
+	- Updated the copyright dates.
+	- Added a default mount location based on the kernel version.
+	- Cleaned up the logging code a bit.
+	- Fix up __FUNCTION__ warnings on newer version of gcc
+	- merge in changes from Irene Zubarev <zubarev@us.ibm.com> that added
+	  the speed information to the display.
+
+0.4
+	- was an IBM only release on their site.  I'll skip this number as I
+	  really don't know what was in that release by them.
+
+0.3
+	- added pcihpview.spec file so we can build rpms
+	- added logging.c and logging.h to move logging messages to the syslog
+	- moved printk() calls to dbg().
+	- added Refresh menu option.
+
+0.2
+	- added proper copyright comments all over the place.
+	- right click with no slot selected brings up smaller menu.
+	- added about box.
+	- added small logo.
+	- cleaned up the code for reading and writing slot values.
+	- reports problems if can't write a value.
+	- refreshes list after changing a value.
+	- can now change power and attention values of a slot.
+	- added right click menu.
+
+0.1
+	- initial version, displays the directory info in the gtk widget and
+	  that's about it.

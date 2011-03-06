@@ -1,0 +1,15 @@
+
+Structure Comment
+
+
+    /**
+     * struct my_struct - short description
+     * @a: first member
+     * @b: second member
+     *
+     * Longer description
+     */
+    struct my_struct {
+            int a;
+            int b;
+    };

@@ -1,0 +1,12 @@
+
+How to do this - details
+
+
+add missing field to struct device
+
+remove static struct class usages
+
+remove unused class api calls
+
+allow struct device to be attached to struct class
+

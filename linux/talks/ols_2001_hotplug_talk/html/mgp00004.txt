@@ -1,0 +1,14 @@
+
+Let the computer do it itself
+
+
+Devices tell the computer what they are
+PCI ids
+USB ids
+PCMCIA ids
+
+Drivers know what hardware they support
+
+Kernel knows what is going on
+
+

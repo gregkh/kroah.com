@@ -1,0 +1,15 @@
+State of the
+Linux Kernel
+
+
+
+
+
+What do you mean, no more development kernel?
+Ah, so that's what a maintainer does...
+
+
+Greg Kroah-Hartman
+greg@kroah.com        gregkh@us.ibm.com
+www.kroah.com/linux/
+OSCON 2004

@@ -1,0 +1,10 @@
+
+Use Native kernel data structures
+
+
+#include <linux/list.h>
+Linked List implementation
+
+
+#include <linux/rbtree.h>
+Red Black Tree implementation

@@ -1,0 +1,18 @@
+
+Naming - examples
+
+
+Bad: 
+CommandAllocationGroupSize
+DAC960_V1_EnableMemoryMailboxInterface()
+loop_counter
+
+drivers/bock/DAC960.*
+
+Good: 
+cmd_group_size
+enable_mem_mailbox()
+i
+
+fs/*.c
+    

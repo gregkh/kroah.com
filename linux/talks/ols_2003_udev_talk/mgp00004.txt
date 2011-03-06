@@ -1,0 +1,10 @@
+
+devfs
+
+
+everyone else does it
+standard in FreeBSD
+
+solves "/dev is too big" issue
+
+solves dynamic allocation of entries

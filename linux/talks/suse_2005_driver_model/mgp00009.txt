@@ -1,0 +1,13 @@
+
+Busses move things
+
+
+struct bus_type
+pci_bus_type
+usb_bus_type
+scsi_bus_type
+usb_serial_bus_type
+superhyway_bus_type
+locomo_bus_type
+w1_bus_type
+

@@ -1,0 +1,20 @@
+
+Make a sysfs file
+
+static ssize_t show_temp(struct device *dev,
+                         struct device_attribute *attr,
+                         char *buf)
+{
+        struct usb_interface *intf = to_usb_interface(dev);
+        struct gotemp *gdev = usb_get_intfdata(intf);
+
+        return sprintf(buf, "%d\n", gdev->temp);
+}
+static DEVICE_ATTR(temp, S_IRUGO, show_temp, NULL);
+
+In gotemp_probe:
+        device_create_file(&interface->dev, &dev_attr_temp);
+
+In gotemp_disconnect:
+        device_remove_file(&interface->dev, &dev_attr_temp);
+

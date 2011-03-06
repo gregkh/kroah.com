@@ -1,0 +1,7 @@
+
+Memory issues
+
+
+memory is not always in 4Kb pages
+
+use PAGE_SIZE and PAGE_SHIFT

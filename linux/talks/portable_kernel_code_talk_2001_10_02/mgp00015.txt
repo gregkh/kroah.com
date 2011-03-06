@@ -1,0 +1,17 @@
+
+Getting a PCI memory region
+
+
+ioremap
+
+  drivers/hotplug/cpqphp.c
+
+   ctrl->hpc_reg = ioremap(pci_resource_start(pdev, 0),
+                              pci_resource_len(pdev, 0));
+   if (!ctrl->hpc_reg) {
+     err("cannot remap MMIO region %lx @ %lx\n",
+          pci_resource_len(pdev, 0),
+          pci_resource_start(pdev, 0));
+     rc = -ENODEV;
+     goto err_free_mem_region;
+   }

@@ -1,0 +1,669 @@
+                           Linux Security Module Framework
+
+            Chris Wright and Crispin Cowan                         Stephen Smalley 
+             WireX Communications, Inc.                  NAI Labs, Network Associates, Inc.
+             chris@wirex.com, crispin@wirex.com                       sds@tislabs.com
+
+
+                      James Morris                               Greg Kroah-Hartman
+                    Intercode Pty Ltd                         IBM Linux Technology Center
+                  jmorris@intercode.com.au                          gregkh@us.ibm.com
+
+
+
+Abstract                                                 1    Introduction
+
+
+
+
+                                                         Security is a chronic and growing problem: as more
+Computer security is a chronic and growing prob-         systems (and more money) go on line, the motiva-
+lem, even for Linux, as evidenced by the seem-           tion to attack rises. Linux is not immune to this
+ingly endless stream of software security vulnera-       threat: the "many eyes make shallow bugs" argu-
+bilities. Security research has produced numerous        ment [24] not withstanding, Linux systems do expe-
+access control mechanisms that help improve sys-         rience a large number of software vulnerabilities.
+tem security; however, there is little concensus on
+the best solution. Many powerful security systems        An important way to mitigate software vulnera-
+have been implemented as research prototypes or          bilities is through effective use of access controls.
+highly specialized products, leaving systems opera-      Discretionary access controls (root, user-IDs and
+tors with a difficult challenge: how to utilize these      mode bits) are adequate for user management of
+advanced features, without having to throw away          their own privacy, but are not sufficient to pro-
+their existing systems?                                  tect systems from attack.       Extensive research in
+                                                         non-discretionary access control models has been
+The Linux Security Modules (LSM) project ad-             done for over thirty years [1, 25, 17, 9, 15, 4, 19]
+dresses this problem by providing the Linux kernel       but there has been no real consensus on which
+with a general purpose framework for access control.     is the one true access control model. Because of
+LSM enables loading enhanced security policies as        this lack of consensus, there are many patches to
+kernel modules. By providing Linux with a stan-          the Linux kernel that provide enhanced access con-
+dard API for policy enforcement modules, the LSM         trols [6, 10, 11, 13, 16, 18, 23, 19, 31] but none of
+project hopes to enable widespread deployment of         them are a standard part of the Linux kernel.
+security hardened systems. This paper presents the
+design and implementation of the LSM framework,          The Linux Security Modules (LSM) [29, 26, 30]
+a discussion of performance and security impact on       project seeks to solve this Tower of Babel quandry
+the kernel, and a brief overview of existing security    by providing a general purpose framework for se-
+modules.                                                 curity policy modules. This allows many different
+                                                         access control models to be implemented as load-
+                                                         able kernel modules, enabling multiple threads of
+                                                         security policy engine development to proceed inde-
+                                                         pendently of the main Linux kernel. A number of
+                                                         existing enhanced access control implementations,
+                                                         including POSIX.1e capabilities [28], SELinux, Do-
+  This work supported in part by DARPA Contract         main and Type Enforcement (DTE) [13] and Linux
+N66001-00-C-8032 (Autonomix)
+  This work supported by NSA Contract MDA904-01-C-      Intrusion Detection System (LIDS) [16] have al-
+0926 (SELinux)                                           ready been adapted to use the LSM framework.
+
+
+The remainder of this paper is organized as follows.     calls as they enter the kernel) or device mediation
+Section 2 presents the LSM design and implemen-          (mediating at access to physical devices).1 The rea-
+tation. Ssection 3 gives a detailed look at the LSM      son is that information critical to sound security pol-
+interface. Section 4 describes the impact LSM has        icy decisions is not available at those points. At the
+on permformance and security, including a look at        system call interface, userspace data, such as a path
+some projects that have been ported to LSM so far.       name, has yet to be translated to the kernel object
+Section 5 presents our conclusions.                      it represents, such as an inode. Thus, system call
+                                                         interpostion is both inefficient and prone to time-of-
+                                                         check-to-time-of-use (TOCTTOU) races [27, 5]. At
+                                                         the device interface, some other critical information
+2      Design and Implementation                         (such as the path name of the file to be accessed)
+                                                         has been thrown away. In between is where the full
+                                                         context of an access request can be seen, and where
+At the 2001 Linux Kernel Summit, the NSA pre-            a fully informed access control decision can be made.
+sented their work on Security-Enhanced Linux
+(SELinux) [18], an implementation of a flexible ac-       A subtle implication of the LSM architecture is that
+cess control architecture in the Linux kernel. Li-       access control decisions are restrictive2: the module
+nus Torvalds appeared to accept that a general           can really only ever say "no" [30]. Functional errors
+access control framework for the Linux kernel is         and classical security checks can result in an access
+needed. However, given the many Linux kernel se-         request being denied before it is ever presented to
+curity projects, and Linus' lack of expertise in so-     the LSM module. This is the opposite of the way
+phisticated security policy, he preferred an approach    mandatory access control systems are normally im-
+that allowed security models to be implemented as        plemented. This design choice limits the flexibility
+loadable kernel modules. In fact, Linus' response        of the LSM framework, but substantially simplifies
+provided the seeds of the LSM design. The LSM            the impact of the LSM on the Linux kernel. To do
+framework must be:                                       otherwise would have required implementing many
+                                                         instances of the same hook throughout the kernel,
+                                                         to ensure that the module is consulted at every place
+     · truly generic, where using a different security    where a system call could "error out."
+       model is merely a matter of loading a different
+       kernel module;                                    Composition of LSM modules is another problem-
+     · conceptually simple, minimally invasive, and      atic issue. On the one hand, security policies do not
+       efficient; and                                      compose in the general case because some policies
+                                                         may explicitly conflict [12]. On the other hand, it
+     · able to support the existing POSIX.1e capabil-    is clearly desirable to compose some combinations
+       ities logic as an optional security module.       of security policies. Here, LSM effectively punts to
+                                                         the module writer: to be able to "stack" modules,
+To achieve these goals, while remaining agnostic         the first module loaded must also export an LSM
+with respect to styles of access control mediation,      interface to subsequent LSM modules to be loaded.
+LSM takes the approach of mediating access to the        The first module is then responsible for composing
+kernel's internal objects: tasks, inodes, open files,     the access control decisions that it gets back from
+etc., as shown in Figure 1. User processes execute       secondary modules.
+system calls, which first traverse the Linux kernel's
+existing logic for finding and allocating resources,
+performing error checking, and passing the classi-
+cal Unix discretionary access controls. Just before
+the kernel would access the internal object, an LSM
+hook makes an out-call to the module posing the
+question "Is this access ok with you?" The mod-
+ule processes this policy question and returns either
+"yes" or "no."                                              1The glib answer is the Linux kernel already provides
+                                                         those features and there would be nothing for us to do :-)
+                                                            2Caveat: the capable() hook, which is needed to sup-
+One might ask why LSM chose this approach rather         port POSIX.1e capabilities, can override DAC checks, see
+than system call interposition (mediating system         Setion 3.7.
+
+
+                                   User Level process                         User space
+
+
+
+
+                                    open system call                          Kernel space
+
+
+                                       Look up inode
+
+
+                                        error checks
+
+                                                                                     LSM Module
+                                        DAC checks                                   Policy Engine
+                                                                                       Examine context
+                                                          "OK with you?"
+                                         LSM hook                                  Does request pass policy?
+                                                            Yes or No                   Grant or deny
+
+                                     Complete request
+
+                                              Access
+
+
+                                           inode
+
+
+
+                                                Figure 1: LSM Hook Architecture
+
+
+
+
+3          LSM Interface                                                 policies to label a task with a policy specific security
+                                                                         label.
+
+
+Having discussed the high-level design philosophies                      The LSM task hooks have full task life-cycle cov-
+of LSM in Section 2 we now turn to the implementa-                       erage. The create() task hook is called verifying
+tion of the LSM interface. At the core, the LSM in-                      that a task can spawn children. If this is successful,
+terface is a large table of functions, which by default                  a new task is created and the alloc security()
+are populated with calls that implement the tradi-                       task hook is used to manage the new task's security
+tional superuser DAC policy. The module writer                           field. When a task exits, the kill() task hook is
+is then responsible for providing implementations                        consulted to verify that the task can signal its par-
+of the functions that they care about. This section                      ent. Similarly, the wait() task hook is called in the
+provides a detailed analysis of those functions.3 Sec-                   parent task context, verifying the parent task can
+tions 3.1 through 3.7 are organized by kernel object                     receive the child's signal. And finally, the task's se-
+and discuss the LSM interface available to mediate                       curity field is released by the free security() task
+access to each object.                                                   hook.
+
+
+                                                                         During the life of a task it may attempt to change
+3.1          Task Hooks                                                  some of its basic task information. For example a
+                                                                         task may call setuid(2). This is, of course, man-
+                                                                         aged by LSM with a corresponding setuid() task
+The task struct structure is the kernel object                           hook. If this is successful the kernel updates the
+representing kernel schedulable tasks. It contains                       task's user identity and then notifies the policy mod-
+basic task information such as:               user and group             ule via the post setuid() task hook. The notifi-
+id, resource limits, and scheduling policies and                         cation allows the module to update state, and for
+priorites.         LSM provides a group of task hooks,                   example, update the task's security field.
+task security ops, that mediate a task's access to
+this basic task information. Interprocess signalling                     To avoid leaking potentially sensitive task informa-
+is mediated by the LSM task hooks to monitor tasks'                      tion, LSM mediates the ability to query another
+abilities to send and receive signals. LSM adds a                        task's state. So, for example, a query for the process
+security field to the task struct to allow security                       group id or the scheduler policy of an arbitrary task
+     3                                                                   is protected by the getpgid() or getscheduler()
+          However, it is not a programmer's guide.
+
+
+task hooks respectively.                                              3.3.1    Super Block Hooks
+
+
+
+3.2      Program Loading Hooks                                        The kernel's super block structure represents a file
+                                                                      system. This structure is used when mounting and
+                                                                      unmounting a file system or obtaining file system
+                                                                      statistics, for example.     The super block hooks,
+The linux binprm structure represents a new                           super block security ops, mediate the various
+program         being    loaded    during     an      execve(2).      actions that can be taken on a super block. As
+LSM provides a set of program loading hooks,                          a simple example, the statfs() super block hook
+binprm security ops, to manage the process of                         checks permission when a task attempts to obtain a
+loading new programs. Many security models, in-                       file system's statistics.
+cluding Linux capabilities, require the ability to
+change privileges when a new program is executed.                     When mounting a file system, the kernel first vali-
+Consequently, these LSM hooks are called at criti-                    dates the request by calling the mount() super block
+cal points during program loading to verify a task's                  hook. Assuming success, a new super block is cre-
+ablity to load a new program and update the task's                    ated4 regardless if it's backed by a block device or an
+security field.                                                        anonymous device. The kernel then allocates space
+                                                                      for a security field in the new super block by call-
+LSM adds a security field to the linux binprm                          ing the alloc security() super block hook. Next,
+structure.        At the beginning of an execve(2)                    when the super block is to be added to the global
+after    the     new     program     file     is     opened,    the    tree, the check sb() super block hook is called to
+alloc security() program loading hook is called                       verify that the filesystem can indeed be mounted at
+to allocate the security field. The set security()                     the point in the tree that is being requested. If this
+hook is used to save security information in the                      is successful, a post addmount() hook is invoked to
+linux binprm security field.            This hook may be               synchronize the security module's state.
+called multiple times during a single execve(2) to
+accomodate for interpreters. Either of these pro-                     The super block hook umount() is called to check
+gram loading hooks can be used to deny program                        permission when umounting a file system. If suc-
+execution.                                                            cessful, the umount close() hook is used to syn-
+                                                                      chronize state, and, for example, close any files in
+In the final stages of program loading,                         the    the filesystem that are held open by the security
+compute creds() program loading hook is called                        module. Once the super block is no longer refer-
+to set the new security attributes of a task be-                      enced it will be deleted and the free security()
+ing transformed by execve(2).                      Typically, this    hook will free the security field.
+hook will calculate the tasks new credentials based
+on both its old credentials and the security infor-
+mation stored in the linux binprm security field.
+Once the new program is loaded, the kernel re-                        3.3.2    Inode Hooks
+leases the linux binprm security field by calling the
+free security() program loading hook.
+                                                                      The kernel's inode structure represents a basic file
+                                                                      system object, e.g., a file, directory, or symlink. The
+3.3      File System Hooks                                            LSM inode hooks mediate access to this fundamen-
+                                                                      tal kernel structure. A well defined set of opera-
+                                                                      tions, inode operations, describe the actions that
+The VFS layer defines three primary objects which                      can be taken on an inode -- create(), unlink(),
+encapsualte the interface that low level file systems                  lookup(), mknod(), rename(), and so on.           This
+are developed against: the super block, the inode                     encapsulation defines a nice interface for LSM to
+and the file. Each of these objects contains a set                    mediate access to the inode object. In addition,
+of operations that define the interface between the                    LSM adds a security field to the inode sturcture
+VFS and the actual file system. This interface is                      and correspsonding inode hooks to manage security
+a perfect place for LSM to mediate file system ac-                     labelling.
+cess. The LSM file system hooks are described in
+Sections 3.3.1 through 3.3.3.                                           4In some cases, super blocks are recycled.
+
+
+The kernel's inode cache is populated by either file      The permission() file hook can be used to revali-
+lookup operations, or file system object creation op-     date read and write permissions at each file read
+erations. When a new inode is created, the secu-         or write. This is not effective against reading and
+rity module allocates space for the inode security       writing of memory mapped files, and the changes
+field with the alloc security() inode hook. Ei-           required to support this page level revalidation are
+ther post-lookup or post-creation, the newly created     considered too invasive. Actually mapping a file is,
+objects are labelled. The label may be cleared by        however, protected with the mmap() file hook. And
+the delete() inode hook when an inode's link count       changing the protection bits on mapped file regions
+reaches zero.     And finally, when an inode is de-       must pass the mprotect() file hook.
+stroyed, the free security() inode hook is called
+to release the space allocated for the security field.    When using file locks to syncronize multiple read-
+                                                         ers or writers, a task must pass the lock() file hook
+In many cases, the LSM inode hooks are identical to      permission check before performing any locking op-
+the inode operations. For all inode operations           eration on a file.
+that can create new filesytem objects a "post" inode
+hook is defined for coherent security labelling. For      If the O ASYNC flag is set on a file, asynchronuous
+example, when a task creates a new symlink, the          I/O ready signals are delivered to the file owner
+symlink() inode hook is called to check permission       when the file is ready for input or output. The
+to create the symlink. Then if the symlink creation      ability to specify the task that will recieve the I/O
+is successful, the post symlink() hook is called to      ready signals is protected by the set fowner() file
+set the security label on the newly created symlink.     hook. Also, the actual signal delivery is mediated
+                                                         by the send sigiotask() file hook.
+Whenever possible, LSM leverages the existing
+Linux kernel security infrastructure. The kernel's       Miscellaneous file operations that come through
+standard Unix DAC checks compare the uids, guids,        the ioctl(2) and fcntl(2) interfaces are protected
+and mode bits when checking for permission to ac-        by the ioctl() and fcntl() file hooks respectively.
+cess file system objects.    The VFS layer already        Another miscellaneous action protected by the file
+has a permission() function which is a wrap-             hooks is the ability to receive an open file descriptor
+per for the permission() inode operation. LSM            through a socket control message. This action is
+uses this pre-existing infrastructure and adds its       protected by the receive() file hook.
+permission() inode hook to the VFS wrapper.
+
+
+                                                         3.4      IPC Hooks
+
+
+3.3.3    File Hooks                                      The Linux kernel provides the standard SysV
+                                                         IPC mechanisms:            shared memory, semaphores,
+                                                         and message queues.           LSM defines a set of IPC
+The kernel's file structure represents an open file       hooks which mediate access to the kernel's IPC
+system object.     It contains the file operations       objects.       Given the design of the kernel's IPC
+structure which describes the operations that can        data structures, LSM defines one common set of
+be done to a file. For example, a file can be            IPC hooks, ipc security ops, as well as sets
+read from and written to, seeked through, mapped         of object specific IPC hooks: shm security ops,
+into memory, and so on. Similar to the inode hooks,      sem security ops, msg queue security ops, and
+LSM provides file hooks to mediate access to files,       msg msg security ops.
+many of which mirror the file operations. A se-
+curity field has been added to the file structure for
+labelling.                                               3.4.1         Common IPC Hooks
+
+When a file is opened, a new file object is cre-
+ated. At this time, the alloc security() file hook        The kernel's IPC object data structures share
+is called to allocate a security field and label the      a common credential structure, kern ipc perm.
+file. This label persists until the file is closed,      This structure is used by the kernel's ipcperms()
+when the free security() file hook is called to free      function when checking IPC permissions.                       LSM
+the security field.                                       adds     a     security    field    to    this    structure    and
+
+
+an ipc security ops hook, permission(), to               3.6       Network Hooks
+ipcperms() to give the security module access to
+these existing mediation points. LSM also defines
+an ipc security ops hook, getinfo() to mediate           The Linux kernel features an extensive suite of net-
+info requests for any of the IPC objects.                work protocols and supporting components. As net-
+                                                         working is an important aspect of Linux, LSM ex-
+                                                         tends the concept of a generalized security frame-
+                                                         work to this area of the kernel.
+
+3.4.2       Object Specific IPC Hooks
+                                                         A key implementation challenge was to determine
+                                                         the initial requirements for the network hooks. The
+The LSM IPC object specific hooks define the               existing SELinux implementation was utilized as a
+alloc security() and free security() functions           model, as SELinux is itself a highly generalized secu-
+to manage the security field in each object's             rity infrastructure which was to be ported to LSM.
+kern ipc perm data structure.       An IPC object is     Other Linux security projects were reviewed, al-
+created with an initial "get" request which trig-        though none relevant to the version 2.5 kernel series
+gers the object specific alloc security.        If the    were found with networking requirements in excess
+"get" request finds an already existing object, the       of SELinux. Potential requirements for IPSec and
+associate() hook is called to check permissions be-      traditional labeled networking systems were also
+fore returning the object.                               taken into account.
+
+
+IPC      object    control    commands,    shmctl(2),    As the Linux network stack utilizes the Berkeley
+semctl(2), and msgctl(2) are mediated by object          sockets model [20], LSM is able to provide coarse
+specific "ctl" hooks. For example, when a SHM LOCK        coverage for all socket-based protocols via the use
+request is issued, the shm security ops shmctl()         of hooks within the socket layer.
+hook is checked for permission prior to completing
+the request.                                             Additional finer-grained hooks have been imple-
+                                                         mented for the IPv4, Unix domain, and Netlink
+Any attempt to change a semaphore count is pro-          protocols, which were considered essential for the
+tected by the sem security ops semop() hook. At-         implementation of a minimally useful system. Sim-
+taching to a shared memory segment is protected          ilar hooks for other protocols may be implemented
+by the shm security ops shmat() hook. Sending            at a later stage.
+and receiving messages on a message queue are pro-
+tected by the msg queue security ops msgsnd()            Coverage of low level network support components
+and msgrcv() hooks. The individual messages are          such as routing tables and traffic classifiers is some-
+considered as well as the queue when verifying per-      what limited due to the invasiveness of the code
+mission.      When a new message is created, the         which would be required to implement consistent
+msg msg security ops alloc security() hook al-           fine-grained hooks. Accesses to these objects can
+locates the security field stored in the actual mes-      be interposed at higher levels (e.g., via system calls
+sage data structure. Upon receipt, the msgrcv()          such as ioctl(2)), although granularity may be re-
+hook can verify the security field on both the queue      duced by TOCTTOU issues. The existing kernel
+and the message.                                         code does however impose a CAP NET ADMIN capa-
+                                                         bility requirement for tasks which attempt to write
+                                                         to important network support components.
+
+3.5      Module Hooks                                    The details of the network hooks are described in
+                                                         Sections 3.6.1 through 3.6.6.
+
+
+The LSM interface would surely be incomplete
+if it didn't mediate loading and unloading ker-          3.6.1     Sockets and Application Layer
+nel modules.       The LSM module loading hooks,
+module security ops, add permission checks pro-
+tecting the creation and initialization of loadable      Application layer access to networking is me-
+kernel modules as well as module removal.                diated     via    a    series    of    socket-related    hooks,
+
+
+socket security ops.        When an application at-       nications may be mediated on a per-message basis
+tempts to create a socket with the socket(2) sys-         via the unix may send() hook.
+tem call, the create() hook allows for mediation
+prior to the actual creation of the socket. Following
+successful creation, the post create() hook may           3.6.2    Packets
+be used to update the security state of the inode
+associated with the socket.
+
+                                                          Network data traverses the network stack in pack-
+Since active user sockets have an associated inode        ets encapsulated by a structure called an sk buff
+structure, a separate security field was not added         (socket buffer).     The sk buff structure provides
+to the socket structure or to the lower-level sock        storage for packet data and related state informa-
+structure. However, it is possible for sockets to tem-    tion, and is considered to be owned by the current
+porarily exist in a state where they have no socket       layer of the network stack.
+or inode structure.       Hence, the networking hook
+functions must take care in extracting the security       LSM adds an opaque security field to the sk buff
+information for sockets.                                  structure, so that security state may be managed
+                                                          across network layers on a per-packet basis.
+Mediation hooks are also provided for all of the
+socket system calls:                                      A set of sk buff hooks is provided for lifecycle man-
+                                                          agement of the security field. For LSM, the critical
+                                                          lifecycle events for an sk buff are:
+    bind(2)
+    connect(2)
+    listen(2)
+    accept(2)                                               · Allocation
+    sendmsg(2)                                              · Copying
+    recvmsg(2)                                              · Cloning
+    getsockname(2)
+    getpeername(2)                                          · Setting ownership to sending socket
+    getsockopt(2)                                           · Datagram reception
+    setsockopt(2)                                           · Destruction
+    shutdown(2)
+
+
+
+Protocol-specific information is available via the         Hooks are provided for each of these events, al-
+socket structure passed as a parameter to all of          though they are only intended to be used for main-
+these hooks (except for create(), as the socket           taining the security field data. Encoding, decoding
+does not yet exist at this hook). This facilitates        and interpretation of the security field data is per-
+mediation based on transport layer attributes such        formed by layer-specific hooks such as the socket
+as TCP connection state, and seems to obviate the         and network layer hooks.
+need for explicit transport layer hooks.
+                                                          Generally, the sk buff hooks and security field only
+The sock rcv skb() hook is called when an incom-          need to be used when the security state of a packet
+ing packet is first associated with a socket. This         needs to be managed between layers of the network
+allows for mediation based upon the security state        stack. Examples of such cases include labeled net-
+of receiving application and security state propa-        working via IP options and management of nested
+gated from lower layers of the network stack via the      IPSec Security Associations [14].
+sk buff security field (see section 3.6.2).
+
+
+Additional socket hooks are provided for Unix do-         3.6.3    Transport Layer (IPv4)
+main communication within the abstract names-
+pace, as binding and connecting to Unix do-
+main sockets in the abstract namespace is not             Explicit hooks are not required for the transport
+mediated    by    file    system    permissions.    The    layer, as sufficient protocol state information for
+unix stream connect() hook allows mediation of            LSM is available at the socket and network layer
+stream connections, while datagram based commu-           hooks (discussed in section 3.6.1).
+
+
+3.6.4     Network Layer (IPv4)                          netlink send() hook is used to store the applica-
+                                                        tion layer security state. The netlink recv() hook
+                                                        is used to retrieve the stored security state as the
+Hooks are provided at the network layer for IPv4 to     packet is received by the destination kernel module
+facilitate:                                             and mediate final delivery.
+
+
+  · Integrated packet filtering
+
+  · IP options decoding for labeled networking          3.7     Other System Hooks
+
+  · Management of fragmented datagrams
+
+  · Network layer encapsulation (e.g., secure IP
+     tunnels)                                           LSM defines a miscellaneous set of hooks to protect
+                                                        the remaining security sensitve actions that are not
+                                                        covered by the hooks discussed above. These hooks
+Existing Netfilter [22] hooks are used to provide ac-    typically mediate system-level actions such as set-
+cess to IP datagrams in pre-routing, local input,       ting the system's host name or domain name, re-
+forwarding, local output and post-routing phases.       booting the system, and accessing I/O ports. The
+Through these hooks, LSM intercepts packets before      existing capability checks already protect these ac-
+and after the standard iptables-based access control    tions; however, the LSM hooks provide more finely
+and translation mechanisms. Note that the Netfil-        grained access control.
+ter hooks used by LSM do not increase the code
+footprint imposed by LSM on the standard kernel.        The    LSM    interface    leverages    the    pre-existing
+                                                        POSIX.1e capabilities infrastructure in the Linux
+                                                        kernel.    The capability checks can often override
+3.6.5     Network Devices                               standard DAC checks (akin to root). The checks are
+                                                        limited to a 32 bit vector describing the required ca-
+                                                        pability, e.g., CAP DAC OVERRIDE, and thus give the
+Within the Linux network stack, hardware and            module limited context when making access con-
+software network devices are encapsulated by a          trol decisisons. The system-level capable() hook
+net device structure. LSM adds an security field         is placed in the existing capable() function which
+to this structure so that security state information    gives LSM easy compatibility with POSIX.1e capa-
+can be maintained on a per-device basis.                bilites as well as a moderate ability to override DAC
+                                                        checks.
+The security field for the net device structure may
+be allocated during first-use initization. A security
+field management hook is called when the device
+is being destroyed, allowing any allocated resources
+associated with the associated security field to be      4      Testing and Functionality
+freed.
+
+
+
+3.6.6     Netlink                                       The true impact of LSM will be felt if and when
+                                                        LSM is accepted as a standard part of the Linux
+Netlink sockets are a Linux-specific mechanism for       kernel, and end-users can adopt security modules as
+kernel-userspace communication. They are similar        readily as they adopt other applications for Linux.
+to BSD route sockets, although more generalized.        To be accepted into Linux, LSM must be highly
+                                                        cost-effective, minimizing the costs and maximiz-
+As Netlink communications are connectionless and        ing the benefits. Section 4.1 summarizes the perfor-
+asynchronously processed, security state associ-        mance cost of the LSM infrastructure. Section 4.2
+ated with an application layer origin needs to be       presents the security impact of LSM, in the form
+stored with Netlink packets, then checked during        of modules that have already been implemented or
+delivery to the destination kernel module.      The     ported to LSM.
+
+
+4.1     Performance Impact                                      not been handled by the LSM project directly. How-
+                                                                ever, a project from IBM [8] has developed tools to
+                                                                do both static and dynamic analysis of the LSM
+The performance cost of the LSM framework is criti-             framework. These tools have, in fact, helped im-
+cal to its acceptance; in fact, performance cost was a          prove the LSM interface, and can help with ongoing
+major part of the debate at the Linux 2.5 developer's           maintenance.
+summit that spawned LSM. To rigorously document
+the performance costs of LSM, we performed both                 The real value of LSM is delivering effective security
+microbenchmarks and macrobenchmarks that com-                   modules. Porting access control models to the LSM
+pared a stock Linux kernel to one modified with the              framework proves that it is functional as a general
+LSM patch, but with no modules loaded.5                         purpose access control framework. As the name sug-
+                                                                gests, LSM does not impact system security without
+For microbenchmarks, we used the LMBench [21]                   security modules. Presently, LSM supports the fol-
+tool. LMBench was developed specifically to mea-                 lowing security modules:
+sure the performance of core kernel system calls and
+facilities, such as file access, context switching, and
+memory movement. LMBench has been particularly                    · SELinux A Linux implementation of the
+effective at establishing and maintaining excellent                  Flask [27] flexible access control architecture
+performance in these core facilities in the Linux ker-              and an example security server that sup-
+nel.                                                                ports Type Enforcement, Role-Based Access
+                                                                    Control, and optionally Multi-Level Security.
+LMBench outputs prodigious results.            The worst            SELinux was originally implemented as a ker-
+case overhead was 6.2% for stat(), 6.6% for                         nel patch [18] and was then reimplemented as
+open/close, and 7.2% for file delete. These results                  a security module that uses LSM. SELinux can
+are to be expected, because of the relatively small                 be used to confine processes to least privilege,
+amount of work done in each call compared to the                    to protect the integrity and confidentiality of
+work of checking for LSM mediation. The common                      processes and data, and to support application
+case was much better, often 0% overhead, ranging                    security needs. The generality and comprehen-
+up to 2% overhead.                                                  siveness of SELinux helped to drive the require-
+                                                                    ments for LSM.
+For macrobenchmarking, we used the common ap-
+proach of building the Linux kernel from source.                  · DTE Linux An implementation of Domain
+The results here were even better: no measurable                    and Type Enforcement [2, 3] developed for
+performance impact.6 More detailed performance                      Linux [13].     Like SELinux, DTE Linux was
+data can be found in [30].                                          originally implemented as a kernel patch and
+                                                                    was then adapted to LSM. With this module
+                                                                    loaded, types can be assigned to objects and
+4.2     Security Impact                                             domains to processes. The DTE policy restricts
+                                                                    access between domains and from domains to
+                                                                    types. The DTE Linux project also provided
+Another key factor in the acceptance of the LSM                     useful input into the design and implementa-
+framework is that it provide some real security                     tion of LSM.
+value. This can be viewed in two ways. First, LSM
+must not create new security holes and needs to be                · LSM port of Openwall kernel patch The
+thorough and consistent in its coverage. Second, the                Openwall kernel patch [7] provides a collec-
+LSM framework must be general enough to support                     tion of security features to protect a system
+a variety of access control models, thus providing                  from common attacks, e.g., buffer overflows and
+some real security value.                                           temp file races. A module is under development
+                                                                    that supports a subset of the Openwall patch.
+Proving the correctness of the LSM framework has                    For example, with this module loaded a victim
+                                                                    program will not be allowed to follow malicious
+   5The performance costs of each module are the responsi-          symlinks.
+bility of the modules's authors.
+   6In fact, the LSM case was actually faster, but we regard
+that as an experimental anomaly, and do not claim that LSM        · POSIX.1e capabilities The POSIX.1e capa-
+is a performance optimization :-)                                   bilities [28] logic was already present in the
+
+
+      Linux kernel, but the LSM kernel patch cleanly       References
+      separates this logic into a security module. This
+      change allows users who do not need this func-        [1] J. Anderson. Computer Security Technology Planning
+      tionality to omit it from their kernels and it           Study.    Report Technical Report ESD-TR-73-51, Air
+                                                               Force Elect. Systems Div., October 1972.
+      allows the development of the capabilities logic
+                                                            [2] L. Badger, D.F. Sterne, and et al. Practical Domain
+      to proceed with greater independence from the            and Type Enforcement for UNIX. In Proceedings of the
+      main kernel.                                             IEEE Symposium on Security and Privacy, Oakland,
+                                                               CA, May 1995.
+     · LIDS (Linux Intrusion Detection Sys-                 [3] Lee Badger, Daniel F. Sterne, David L. Sherman, Ken-
+      tem) started out as an intrusion detection sys-          neth M. Walker, and Sheila A. Haghighat. A Domain
+      tem, and then migrated towards intrusion pre-            and Type Enforcement UNIX Prototype. In Proceedings
+      vention in the form of an access control system          of the USENIX Security Conference, 1995.
+      similar to SubDomain [6] that manages access          [4] D. Baker. Fortresses built upon sand. In Proceedings of
+                                                               the New Security Paradigms Workshop, 1996.
+      by describing what files a given program may
+                                                            [5] M. Bishop and M. Digler. Checking for Race Condi-
+      access.                                                  tions in File Accesses. Computing Systems, 9(2):131­
+                                                               152, Spring 1996.    Also available at http://olympus.
+                                                               cs.ucdavis.edu/~bishop/scriv/index.html.
+
+                                                            [6] Crispin Cowan, Steve Beattie, Calton Pu, Perry Wagle,
+5     Conclusions                                              and Virgil Gligor. SubDomain: Parsimonious Server Se-
+                                                               curity. In USENIX 14th Systems Administration Con-
+                                                               ference (LISA), New Orleans, LA, December 2000.
+
+                                                            [7] Solar Designer. Non-Executable User Stack. http://
+Linux is a shared playroom, and thus needs to make             www.openwall.com/linux/.
+most players reasonably happy. LSM thus needs to            [8] Antony Edwards and Xiaolan Zhang. Using CQUAL
+meet two criteria: be relatively painless for people           for Static Analysis of Authorization Hook Placement.
+who don't want it, and be useful and effective for              In USENIX Security Symposium, San Francisco, CA,
+                                                               August 2002.
+people who do want it.
+                                                            [9] M. Abrams et al. Information Security: An Integrated
+                                                               Collection of Essays. IEEE Comp., 1995.
+We feel that LSM meets these criteria. The patch is        [10] Timothy Fraser. LOMAC: Low Water-Mark Integrity
+relatively small, and the performance data in Sec-             Protection for COTS Environments. In Proceedings of
+tion 4 shows that the LSM patch imposes nearly                 the IEEE Symposium on Security and Privacy, Oak-
+zero overhead. The broad suite of security products            land, CA, May 2000.
+from around the world that have been implemented           [11] Timothy Fraser. LOMAC: MAC You Can Live With. In
+for LSM shows that the LSM API is useful and ef-               Proceedings of the FREENIX Track, USENIX Annual
+                                                               Technical Conference, Boston, MA, June 2001.
+fective for developing Linux security enhancements.
+                                                           [12] Virgil D. Gligor, Serban I Gavrila, and David Ferraiolo.
+                                                               On the Formal Definition of Separation-of-Duty Poli-
+                                                               cies and their Composition. In Proceedings of the IEEE
+                                                               Symposium on Security and Privacy, Oakland, CA, May
+6     Acknowledgements                                         1998.
+                                                           [13] Serge Hallyn and Phil Kearns. Domain and Type En-
+                                                               forcement for Linux. In Proceedings of the 4th Annual
+                                                               Linux Showcase and Conference, October 2000.
+Thanks to the LSM mailing list for engaging in             [14] S. Kent and R. Atkinson. Security Architecture for the
+the sometimes tedious and heated discussions that              Internet Protocol. RFC 2401, November 1998.
+helped shape LSM. Special thanks to the SELinux            [15] Jay Lepreau, Bryan Ford, and Mike Hibler. The per-
+project that helped kickstart LSM with the original            sistent relevance of the local operating system to global
+presentation at the 2001 Kernel Summit.                        applications. In Proceedings of the ACM SIGOPS Eu-
+                                                               ropean Workshop, pages 133­140, September 1996.
+
+                                                           [16] Linux Intrusion Detection System. World-wide web page
+                                                               available at http://www.lids.org.
+
+                                                           [17] T. Linden. Operating System Structures to Support Se-
+7     Availability                                             curity and Reliable Software. ACM Computing Surveys,
+                                                               8(4), December 1976.
+
+                                                           [18] Peter Loscocco and Stephen Smalley. Integrating Flex-
+LSM is available as a kernel patch for both the 2.4            ible Support for Security Policies into the Linux Op-
+                                                               erating System.      In Proceedings of the FREENIX
+and 2.5 Linux kernels. The patches are available               Track:    2001 USENIX Annual Technical Conference
+from http://lsm.immunix.org.                                   (FREENIX '01), June 2001.
+
+
+[19] Peter A. Loscocco, Stephen D. Smalley, Patrick A.
+    Muckelbauer, Ruth C. Taylor, S. Jeff Turner, and
+    John F. Farrell. The Inevitability of Failure: The Flawed
+    Assumption of Security in Modern Computing Environ-
+    ments. In Proceedings of the 21st National Information
+    Systems Security Conference, pages 303­314, October
+    1998.
+
+[20] S. J. Leffler W. N. Joy M. K. McKusick, M. J. Karels
+    and R. S. Faber. Berkeley Software Architecture Man-
+    ual, 4.4BSD Edition. University of California, Berkeley,
+    Berkeley, CA, 1994.
+
+[21] Larry W. McVoy and Carl Staelin. lmbench: Portable
+    Tools for Performance Analysis.    In USENIX Annual
+    Technical Conference, 1996.      http://www.bitmover.
+    com/lmbench/.
+
+[22] Netfilter Core Team. The Netfilter Project: Packet Man-
+    gling for Linux 2.4, 1999. http://www.netfilter.org/.
+
+[23] Amon Ott. The Rule Set Based Access Control (RS-
+    BAC) Linux Kernel Security Extension.        In Proceed-
+    ings of the 8th International Linux Kongress, November
+    2001.
+
+[24] Eric S. Raymond. The Cathedral & the Bazaar: Mus-
+    ings on Linux and Open Source by an Accidental Rev-
+    olutionary. O'Reilly & Associates, 1999. http://www.
+    oreilly.com/catalog/cb/.
+
+[25] Jerome H. Saltzer and Michael D. Schroeder. The Pro-
+    tection of Information in Computer Systems. Proceed-
+    ings of the IEEE, 63(9), November 1975.
+
+[26] Stephen Smalley, Timothy Fraser, and Chris Vance.
+    Linux Security Modules: General Security Hooks for
+    Linux. http://lsm.immunix.org/, September 2001.
+
+[27] Ray Spencer, Stephen Smalley, Peter Loscocco, Mike
+    Hibler, David Andersen, and Jay Lepreau. The Flask
+    Security Architecture: System Support for Diverse Se-
+    curity Policies. In Proceedings of the Eighth USENIX
+    Security Symposium, pages 123­139, August 1999.
+
+[28] Winfried Trumper. Summary about POSIX.1e. http:
+    //wt.xpilot.org/publications/posix.1e, July 1999.
+
+[29] WireX Communications. Linux Security Module. http:
+    //lsm.immunix.org/, April 2001.
+
+[30] Chris Wright, Crispin Cowan, Stephen Smalley, James
+    Morris, and Greg Kroah-Hartman. Linux Security Mod-
+    ules: General Security Support for the Linux Kernel. In
+    USENIX Security Symposium, San Francisco, CA, Au-
+    gust 2002.
+
+[31] Marek Zelem and Milan Pikula. ZP Security Framework.
+    http://medusa.fornax.sk/English/medusa-paper.ps.
+
+

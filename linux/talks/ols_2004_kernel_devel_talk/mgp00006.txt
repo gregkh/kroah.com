@@ -1,0 +1,12 @@
+
+Things start changing
+
+
+Feature freeze October 31, 2002
+
+2.6.0-test1, July 7, 2003
+
+All patches start to go through Andrew Morton
+
+All bk pushes stay the same, direct to Linus
+

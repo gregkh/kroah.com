@@ -1,0 +1,14 @@
+
+Exportable Kernel Data Types
+
+  #include <linux/types.h>
+
+    __u8;   /* unsigned byte (8 bits) */
+    __u16;  /* unsigned word (16 bits) */
+    __u32;  /* unsigned 32-bit value */
+    __u64;  /* unsigned 64-bit value */
+
+    __s8;   /* signed byte (8 bits) */
+    __s16;  /* signed word (16 bits) */
+    __s32;  /* signed 32-bit value */
+    __s64;  /* signed 64-bit value */

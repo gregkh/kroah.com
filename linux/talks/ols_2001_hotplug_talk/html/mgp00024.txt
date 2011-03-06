@@ -1,0 +1,15 @@
+
+Abuse the preprocessor
+
+include/module.h
+
+ #define MODULE_GENERIC_TABLE(gtype,name)
+    static const unsigned long 
+       __module_##gtype##_size
+       __attribute__ ((unused)) = sizeof(struct gtype##_id);
+    static const struct gtype##_id 
+       *__module_##gtype##_table
+        __attribute__ ((unused)) = name
+
+ #define MODULE_DEVICE_TABLE(type,name)
+    MODULE_GENERIC_TABLE(type##_device,name)

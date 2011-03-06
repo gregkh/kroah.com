@@ -1,0 +1,17 @@
+
+Bind to the device - step 2
+
+
+static int gotemp_probe(struct usb_interface *interface, 
+                        const struct usb_device_id *id)
+{
+        dev_info(&interface->dev,
+                 "USB GoTemp device now attached\n");
+        return 0;
+}
+
+static void gotemp_disconnect(struct usb_interface *interface)
+{
+        dev_info(&interface->dev,
+                 "USB GoTemp now disconnected\n");
+}

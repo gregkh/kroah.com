@@ -1,0 +1,12 @@
+
+sysfs
+
+
+shows all devices in the system
+
+shows lots of information about these devices
+location
+attributes (names, serial numbers)
+major/minor number
+
+

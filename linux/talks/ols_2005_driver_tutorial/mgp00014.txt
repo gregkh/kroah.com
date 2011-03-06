@@ -1,0 +1,18 @@
+
+Device specific structure
+
+static void gotemp_disconnect(struct usb_interface *interface)
+{
+        struct gotemp *gdev;
+
+        gdev = usb_get_intfdata(interface);
+        usb_set_intfdata(interface, NULL);
+
+        usb_put_dev(gdev->udev);
+
+        kfree(gdev);
+
+        dev_info(&interface->dev, "USB GoTemp now disconnected\n");
+}
+
+

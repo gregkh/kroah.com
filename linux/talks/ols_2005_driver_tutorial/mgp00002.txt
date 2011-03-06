@@ -1,0 +1,12 @@
+
+Agenda
+
+
+Intro to kernel modules
+
+sysfs basics
+
+USB basics
+
+Driver to device binding
+

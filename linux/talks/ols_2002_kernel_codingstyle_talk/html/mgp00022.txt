@@ -1,0 +1,15 @@
+
+Data Structure requirements
+
+
+Use reference counting:
+
+        "If another thread can find your data 
+         structure, and you do not have a
+         reference count on it, you almost 
+         certainly have a bug."
+
+See Documentation/DocBook/kernel-locking.sgml
+
+struct sk_buff
+struct urb

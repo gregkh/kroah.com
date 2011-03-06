@@ -1,0 +1,12 @@
+
+USB crash course
+
+
+devices and configs and interfaces oh my
+
+How do you identify a unique device?
+
+MODULE_DEVICE_TABLE
+"it just works"
+
+

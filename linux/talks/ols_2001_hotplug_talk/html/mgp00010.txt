@@ -1,0 +1,16 @@
+
+CPU event environment
+
+argv[0] = hotplug_path
+argv[1] = cpu
+argv[2] = 0
+
+HOME = /
+PATH = /sbin:/bin:/usr/sbin:/usr/bin
+CPU = cpu_number
+ACTION = action
+
+action=(add|remove)
+
+red is actual values
+green is replaced with runtime information

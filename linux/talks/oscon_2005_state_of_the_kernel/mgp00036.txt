@@ -1,0 +1,13 @@
+
+2.6.13
+
+inotify
+Xtensa architecture
+Kexec/kdump
+Execute-in-place
+devfs disabled
+Selectable timer interrupt frequency
+Time-sharing CFQ I/O scheduler
+Manual driver binding
+Infiniband user-space verbs
+Voluntary preemption

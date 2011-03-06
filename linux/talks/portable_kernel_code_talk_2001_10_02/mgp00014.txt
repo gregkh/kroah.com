@@ -1,0 +1,9 @@
+
+PCI memory access
+
+
+No Direct Memory Access!
+
+Use ioremap / iounmap
+
+Use pci_write_*_config / pci_read_*_config

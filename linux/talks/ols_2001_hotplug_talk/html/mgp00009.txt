@@ -1,0 +1,16 @@
+
+Network event environment
+
+argv[0] = hotplug_path
+argv[1] = net
+argv[2] = 0
+
+HOME = /
+PATH = /sbin:/bin:/usr/sbin:/usr/bin
+INTERFACE = interface
+ACTION = action
+
+action=(register|unregister)
+
+red is actual values
+green is replaced with runtime information

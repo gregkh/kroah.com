@@ -1,0 +1,12 @@
+
+Why no point releases
+
+It is very hard
+
+What is a bugfix?
+
+Everyone thinks their fix is essential
+
+Rewrites of the IDE layer have been considered "essential"
+
+

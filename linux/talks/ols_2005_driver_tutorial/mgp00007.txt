@@ -1,0 +1,10 @@
+
+sysfs crash course
+
+
+"Web woven by a spider on drugs"
+- lwn.net    
+
+
+/proc is for processes, not for drivers
+

@@ -1,0 +1,16 @@
+State of the
+Linux Kernel
+
+
+
+
+
+
+
+Yes, we really know what we are doing...
+
+
+Greg Kroah-Hartman
+Novell - SuSE Labs
+gregkh@suse.de
+OSCON 2005

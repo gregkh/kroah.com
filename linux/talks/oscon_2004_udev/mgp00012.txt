@@ -1,0 +1,13 @@
+
+udev
+
+
+allow pluggable naming schemes
+LSB standard
+devfs "standard"
+
+persistent device naming policy
+
+uses tdb as backing store
+
+text configuration files

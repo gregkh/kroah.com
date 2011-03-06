@@ -1,0 +1,19 @@
+
+Data alignment - example 2
+
+
+Pack only a section of a structure
+    include/linux/usb.h
+
+    struct usb_endpoint_descriptor {
+        __u8  bLength           __attribute__ ((packed));
+        __u8  bDescriptorType   __attribute__ ((packed));
+        __u8  bEndpointAddress  __attribute__ ((packed));
+        __u8  bmAttributes      __attribute__ ((packed));
+        __u16 wMaxPacketSize    __attribute__ ((packed));
+        __u8  bInterval         __attribute__ ((packed));
+        __u8  bRefresh          __attribute__ ((packed));
+        __u8  bSynchAddress     __attribute__ ((packed));
+        unsigned char *extra;   /* Extra descriptors */
+        int extralen;
+    };

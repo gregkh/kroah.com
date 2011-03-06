@@ -1,0 +1,10 @@
+
+Building tips
+
+
+Only build code in one directory
+
+    make modules SUBDIRS=drivers/usb/serial
+
+    make bzImage SUBDIRS=drivers/pci
+

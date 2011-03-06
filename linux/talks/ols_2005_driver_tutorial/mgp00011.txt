@@ -1,0 +1,22 @@
+
+Bind to the device - step 3
+
+
+static struct usb_driver gotemp_driver = {
+        .owner =      THIS_MODULE,
+        .name =       "gotemp",
+        .probe =      gotemp_probe,
+        .disconnect = gotemp_disconnect,
+        .id_table =   id_table,
+};
+
+static int __init gotemp_init(void)
+{
+        return usb_register(&gotemp_driver);
+}
+
+static void __exit gotemp_exit(void)
+{
+        usb_deregister(&gotemp_driver);
+}
+

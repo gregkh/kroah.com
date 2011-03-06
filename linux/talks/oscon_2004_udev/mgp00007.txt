@@ -1,0 +1,8 @@
+
+/sbin/hotplug
+
+
+called whenever a device is added or removed
+
+runs outside of the kernel
+

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+	<title>Linux Inside Out Networks (Digi) Edgeport drivers</title>
+	<META NAME="author" CONTENT="Greg Kroah-Hartman">
+</head>
+
+
+<link rel="stylesheet" href="http://www.kroah.com/styles-site.css" type="text/css" />
+<body>
+<table width="100%">
+<tr>
+<td width="5%" valign="top">
+<br></td>
+
+<td width="%70" valign="top">
+
+<br>
+<div id="banner">
+Linux Inside Out Networks (Digi) Edgeport Drivers
+</div>
+<br>
+
+<div class="date">
+Drivers
+</div>
+
+<div class="blogbody">
+The <tt>io_edgeport</tt> and <tt>io_ti</tt> drivers in the Linux kernel will work for all 
+Inside Out Networks Edgeport devices.<br>
+<br>
+
+<!--
+The current Linux USB Edgeport driver can be found included in kernel versions greater than 2.4.3 and 2.2.20-pre3.
+This version is not as stable as the older version that was offered as a patch (due to integration issues.)<br>
+<br>
+
+The current Linux USB Edgeport drivers can be found as a patch against either the 2.2.18 or 2.4.0 kernels
+on the <a href="http://sourceforge.net/patch/?group_id=3581">Linux USB Patch Page</a>.<br>
+-->
+
+There are a number of problems in the Linux USB Edgeport driver that was included in older
+kernel versions.  Please upgrade to the latest 2.4.x kernel version to fix all known problems.
+<br>
+<br>
+If you have multiple Edgeport devices in the system, you <b>must</b> upgrade to the
+2.4.19 kernel or later.<br>
+<br>
+
+<!--
+A patch for the kernel that downgrades the io_edgeport driver to version 1.2.3 is available for the following kernels:<br>
+<ul>
+<li><a href="usb-edgeport-1.2.3-2.4.5.patch.gz">Linux 2.4.5</a></li>
+<li><a href="usb-edgeport-1.2.3-2.4.6-pre5.patch.gz">Linux 2.4.6-pre5</a></li>
+<li><a href="usb-edgeport-1.2.3-2.4.9.patch.gz">Linux 2.4.9</a></li>
+</ul>
+Use this version if you are having problems with the version of the driver that is included in the kernel.<br>
+<br>
+-->
+
+The <tt>io_edgeport</tt>driver currently supports the following devices from <a href="http://www.ionetworks.com/">Inside Out Networks</a>:
+<ul>
+<li>Edgeport/4</li>
+<li>Edgeport/4t</li>
+<li>Edgeport/2</li>
+<li>Edgeport/4i</li>
+<li>Edgeport/2i</li>
+<li>Edgeport/421</li>
+<li>Edgeport/21</li>
+<li>Rapidport/4</li>
+<li>Edgeport/8</li>
+<li>Edgeport/2D8</li>
+<li>Edgeport/4D8</li>
+<li>Edgeport/8i</li>
+</ul>
+
+The <tt>io_ti</tt> driver currently supports the TI based devices 
+from <a href="http://www.ionetworks.com/">Inside Out Networks</a> 
+which include:
+<ul>
+<li>Edgeport/1</li>
+</ul>
+
+
+<!--
+<h2>Helper Programs</h2>
+The EPConfig program can be used to help configure the Edgeport devices on your system.<br>
+You can download it <a href="epconfig.tar.gz">here</a>.<br>
+<br>
+-->
+</div>
+
+<br>
+
+
+<div class="date">
+Support
+</div>
+
+<div class="blogbody">
+If you have any questions or problems with the drivers, please do not bother Digi or I/O Networks,
+but feel free to contact me at <a href="mailto:greg@kroah.com">greg@kroah.com</a>
+<br>
+</div>
+
+</td>
+
+<td width="15%" valign="top">
+<br></td>
+
+</tr>
+</table>
+
+</body>
+</html>
+

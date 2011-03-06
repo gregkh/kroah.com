@@ -1,0 +1,13 @@
+
+urb in the device structure
+
+
+
+
+struct gotemp {
+        struct usb_device *udev;
+        int temp;
+        unsigned char *int_in_buffer;
+        struct urb *int_in_urb;
+};
+

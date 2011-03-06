@@ -1,0 +1,11 @@
+
+How you can help
+
+
+Test the -rc kernels
+
+Test the -mm kernels
+
+Complain if you have problems
+linux-kernel mailing list
+bugzilla.kernel.org

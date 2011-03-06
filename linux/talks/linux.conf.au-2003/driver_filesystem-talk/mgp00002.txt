@@ -1,0 +1,13 @@
+linux.conf.au 2003
+Why put a filesystem into a driver?
+
+
+No more new major/minor numbers allowed:
+
+     Linus Torvalds has requested a moratorium on
+     new device number assignments. His hope is that
+     a new and better method for device space handing
+     will emerge as a result.
+       -- H. Peter Anvin on lkml, May 14, 2001
+
+

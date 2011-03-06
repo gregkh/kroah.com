@@ -1,0 +1,7 @@
+
+No #ifdef in .c files
+
+
+#ifdef belongs in .h file
+
+Let the compiler do the work

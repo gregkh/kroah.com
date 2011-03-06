@@ -1,0 +1,11 @@
+
+2.6.x.y
+
+
+Security releases.
+
+Bug fixes.
+
+Strict rules on what can go in.
+
+Public review process of patches.

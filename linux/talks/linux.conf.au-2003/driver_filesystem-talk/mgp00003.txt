@@ -1,0 +1,12 @@
+linux.conf.au 2003
+Advantages
+
+
+no ioctl() calls needed
+but can be used if necessary
+
+devices accessable to scripts
+
+no new major/minor number needed
+
+

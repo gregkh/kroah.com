@@ -1,0 +1,16 @@
+
+Proposal 1
+
+
+nest classes
+
+       /sys/class/input
+       |-- event
+       |   |-- event0
+       |   `-- event1
+       |-- mice
+       |-- mouse
+       |   |-- mouse0
+       |   `-- mouse1
+       `-- ts
+           `-- ts0

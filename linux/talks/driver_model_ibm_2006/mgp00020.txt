@@ -1,0 +1,18 @@
+
+Proposal 2
+
+subclass devices and subclass drivers
+       /sys/class/input
+       |-- event
+       |   |-- event0
+       |   `-- event1
+       |-- mice
+       |-- mouse
+       |   |-- mouse0
+       |   `-- mouse1
+       |-- ts
+       |   `-- ts0
+       `-- drivers
+           |-- event
+           |-- mouse
+           `-- ts

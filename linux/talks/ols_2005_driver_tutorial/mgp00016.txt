@@ -1,0 +1,22 @@
+
+Simple USB data transfer
+
+#define CMD_ID_START_MEASUREMENTS 0x18
+#define CMD_ID_INIT               0x1A
+
+struct output_packet {
+        u8 cmd;
+        u8 params[7];
+} __attribute__((packed));
+
+static int send_cmd(struct gotemp *gdev, u8 cmd)
+{
+        struct output_packet *pkt;
+        int retval;
+
+        pkt = kmalloc(sizeof(*pkt), GFP_KERNEL);
+        if (!pkt)
+                return -ENOMEM;
+        memset(pkt, 0x00, sizeof(*pkt));
+        pkt->cmd = cmd;
+

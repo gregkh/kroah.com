@@ -1,0 +1,13 @@
+
+What happened to BitKeeper?
+
+
+    Subject: Kernel SCM saga
+    From: Linus Torvalds
+
+    Ok, as a number of people are already aware (and in some
+    cases have been aware over the last several weeks), we've
+    been trying to work out a conflict over BK usage over the
+    last month or two (and it feels like longer ;). That hasn't
+    been working out, and as a result, the kernel team is looking
+    at alternatives.

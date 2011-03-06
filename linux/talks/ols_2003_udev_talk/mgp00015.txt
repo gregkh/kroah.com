@@ -1,0 +1,10 @@
+
+libsysfs
+
+
+provides standard way to talk to sysfs
+
+found on kernel.org as part of sysfsutils
+
+Written by Dan Stekloff and others
+

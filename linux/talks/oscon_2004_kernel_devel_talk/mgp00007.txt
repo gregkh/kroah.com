@@ -1,0 +1,15 @@
+
+2.6.0 December 17, 2003
+
+680 days of development
+
+27149 different patches
+
+1.66 patches per hour
+
+at least 916 different contributors
+
+top 5 developers made/handled 6956 patches
+
+    bk -R prs -rv2.5.0..v2.6.0 -h -d'$unless(:MERGE:){:P:\n}' | sort | uniq -c | sort -n
+

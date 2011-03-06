@@ -1,0 +1,17 @@
+
+Data alignment - example 1
+
+
+Pack the entire structure
+
+    include/linux/usb.h
+  
+    typedef struct {
+        __u8 requesttype;
+        __u8 request;
+        __u16 value;
+        __u16 index;
+        __u16 length;
+    } devrequest __attribute__ ((packed));
+
+

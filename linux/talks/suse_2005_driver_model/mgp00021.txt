@@ -1,0 +1,17 @@
+
+Proposal 3
+
+nest class devices, use interfaces
+       /sys/class/input/
+       |-- input0
+       |   |-- event0
+       |   `-- mouse0
+       |-- input1
+       |   |-- event1
+       |   |-- mouse1
+       |   `-- ts0
+       |-- mice
+       `-- interfaces
+           |-- event 
+           |-- mouse
+           `-- ts

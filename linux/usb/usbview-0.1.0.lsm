@@ -1,0 +1,21 @@
+Begin3
+Title:		USBView
+Version:	0.1.0
+Entered-date:	10/02/1999
+Description:	USBView is a gtk+ program that displays the topography
+		of the devices that are plugged into the USB bus on a
+		Linux machine. It also displays information on each 
+		of the devices. This can be useful to determine if a 
+		device is working properly or not.
+
+		http://www.kroah.com/linux-usb/
+
+Keywords:	Linux, usb, usb-proc, gtk+
+Author:		greg@kroah.com (Greg Kroah-Hartman)
+Maintained-by:	greg@kroah.com (Greg Kroah-Hartman)
+Primary-site:	metalab.unc.edu /pub/Linux/X11/xutils
+		109 kb usbview-0.1.0.tar.gz
+		1 kb usbview-0.1.0.lsm
+Platforms:	Linux, X11 with glib, gtk+, usb-proc
+Copying-policy:	GPL
+End

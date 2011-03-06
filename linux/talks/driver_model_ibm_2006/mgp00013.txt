@@ -1,0 +1,16 @@
+
+Driver writers
+
+First time kernel programmers
+
+Never see any of this
+
+Get a lot for free
+hotplug
+module autoload
+device nodes
+sysfs representations
+module
+driver
+device
+

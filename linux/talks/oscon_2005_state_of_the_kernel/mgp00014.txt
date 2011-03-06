@@ -1,0 +1,12 @@
+
+Kernel Summit 2004
+
+
+8 months of 2.6 development
+
+1,253,098 lines added
+
+849,366 lines removed
+
+~ 1/3 kernel touched
+

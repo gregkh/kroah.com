@@ -1,0 +1,12 @@
+
+We need to fix this
+
+    Subject: Re: RFD kernel release numbering
+    From: Jeff Garzik
+
+    We have all these problems precisely because _nobody_
+    is saying "I'm only going to accept bug fixes".  
+    We _need_ some amount of release engineering.
+    Right now we basically have none.
+
+

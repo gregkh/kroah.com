@@ -1,0 +1,12 @@
+
+bk changed how things worked
+
+
+BitKeeper using maintainer
+built bk tree out of patches to be sent off
+Linus sucks all patches in at once
+Linus merges minor conflicts
+Linus discards crappy trees
+
+non-BitKeeper using maintainer
+sent patches just like always

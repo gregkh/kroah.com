@@ -1,0 +1,12 @@
+
+USB copied PCI
+
+drivers/usb/mdc800.c
+
+static struct usb_device_id 
+  mdc800_table [] = {
+    { USB_DEVICE(MDC800_VENDOR_ID, MDC800_PRODUCT_ID) },
+    { } /* Terminating entry */
+};
+
+MODULE_DEVICE_TABLE (usb, mdc800_table);

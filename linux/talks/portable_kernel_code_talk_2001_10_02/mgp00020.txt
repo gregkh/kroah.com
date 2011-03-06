@@ -1,0 +1,19 @@
+
+PCI access - example
+
+
+  drivers/usb/usb-ohci.c
+
+    pci_read_config_byte (dev, PCI_LATENCY_TIMER, &latency);
+    if (latency) {
+      pci_read_config_byte (dev, PCI_MAX_LAT, &limit);
+      if (limit && limit < latency) {
+        dbg ("PCI latency reduced to max %d", limit);
+        pci_write_config_byte (dev, PCI_LATENCY_TIMER,
+                                  limit);
+        ohci->pci_latency = limit;
+      } else {
+        /* it might already have been reduced */
+        ohci->pci_latency = latency;
+      }
+    }

@@ -1,0 +1,10 @@
+
+No magic numbers
+
+
+A "non-obvious" value that is hard coded
+
+Fortunately, not many instances
+
+drivers/usb/serial/pl2303.c
+

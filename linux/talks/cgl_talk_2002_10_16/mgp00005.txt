@@ -1,0 +1,17 @@
+
+How to do it correctly
+
+
+Follow community practices
+read Documenation/CodingStyle
+read Documentation/SubmittingPatches
+
+Start small
+
+Send patches in public
+
+Accept criticism, and rework the code
+
+Resubmit the patch
+
+Persistence, Persistence, Persistence

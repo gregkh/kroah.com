@@ -1,0 +1,13 @@
+
+How can we do this and stay sane?
+
+
+All patches end up in the -mm tree
+
+All bk trees end up in the -mm tree
+17 different trees
+acpi, agpgart, alsa, cpu_freq, dma, driver_core, drm, ieee1394, input, jfs, libata, mpc52xx, netdev, utfs, pnp, scsi, usb
+
+Andrew sends the patches to Linus
+
+Maintainers still get Linus to pull from bk trees

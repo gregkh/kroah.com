@@ -1,0 +1,9 @@
+
+sequence of events - continued
+
+
+udev
+reads config files
+matches device to rules
+calls /etc/dev.d scripts
+

@@ -1,0 +1,12 @@
+
+Old development cycle
+
+
+Start a new development series
+Feed in patches for some time
+Freeze features, only accept fixes
+Wait for things to stabilize
+Release a new stable series
+Start over
+
+

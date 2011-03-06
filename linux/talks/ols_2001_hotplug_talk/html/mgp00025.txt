@@ -1,0 +1,14 @@
+
+Results of the preprocessor
+
+
+$ nm drivers/usb/printer.o | grep module_usb
+0000048c r __module_usb_device_size
+000000d8 d __module_usb_device_table
+
+
+
+$ nm drivers/sound/i810_audio.o | grep module_pci
+00000178 r __module_pci_device_size
+000000c8 d __module_pci_device_table
+

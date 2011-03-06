@@ -1,0 +1,9 @@
+
+Compressed repositories
+
+
+~300Mb for all 2.4 versions (with -pre patches)
+
+can link repositories for size savings ~180Mb
+
+Data is sent compressed over the wire

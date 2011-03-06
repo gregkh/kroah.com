@@ -1,0 +1,17 @@
+
+
+
+Dealing with the 
+Linux Kernel Community
+
+
+
+CGL meeting, October 16, 2002
+
+
+
+
+Greg Kroah-Hartman
+
+greg@kroah.com
+gregkh@us.ibm.com

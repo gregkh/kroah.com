@@ -1,0 +1,30 @@
+linux.conf.au 2003
+File operations - write cont.
+
+        lpower = simple_strtoul (buff, NULL, 10);
+        power = (u8)(lpower & 0xff);
+
+        if (!try_module_get(slot->ops->owner)) {
+                retval = -ENODEV;
+                goto exit;
+        }
+        switch (power) {
+                case 0:
+                        if (slot->ops->disable_slot)
+                                retval = slot->ops->disable_slot(slot);
+                        break;
+                case 1:
+                        if (slot->ops->enable_slot)
+                                retval = slot->ops->enable_slot(slot);
+                        break;
+                default:
+                        err ("Illegal value specified for power\n");
+                        retval = -EINVAL;
+        }
+        module_put(slot->ops->owner);
+exit:
+        kfree (buff);
+        if (retval)
+                return retval;
+        return count;
+}

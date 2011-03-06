@@ -1,0 +1,21 @@
+
+
+
+Putting a filesystem
+into a 
+device driver
+
+
+
+
+
+Greg Kroah-Hartman
+
+greg@kroah.com
+gregkh@us.ibm.com
+
+http://www.kroah.com/linux/
+
+
+linux.conf.au 2003
+

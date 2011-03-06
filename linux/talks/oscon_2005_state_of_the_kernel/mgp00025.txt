@@ -1,0 +1,11 @@
+
+Two suckers step up
+
+    Subject: Re: RFD kernel release numbering
+    From: Chris Wright
+
+    Andres Salomon (-as patches) and I have been talking about
+    that at least regarding security fixes.  It's worth trying
+    in a more complete and formalized way.
+    Guess I can be branded a sucker ;-)
+

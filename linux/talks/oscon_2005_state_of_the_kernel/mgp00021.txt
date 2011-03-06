@@ -1,0 +1,18 @@
+
+No one is that foolish
+
+    Subject: Re: RFD kernel release numbering
+    From: Linus Torvalds
+
+    I agree that this is one of the main problems.
+
+    But look at how to solve it. The _logical_ solution is 
+    to have a third line of defense: we have the -mm trees
+    (wild and wacky patches), and we have my tree (hopefully
+    not wacky any more), and it would be good to have a
+    third level tree (which I'm just not interested in, 
+    because that one doesn't do any development any more)
+    which only takes the "so totally not wild that it's
+    really boring" patches.
+
+

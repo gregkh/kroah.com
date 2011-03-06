@@ -1,0 +1,180 @@
+#%include "default.mgp"
+%% use our own settings
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 2, fore "white", back "black", font "thick"
+%default 2 size 7, vgap 10, prefix " "
+%default 3 size 2, bar "gray70", vgap 10
+%default 4 size 5, fore "white", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 5, vgap 40, prefix "  ", icon arc "green" 40
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "yellow" 50
+%tab 3 size 3, vgap 40, prefix "            ", icon delta3 "white" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+Dealing with the 
+Linux Kernel Community
+
+
+%size 3
+
+CGL meeting, October 16, 2002
+
+%size 5
+
+
+
+Greg Kroah-Hartman
+%size 1
+
+%size 4
+%font "typewriter"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%page
+%%
+%%Why should we listen to you?
+%%
+%%
+%%	You asked me to :)
+%%
+%%	Kernel developer for a long time, maintainer for a few years.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Why try to get the community to take your patches?
+
+
+	saves $$$
+
+	saves time
+
+	Better product in the end
+
+	distros pick it up for free
+
+	saves $$$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What are your goals with CGL?
+
+
+	Do you want to maintain this patchset yourselves forever?
+
+	Do you want the community to take these patches?
+
+	You use the community's product, shouldn't you give something back?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How to do it wrong
+
+
+	The patch is over there on sf.net
+
+	Submit the patch, and then disappear
+
+	Ignore any comments
+		Our code is wonderful, there's nothing that needs to be changed
+
+	Act superior
+		We know how to write drivers
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How to do it correctly
+
+
+	Follow community practices
+		read 
+%cont, font "typewriter"
+Documenation/CodingStyle
+%font "standard"
+		read 
+%cont, font "typewriter"
+Documentation/SubmittingPatches
+%font "standard"
+
+	Start small
+
+	Send patches in public
+
+	Accept criticism, and rework the code
+
+	Resubmit the patch
+
+	Persistence, Persistence, Persistence
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Specific examples - bad
+
+
+	Driver Hardening
+		sprung a huge package on community
+		initially reacted poorly to criticism
+		saved themselves by listening, only time will tell if they really do.
+
+	cPCI hotplug
+		code was never submitted
+		ignored comments and community
+		code will probably never be merged
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Specific examples - good
+
+
+	event logging
+		approached the community and asked for comments
+		integrated comments and reworked code
+		persistence
+		got initial small piece into the kernel
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+Dealing with the 
+Linux Kernel Community
+
+
+%size 3
+
+CGL meeting, October 16, 2002
+
+%size 5
+
+
+
+Greg Kroah-Hartman
+%size 1
+
+%size 4
+%font "typewriter"
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

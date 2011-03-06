@@ -1,0 +1,13 @@
+
+What BitKeeper changed
+
+Nightly snapshots of Linus's tree
+
+Emails of all individual changes
+
+Faster feedback cycle
+
+Linus trusts the maintainers now
+
+Now know what tools work
+

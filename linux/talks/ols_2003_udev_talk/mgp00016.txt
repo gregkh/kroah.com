@@ -1,0 +1,8 @@
+
+udev
+
+
+handles /sbin/hotplug call
+
+provides protection for "out of order" invocations
+

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>#linux.log</title>
+	<meta name="generator" content="irclog2html.pl by Jeff Waugh">
+	<meta name="version" content="Version 0.9 - 5th April 2000">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body text="#000000" bgcolor="#ffffff"><tt>
+<table cellspacing=3 cellpadding=2 border=0>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">welcome everyone to the third day of UMeet :)</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">our first speaker today is gregkh, a long-time kernel hacker</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">he has been maintaining the kernel's USB stack for .. 1.5 years? and has worked at IBM's linux </font></tt></td></tr>
+<tr><td colspan=2><tt>  technology center for a little longer. If I recall correctly.</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">long time?&nbsp;&nbsp;heh, I'm not _that_ old :)</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">greg's talk is going to be about the coding style in the kernel, as it appears most people trying to </font></tt></td></tr>
+<tr><td colspan=2><tt>  get drivers merged into the kernel screw it up somehow :)</tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">gregkh: you've got a kid. :) I think that makes you old. :)</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">anyway, please welcome gregkh. :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">heh, good point :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I'm here to talk about proper Linux kernel coding style.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I'm going to go through a few reasons why we have a style guideline,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">then go over the currently documented style rules, and then cover</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">some "undocumented" rules that everyone should also follow.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">feel free to ask questions whenever you want on #qc</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">First off, why should we have a kernel coding style at all?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">After all, code formatting doesn't effect memory use, execution speed,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">or anything else a user of the kernel would notice.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">The main reason is that if a large body of code is written in a common</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">style, it directly effects how easy it is to quickly understand the code,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">review it, and revise it.&nbsp;&nbsp;And since the Linux kernel source is meant for</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">others to modify, we want this code to be as easy to change as possible.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">There have been a lot of research about this topic, and people can ask me</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">offline if they want any citations.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I'm kind of glossing over the reasons why we need rules, so are there any questions about this?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">good, no excuses for why anyone here isn't following them :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">So what are the Linux kernel coding rules?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">First off, read the Documentation/CodingStyle file in the kernel tree.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">It lists a number of rules that should _always_ be followed.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; zanshin&gt; Are the rules because Linus wants them that way or are they based on something else?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">they are based on both because Linus wants them that way, and because of history.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">a combination of both.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I'll summarize the CodingStyle rules here:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - all tabs must be 8 characters, and the [TAB] character must be used instead of spaces.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If your code is shifting off the side of the screen too much because</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">of this, it's a good hint that you need to clean up the logic of your code.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Be careful that your editor settings do not change tabs to spaces, I've seen that happen a lot.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - braces must have the opening brace last on the line, and the closing brace first on the line.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">For example:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (x is true) {</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;we do y</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">The only exception to this rule is functions, which have the opening</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">brace at the beginning of the line like:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int function(int x)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;body of function</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; jmgv&gt; and class if you use c++ i suppose</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">jmgv: there is no c++ in the kernel :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If you want to convert a file to this proper style, look at the</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">scripts/Lindent script in the kernel tree.&nbsp;&nbsp;It is a good start at</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">figuring out the indent(1) command line arguments to get the proper kernel style.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">any questions about indenting and tabs?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">there are lots of bad examples of this in the kernel, but I'm not going to go into those here.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; gcc&gt; the proper way to break a too long line</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">There really isn't a "proper" way, just make it look sane.&nbsp;&nbsp;indent(1) can cause some horrible things to </font></tt></td></tr>
+<tr><td colspan=2><tt>  happen with regards to that, so make sure you clean up after it by hand.</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; jmgv&gt; how mandatory are these rules.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">very mandatory, your patch will be rejected.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">ok, moving on...</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">- Your variables and functions should be declared descriptively and yet concisely.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">You should not use long flowery names like, CommandAllocationGroupSize or DAC960_V1_EnableMemoryMailboxI</font></tt></td></tr>
+<tr><td colspan=2><tt>  nterface(),</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> but instead, name them cmd_group_size, or enable_mem_mailbox().</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Mixed case names are frowned upon and encoding the type of the</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">variable or function in the name (like "Hungarian notation") is forbidden.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; mulix&gt; how about patches to clean up the coding style of old drivers?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">that's accepted by some people.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">but some maintainers are very stuborn about not changing their style.&nbsp;&nbsp;ignore them :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">next item,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;- Functions should do only one thing, and do it well.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">They should be short, and hopefully contain only one or two screens of text.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">now this one is broken _all_ the time, but please, try to follow it.&nbsp;&nbsp;it will make</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">maintaining your code easier over time.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;- Comments are very good to have, but they have to be good comments.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Bad comments explain how the code works, who wrote a specific function on a</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">specific date, or other such useless things.&nbsp;&nbsp;Good comments explain what</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">the file or function does, and why it does it.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If you are going to comment functions, use the kerneldoc format.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">This is explained in the Documentation/kernel-doc-nano-HOWTO.txt and</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">scripts/kernel-doc files in the kernel tree.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">This allows documentation to be automatically generated from your code.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">and the final written rule,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&nbsp;&nbsp;- reference count your data structures.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">This isn't so much a style guideline, as a proper coding guideline.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If another thread can find your data structure, and you do not have a</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">reference count on it, you almost certainly have a bug.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Now the kernel has a kobject structure that can easily be used if you</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">need to have a reference count within your structure.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">any questions on the documented rules?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; snide&gt; what about the unicity of the different function names all over the code ?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">what does "unicity" mean?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">do you mean "global namespace"?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">yes, pick your function names well, and don't make them global unless they have to be.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Ok, moving on to the unwritten rules.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">- Use code that is already written.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Use the list structures, the string functions, the kobject structure,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">the endian functions, and other, already written and debugged functions within your kernel</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">code.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Do NOT duplicate already written work just because you want to</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">use the library functions, they are there for a reason.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Moving on to my favorite rule:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">- typedef is EVIL!</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">EVIL EVIL EVIL EVIL EVIL!</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">NEVER USE typedef IN YOUR CODE!!!</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">got it?&nbsp;&nbsp;:)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">even if you're ingo, he's slowly changing too :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Only in _very_ rare cases should you create a typedef.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">A function pointer is one of those instances.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; gcc&gt; why it so evil</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">It hides information from the programmer, and enables them to do stupid things.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">like pass a whole structure on the stack as a paramater, and other such nonsense.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">again, typedefs for function pointers is ok.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">but that's it.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If you only remember one "unwritten" rule, please remember that one.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I'm going to pause for a few minutes to let the translators catch up, sorry for typing so fast</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; zanshin&gt; what is bad about passing structures as parameters?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">pass a pointer to a structure, not the whole structure, or that will take up too much room on the </font></tt></td></tr>
+<tr><td colspan=2><tt>  stack, and be very slow.</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">ok, moving on, </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - do not place "magic numbers" within your code.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If you are going to use a numeric value, document it, and make it a </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">#define for others to understand what you are trying to do.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">If it's a number that a user might possibly want to be able to change, make it either a sysctl value, a </font></tt></td></tr>
+<tr><td colspan=2><tt>  command line option, or a module paramater option.</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - do not put #ifdef within a .c file.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">They are allowd only within .h files.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Use the preprocessor to compile away code that is not configured in, do not use</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">#ifdef within the body of code to do this.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">any questions about this?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; snide&gt; but what about #ifdef CONFIG_SMP inside mm/slab.c for exemple</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">yes, in some places it can't be helped, but for the majority of code, do not use it.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">Also remember all of these rules are just guidelines, you will find places that break everyone of them, </font></tt></td></tr>
+<tr><td colspan=2><tt>  but try to follow them for 99% of your code.</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">One last unwritten rule, use labeled identifiers for structures that you initialize at compile time.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">and by that I mean the following:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">struct foo bar = {</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">.a = 24,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">.b = 42,</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">};</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">use the C99 style initializers, and not the gnu style, as people are going through the whole kernel</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">and converting them.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">So in conclusion:</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - read Documenatation/CodingStyle</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - follow it.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - use scripts/Lindent.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> - Do not use typedef</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e"> </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">any further questions?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; snide&gt; how to avoid using #ifdef CONFIG_MYOPTION in a practical way then [ any exemple ? ]</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">as an example, look at include/linux/hiddev.h and drivers/usb/input/hid_core.c for some functions</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">that get compiled away if #ifdef CONFIG_USB_HIDDEV is not enabled.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">I also have a longer paper that was presented at ols2002 about this topic at: </font></tt></td></tr>
+<tr><td colspan=2><tt>  <a href="http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps">http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps</a> </tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">and some slides at: <a href="http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_talk/html/">http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_talk/html/</a></font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; snide&gt; so better split up the .c files ? </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">No, split up the functions, and use static inline functions that do nothing if the config option is not </font></tt></td></tr>
+<tr><td colspan=2><tt>  enabled, </tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">then in the .c file, always call them.&nbsp;&nbsp;gcc will compile them away to nothing if that option is not enabled.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">also look at include/security.h in the 2.5.51 kernel, it has lots of examples of this if CONFIG_SECURITY is not enabled.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">&lt; snide&gt; so using a function that the content will be wiped out with an #ifdef ?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">In a way, see the above examples for how it works.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">So that's it, any other questions?&nbsp;&nbsp;If anyone has any later, feel free to email me.</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">gregkh: thanks :)</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">thanks also to EMPEROR, who has been providing on-the-fly translation to spanish in #redes :)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">plas plas plas plas plas plas plas plas pals plas plas</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">plas plas plas plas plas plas plas plas pals plas plas</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>fscked</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">nice talk, grek</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>fscked</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">greg</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">plas plas plas plas plas plas plas plas pals plas plas</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">plas plas plas plas plas plas plas plas pals plas plas</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>BorZung</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">good talk gregkh thanks you :)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>Rawsock</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">while(1){ clap() ; }</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">gregkh: nice talk... thanks..</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>mulix</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">clap clap clap clap clap clap clap clap </font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>mulix</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">clap clap clap clap clap clap clap clap </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>Rawsock</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">ow' somebody preempt me please :)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>fscked</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">killall Rawsock</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>fscked</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">there</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">thank you to everyone, and to the orginizers of this conference, I appreciate you letting me talk.</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>Rawsock</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">thx</font></tt></td></tr>
+<tr><th bgcolor="#9b519b"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#9b519b">clap clap</font></tt></td></tr>
+<tr><th bgcolor="#9b519b"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#9b519b">=)</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">se vaaa se vaaa</font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">thanxs by your conference gregkh</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">al loco, al loco al loco le queda poco</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">thank you very much to you</font></tt></td></tr>
+<tr><th bgcolor="#57a657"><font color="#ffffff"><tt>davej</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#57a657">oops, wrong window.. 8)</font></tt></td></tr>
+<tr><th bgcolor="#57a657"><font color="#ffffff"><tt>davej</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#57a657">thanks sarnold</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">slow clap for avoid&nbsp;&nbsp;flooding </font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">thanxs by your conference gregkh</font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">very good :)</font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">greetings for you.</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">it was very good :)</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">the soanish traslator are VicMedina Emperor,&nbsp;&nbsp;and tiri, and also have made an excelent work !</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">soanish /spanish </font></tt></td></tr>
+<tr><th bgcolor="#9b519b"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#9b519b">=)</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">ai güant tu transleit tu</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>riel_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">well done gregkh</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">I'm going to study. Good bye!</font></tt></td></tr>
+<tr><th bgcolor="#5fb4b4"><font color="#ffffff"><tt>twin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5fb4b4">hola a todos</font></tt></td></tr>
+<tr><th bgcolor="#b86161"><font color="#ffffff"><tt>Ap</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b86161">clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">Ap, in #qc still&nbsp;&nbsp;there are discussion </font></tt></td></tr>
+</table>
+
+<br>Generated by irclog2html.pl by <a href="mailto:jdub@NOSPAMaphid.net">Jeff Waugh</a>
+ - find it at <a href="http://freshmeat.net/appindex/2000/03/28/954251322.html">freshmeat.net</a>!
+</tt>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+Devices everywhere
+
+
+struct device
+struct pci_dev
+struct usb_device
+struct usb_interface
+struct scsi_device
+struct scsi_target
+struct i2c_client
+struct i2c_adapter
+

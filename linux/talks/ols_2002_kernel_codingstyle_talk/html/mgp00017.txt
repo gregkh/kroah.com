@@ -1,0 +1,17 @@
+
+Comments
+
+
+Good to have, but must be done correctly.
+
+Bad comments:
+explain how code works
+say who wrote the function
+have last modified date
+have other trivial things
+
+Good comments:
+explain what
+explain why
+should be at beginning of function
+

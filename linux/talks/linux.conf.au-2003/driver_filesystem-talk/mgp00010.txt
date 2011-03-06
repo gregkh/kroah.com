@@ -1,0 +1,18 @@
+linux.conf.au 2003
+Mount the filesystem
+
+
+Three common ways
+do it yourself
+        sysfs_mount = kern_mount(&sysfs_fs_type);
+        if (IS_ERR(sysfs_mount)) {
+                printk(KERN_ERR "sysfs: could not mount!\n");
+                err = PTR_ERR(sysfs_mount);
+                sysfs_mount = NULL;
+        }
+
+let the user do it
+not recommended
+
+only mount when really needed
+complex, steal the usbfs code

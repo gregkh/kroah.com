@@ -1,0 +1,13 @@
+
+Need to fix this
+
+
+Linus proposed odd/even releases
+development odd
+stable even
+
+Much complaining
+
+Why not just do point releases?
+
+

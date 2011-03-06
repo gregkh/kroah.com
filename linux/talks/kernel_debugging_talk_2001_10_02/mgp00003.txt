@@ -1,0 +1,9 @@
+
+Save all kernel messages
+
+
+configure syslod
+
+    /etc/syslog.conf
+
+      kern.*   -/var/log/kernel

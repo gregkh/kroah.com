@@ -1,0 +1,21 @@
+
+Indentation - examples
+
+
+Bad: 
+fs/devfs/*
+drivers/scsi/sg.c
+                for (m = 0; (srp = sg_get_nth_request(fp, m)); ++m) {
+                    hp = &srp->header;
+                    new_interface = (hp->interface_id == '\0') ? 0 : 1;
+/* stop indenting so far ... */
+        ...
+        if (srp->done)
+            PRINT_PROC(" dur=%d", hp->duration);
+        ...
+/* reset indenting */
+                }
+
+Good: 
+fs/*
+kernel/*

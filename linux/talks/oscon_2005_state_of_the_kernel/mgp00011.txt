@@ -1,0 +1,13 @@
+
+2.6.0 December 17, 2003
+
+680 days of development
+
+27149 different patches
+
+1.66 patches per hour
+
+15,007 files
+
+5,929,913 lines of code
+

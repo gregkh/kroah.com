@@ -1,0 +1,10 @@
+
+struct kref
+
+
+Reference counting made easy
+
+
+Greg Kroah-Hartman
+greg@kroah.com
+gregkh@us.ibm.com

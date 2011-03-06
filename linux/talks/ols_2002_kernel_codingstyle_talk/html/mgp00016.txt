@@ -1,0 +1,15 @@
+
+Functions - examples
+
+
+Bad: 
+drivers/hotplug/ibmphp_res.c
+ibmphp_check_resource() has 370 lines
+
+drivers/usb/serial/usbserial.c
+usb_serial_probe() has 21 local variables
+
+
+Good: 
+fs/*.c
+    

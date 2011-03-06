@@ -1,0 +1,5 @@
+
+Serial console
+
+
+see serial-console HOWTO :)

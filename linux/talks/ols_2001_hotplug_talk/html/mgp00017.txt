@@ -1,0 +1,17 @@
+
+PCI drivers for one device
+
+drivers/net/sunhme.c
+
+struct pci_device_id 
+  happymeal_pci_ids[] __initdata = {
+    { 
+      vendor:    PCI_VENDOR_ID_SUN,
+      device:    PCI_DEVICE_ID_SUN_HAPPYMEAL,
+      subvendor: PCI_ANY_ID,
+      subdevice: PCI_ANY_ID,
+    },
+    { }   /* Terminating entry */
+};
+
+MODULE_DEVICE_TABLE (pci, happymeal_pci_ids);

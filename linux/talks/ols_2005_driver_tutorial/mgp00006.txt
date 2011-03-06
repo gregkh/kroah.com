@@ -1,0 +1,16 @@
+
+Manipulating Modules
+
+See the module informaion
+        modinfo hello.ko
+
+Insert the module into the kernel
+        insmod hello.ko
+
+See that it did something
+        lsmod
+        dmesg
+
+Remove the module from the kernel
+        rmmod hello
+

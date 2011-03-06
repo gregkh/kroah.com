@@ -1,0 +1,12 @@
+
+namedev
+
+
+allow pluggable naming schemes
+LSB standard
+devfs "standard"
+
+persistent device naming policy
+
+able to be queried to determine current devices
+uses tdb

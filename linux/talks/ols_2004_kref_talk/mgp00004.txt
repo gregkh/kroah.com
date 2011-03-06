@@ -1,0 +1,7 @@
+
+What is a reference count
+
+
+an atomic counter
+
+not a lock

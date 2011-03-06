@@ -1,0 +1,14 @@
+
+devfs problems
+
+
+implementation...
+
+requires lots of system configuration changes
+
+different /dev namespace from LSB standard
+
+forces device naming policy into the kernel
+
+no dynamic allocation of numbers
+

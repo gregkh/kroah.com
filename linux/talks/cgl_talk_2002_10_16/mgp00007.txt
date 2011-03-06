@@ -1,0 +1,11 @@
+
+Specific examples - good
+
+
+event logging
+approached the community and asked for comments
+integrated comments and reworked code
+persistence
+got initial small piece into the kernel
+
+

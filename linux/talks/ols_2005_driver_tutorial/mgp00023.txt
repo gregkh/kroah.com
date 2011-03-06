@@ -1,0 +1,14 @@
+
+The data from the device
+
+
+
+struct measurement_packet {
+        u8    measurements_in_packet;
+        u8    rolling_counter;
+        le16  measurement0;
+        le16  measurement1;
+        le16  measurement2;
+} __attribute__((packed));
+
+

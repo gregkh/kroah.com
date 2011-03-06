@@ -1,0 +1,12 @@
+
+Functions
+
+
+Do one thing, and do it well.
+
+Short, one or two screens of text.
+
+OK to have longer function doing small different things.
+
+If more than 10 local variables, too complex.
+

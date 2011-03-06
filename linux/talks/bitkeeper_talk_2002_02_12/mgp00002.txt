@@ -1,0 +1,13 @@
+
+What is BitKeeper
+
+
+A source code control system
+like CVS, SCCS, Perforce, etc.
+
+License
+Free if the world can see your change logs:
+            http://www.openlogging.org/
+$$ if you want to keep your change logs private
+
+Download from http://www.bitkeeper.com/

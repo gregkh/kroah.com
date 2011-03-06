@@ -1,0 +1,11 @@
+
+/etc/dev.d
+
+
+allows notification when devices are created or removed
+
+three levels of notification:
+          /etc/dev.d/DEVNAME/*.dev
+          /etc/dev.d/SUBSYSTEM/*.dev
+          /etc/dev.d/default/*.dev
+

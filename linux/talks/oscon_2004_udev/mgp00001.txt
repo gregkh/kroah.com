@@ -1,0 +1,8 @@
+udev
+Managing Linux device names in userspace
+
+
+www.kroah.com/linux/
+Greg Kroah-Hartman
+greg@kroah.com
+gregkh@us.ibm.com

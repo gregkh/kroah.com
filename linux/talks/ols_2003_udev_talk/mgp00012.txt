@@ -1,0 +1,13 @@
+
+namedev - 5 step sequence
+
+
+label or serial number
+
+bus device number
+
+topology on bus
+
+replace name
+
+kernel name

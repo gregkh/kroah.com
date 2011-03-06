@@ -1,0 +1,8 @@
+
+release
+
+
+called when last reference is freed.
+
+must look like:
+     void foo_release(struct kref *kref);

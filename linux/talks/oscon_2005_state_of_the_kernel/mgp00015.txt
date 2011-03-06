@@ -1,0 +1,10 @@
+
+It was decreed
+
+
+No separate development branch
+
+Everything goes into 2.6
+
+-mm is for testing
+

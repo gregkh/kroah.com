@@ -1,0 +1,14 @@
+
+USB driver for many devices
+
+drivers/usb/ov511.c
+
+static __devinitdata struct usb_device_id 
+  device_table [] = {
+    { USB_DEVICE(0x05a9, 0x0511) },  /* OV511 */
+    { USB_DEVICE(0x05a9, 0xA511) },  /* OV511+ */
+    { USB_DEVICE(0x0813, 0x0002) },  /* Intel Play Me2Cam */
+    { } /* Terminating entry */
+};
+
+MODULE_DEVICE_TABLE (usb, device_table);

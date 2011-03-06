@@ -1,0 +1,15 @@
+
+Let the kernel do it
+
+
+/sbin/hotplug
+
+CONFIG_HOTPLUG
+
+/proc/sys/kernel/hotplug
+
+PCI and USB add or remove
+
+Patches exist for CPU and Docking stations
+
+Network register or unregister

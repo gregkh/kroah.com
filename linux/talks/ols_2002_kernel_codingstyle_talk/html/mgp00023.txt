@@ -1,0 +1,12 @@
+
+Unwritten rules
+
+
+Use code that is already present
+
+string functions
+
+byte order functions
+
+linked lists
+

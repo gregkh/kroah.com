@@ -1,0 +1,12 @@
+
+Reading from a PCI memory region
+
+
+pci_read_config_byte
+reads 8 bits
+
+pci_read_config_word
+reads 16 bits
+
+pci_read_config_dword
+reads 32 bits

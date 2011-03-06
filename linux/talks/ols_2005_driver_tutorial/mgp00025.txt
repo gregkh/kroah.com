@@ -1,0 +1,16 @@
+
+The urb callback
+
+
+read_int_callback() continued:
+
+        gdev->temp = le16_to_cpu(measurement->measurement0);
+
+exit:
+        retval = usb_submit_urb(urb, GFP_ATOMIC);
+        if (retval)
+                dev_err(&urb->dev->dev,
+                        "Error %d submitting interrupt urb\n",
+                        retval);
+}
+

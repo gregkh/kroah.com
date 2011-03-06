@@ -1,0 +1,25 @@
+
+The urb callback
+
+
+static void read_int_callback(struct urb *urb, struct pt_regs *regs)
+{
+        struct gotemp *gdev = urb->context;
+        struct measurement_packet *measurement = urb->transfer_buffer;
+        int retval;
+
+        switch (urb->status) {
+        case 0: break;
+        case -ECONNRESET:
+        case -ENOENT:
+        case -ESHUTDOWN:
+                /* this urb is terminated, clean up */
+                dbg("urb shutting down with status: %d",
+                    urb->status);
+                return;
+        default:
+                dbg("nonzero urb status received: %d",
+                    __FUNCTION__, urb->status);
+                goto exit;
+        }
+

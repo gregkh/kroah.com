@@ -1,0 +1,12 @@
+
+The near future for 2.6
+
+
+Linus releases 2.6.x
+
+Maintainers flood him with patches
+all have proved their stability in the -mm tree
+
+We all recover and start fixing bugs.
+
+One month later a new 2.6 is released

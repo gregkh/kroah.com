@@ -1,0 +1,15 @@
+
+three extra programs
+
+
+udevinfo
+allows querying of all device information
+46kb
+
+udevstart
+helper program to seed /dev at boot time
+6kb
+
+udevtest
+tests udev rules
+57kb

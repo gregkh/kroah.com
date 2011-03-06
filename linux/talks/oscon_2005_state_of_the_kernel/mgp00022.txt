@@ -1,0 +1,13 @@
+
+No one is that foolish
+
+   <Linus continued>
+
+   I'll tell you what the problem is: I don't think you'll
+   find anybody to do the parallell "only trivial patches" tree.
+   They'll go crazy in a couple of weeks. Why? Because it's a
+   _damn_ hard problem. Where do you draw the line? What's
+   an acceptable patch? And if you get it wrong, people will
+   complain _very_ loudly, since by now you've "promised" them
+   a kernel that is better than the mainline.
+

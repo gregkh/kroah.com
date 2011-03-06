@@ -1,0 +1,9 @@
+
+Releasing a PCI memory region
+
+
+iounmap
+
+  drivers/hotplug/cpqphp.c
+
+    iounmap(ctrl->hpc_reg);

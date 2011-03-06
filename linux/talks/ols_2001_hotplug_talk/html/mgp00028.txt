@@ -1,0 +1,29 @@
+
+After depmod is finished with usb
+
+
+modules.usbmap
+
+ # usb module  match_flags idVendor idProduct bcdDevice_lo bcdDevice_hi bDeviceClass 
+     bDeviceSubClass bDeviceProtocol bInterfaceClass bInterfaceSubClass bInterfaceProtocol 
+       driver_info
+
+ audio          0x0180        0x0000     0x0000     0x0000        0x0000        0x00
+       0x00              0x00                0x01                0x01                   0x00
+         0x00000000
+
+ mdc800         0x0003        0x055f     0xa800     0x0000        0x0000        0x00
+       0x00              0x00                0x00                0x00                   0x00
+         0x00000000
+
+ printer        0x0380        0x0000     0x0000     0x0000        0x0000        0x00
+       0x00              0x00                0x07                0x01                   0x01
+         0x00000000
+
+ printer        0x0380        0x0000     0x0000     0x0000        0x0000        0x00
+       0x00              0x00                0x07                0x01                   0x02
+         0x00000000
+
+ printer        0x0380        0x0000     0x0000     0x0000        0x0000        0x00
+       0x00              0x00                0x07                0x01                   0x03
+         0x00000000

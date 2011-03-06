@@ -1,0 +1,13 @@
+
+After 2.6.x is released
+
+Major patch flood in first week.
+must have been in -mm for testing
+
+-rc1 kernel is released
+
+Treat this as a "Release Candidate"
+
+Bug fixes only.
+
+No using git to send bugs.

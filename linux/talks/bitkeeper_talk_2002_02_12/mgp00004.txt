@@ -1,0 +1,10 @@
+
+Disconnected operation
+
+
+Everyone has a entire copy of the repository
+
+Work disconnected and resync when connected
+
+Make multiple copies of repositories locally to do different types of development
+

@@ -1,0 +1,22 @@
+
+Memory issues - example
+
+  drivers/usb/audio.c
+
+    static int dmabuf_mmap(...)
+    {
+      size >>= PAGE_SHIFT;
+      for (nr = 0; nr < size; nr++)
+        if (!db->sgbuf[nr])
+          return -EINVAL;
+      db->mapped = 1;
+      for (nr = 0; nr < size; nr++) {
+        if (remap_page_range(start, 
+                               virt_to_phys(db->sgbuf[nr]),
+                               PAGE_SIZE, prot))
+          return -EAGAIN;
+        start += PAGE_SIZE;
+      }
+      return 0;
+    }
+

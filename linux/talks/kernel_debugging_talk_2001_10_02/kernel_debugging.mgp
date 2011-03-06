@@ -1,0 +1,178 @@
+%%  Writing Portable Linux Drivers
+%%  last modified 2001_10_02
+%%  Greg Kroah-Hartman
+%%  <greg@kroah.com>
+%%  <gregkh@us.ibm.com>
+%%  Released under the GNU FDL
+%%
+%% use our own settings
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 2, fore "white", back "black", font "thick"
+%default 2 size 7, vgap 10, prefix " "
+%default 3 size 2, bar "gray70", vgap 10
+%default 4 size 5, fore "white", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 5, vgap 40, prefix "  ", icon arc "green" 40
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "yellow" 50
+%tab 3 size 3, vgap 40, prefix "            ", icon delta3 "white" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+Kernel Debugging techniques
+%size 6
+without using a debugger
+%size 4
+
+
+October 2, 2001
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+gregkh@us.ibm.com
+greg@kroah.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Help ksymoops out
+
+
+%font "typewriter", size 4
+	mkdir /var/log/ksymoops
+%font "standard"
+
+	Every time a module is loaded 
+%cont, font "typewriter"
+/proc/ksyms
+%cont, font "standard"
+and 
+%cont, font "typewriter"
+/proc/modules
+%cont, font "standard"
+ is copied there.
+
+%font "typewriter"
+	-k /var/log/ksymoops/<date>.ksyms
+
+	-l /var/log/ksymoops/<date>.modules
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Save all kernel messages
+
+
+	configure syslod
+
+%font "typewriter", size 5
+    /etc/syslog.conf
+
+      kern.*   -/var/log/kernel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+dbg() macro
+
+
+%font "typewriter", size 5
+ #if !defined(CONFIG_FOO_MODULE)
+   #define MY_NAME "foo_driver"
+ #else
+   #define MY_NAME THIS_MODULE->name
+ #endif
+
+ #define dbg(fmt, arg...) do {
+   if (debug)
+     printk(KERN_DEBUG "%s: "__FUNCTION__": "
+             fmt "\n" , MY_NAME , ## arg);
+   } while (0)
+
+ static int debug;
+ MODULE_PARM(debug, "i");
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Using dbg()
+
+
+%font "typewriter", size 4
+  dbg ("Added slot %d to the list", 
+         slot->physical_number);
+
+%font "standard"
+  shows up as:
+%font "typewriter", size 4, fore "green"
+  hotplug_pci: pci_hp_register: Added slot 2 to the list
+%fore "white"
+
+
+  dbg ("");
+
+%font "standard"
+  shows up as:
+%font "typewriter", size 4, fore "green"
+  hotplug_pci: pci_hp_register:
+%fore "white"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Other printk() macros
+
+
+%font "typewriter", size 4
+ #define err(fmt, arg...)
+      printk(KERN_ERR "%s: " fmt "\n" , MY_NAME , ## arg)
+
+ #define info(fmt, arg...)
+      printk(KERN_INFO "%s: " fmt "\n" , MY_NAME , ## arg)
+
+ #define warn(fmt, arg...)
+      printk(KERN_WARNING "%s: " fmt "\n" , MY_NAME , ## arg)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Serial console
+
+
+	see serial-console HOWTO :)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+Kernel Debugging techniques
+%size 6
+without using a debugger
+%size 4
+
+
+October 2, 2001
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+gregkh@us.ibm.com
+greg@kroah.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

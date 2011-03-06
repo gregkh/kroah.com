@@ -1,0 +1,15 @@
+
+Conclusion
+
+No more "stable" kernel series
+
+-stable releases are working
+
+What you can do:
+Test the -rc kernels
+Test the -mm kernels
+
+No stable in-kernel API.
+
+Everything subject to change
+

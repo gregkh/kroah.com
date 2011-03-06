@@ -1,0 +1,300 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>#redes.log</title>
+	<meta name="generator" content="irclog2html.pl by Jeff Waugh">
+	<meta name="version" content="Version 0.9 - 5th April 2000">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body text="#000000" bgcolor="#ffffff"><tt>
+<table cellspacing=3 cellpadding=2 border=0>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>pepita</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">q hodas a q hora de mexico empieza</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>faraox</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">buenas</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>pepita</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">las tenga</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">ahora empieza</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">pepita por favor, cambie de nick </font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">que es el que se usa por defecto en el pograma preparado para esta red, y no dejara entrar&nbsp;&nbsp;a otro</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">pepita escribe /nick sunombre</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">nuestro primer conerencista de hoy es gregkh, ha sido hacker del kernel por un buen tiempo</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">el ha sido el encargado del LSM por mas de 1.5 años ya</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">el ha sido el encargado del USB por mas de 1.5 años y</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">y ha trabajado para el IBM Linux&nbsp;&nbsp;Tecnology Center por un tiempo ams</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">greg's talk is going to be about the coding style in the kernel, as it appears most people trying </font></tt></td></tr>
+<tr><td colspan=2><tt>  to get drivers merged into the kernel screw it up somehow :)</tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">esto... no os olvideis del modo +m X)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">greg va a hablar acerca de los esilos de codifcacion en el kernel, ya que parece que la mayoria de </font></tt></td></tr>
+<tr><td colspan=2><tt>  la gente que trata de introducir drivers en el kernel por lo general fracasa</tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">por favor, denle la bienvenida a greg</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">I'm going to go through a few reasons why we have a style guideline,</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">Voy a comenzar por explicar unas cuantas razones por la que hemos decidido adoptar estilos de </font></tt></td></tr>
+<tr><td colspan=2><tt>  codificacion</tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">then go over the currently documented style rules, and then cover</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">luego hablare sobre las reglas de codificacion actualmente documentadas y luego</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">some "undocumented" rules that everyone should also follow.</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">y luego unas cuantas reglas no escritas, que tambien la mayoria deberia seguir</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">por favor sientanse libres de escribir cualquier duda el canal #qc</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">primero que nada, por que deberiamos tener algun tipo de estilo de codificacion dentro del kernel?</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">si despues de todo, el estidlo de codificacion no tiene ningun impacto en el desempeño de la memoria</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">ni en la velocidad de ejecucion</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">ni ningun otra ofecto que un usuario del kernel pudiese notar</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">la razon principal es</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">que si un largo cuerpo del codigo es escrito en un estilo comun</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">directamente afecta la forma cuan facilmente es posible leer y entender ese codigo</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">revisarlo</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">y evaluarlo</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">y debido a que el kernel de linux fue hecho para que otros lo modificaran</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">nosotros deseamos que este codigo sea tan facil de modificar como sea posible</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">se ha realizado muchas investigaciones al respecto</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">la gente puede p`reguntarme offline si desean ams info al respecto</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">disculpen las molestias.. enseguida estamos con uds.</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">hay muchos malos ejemplos acerca de esto en el kernel, pero no me voy a meter en esto aqui</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> &lt;@gregkh&gt; revista el, y revisa el. Y desde entonces la Linux fuente de nucleo es significado para </font></tt></td></tr>
+<tr><td colspan=2><tt>  otros p</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; Ahi haber sido un lote de investiga sobre este tema, y gente puede preguntarme &lt;@gregkh&gt; </font></tt></td></tr>
+<tr><td colspan=2><tt>  fuera de linea si ellos quieren algunas citaciones. &lt;@gregkh&gt; &lt;@gregkh&gt; Yo soy clase de glosar sobre las </tt></td></tr>
+<tr><td colspan=2><tt>  razones por que nosotros necesitamos reglas, asi hay algunas preguntas sobre estas? </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; realmente no existe una via propicia, simplemente hazlo parecer limpio. ident(1) puede causar </font></tt></td></tr>
+<tr><td colspan=2><tt>  algunas cosas horribles, estate seguro de limpiar tu codigo a mano antes</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt; jmgv&gt; ¿como son de estrictas esas reglas?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; Yo resumire las CodingStyle reglas aqui: &lt;@gregkh&gt; - toda necesidad de etiquetas son 8 </font></tt></td></tr>
+<tr><td colspan=2><tt>  caracteres, y el [ETIQUETA] necesidad de caracter es usado en lugar de de espacios. &lt;@gregkh&gt; Si su codigo </tt></td></tr>
+<tr><td colspan=2><tt>  esta cambiando fuera de el lado de la pantalla demasiado mucho porque &lt;@gregkh&gt; de esta, el es una </tt></td></tr>
+<tr><td colspan=2><tt>  (pista/pizca/consejo)indirecta buena que usted necesita a limpio arriba la logica de su codigo. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; muy rigidas, tu parche no sera admitido</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; - Tus variables y funciones, deberian ser declaradas descriptivamente y concienzudamente.</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt;&nbsp;&nbsp;For example:</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; &lt;@gregkh&gt; if (x is true) {</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; &lt;@gregkh&gt; we do y</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; &lt;@gregkh&gt; }</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; No deberias usar nombres largos como CommandAllocationGroupSize o DAC960_V1_EnableMemoryMailbox</font></tt></td></tr>
+<tr><td colspan=2><tt>  Interface(),</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; La solo excepcion a esta regla es funciones, que tener la abriendo &lt;@gregkh&gt; abrazadera en </font></tt></td></tr>
+<tr><td colspan=2><tt>  el comienzo de la linea como: &lt;@gregkh&gt; int funcion(int x) &lt;@gregkh&gt; { &lt;@gregkh&gt; cuerpo de funcion &lt;@gregkh&gt; </tt></td></tr>
+<tr><td colspan=2><tt>  } </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> No deberias usar nombres largos como CommandAllocationGroupSize o DAC960_V1_EnableMemoryMailboxInterf</font></tt></td></tr>
+<tr><td colspan=2><tt>  ace(),</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;EMPEROR&gt; La solo excepcion a esta regla es funciones, que tener la abriendo &lt;@gregkh&gt; abrazadera en </font></tt></td></tr>
+<tr><td colspan=2><tt>  el comienzo de la linea como: &lt;@gregkh&gt; int funcion(int x) &lt;@gregkh&gt; { &lt;@gregkh&gt; cuerpo de funcion &lt;@gregkh&gt; </tt></td></tr>
+<tr><td colspan=2><tt>  } </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> pero en vez, llamalo cmd_group_size, o enable_mem_mailbox().</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> descriptivamente y aun concisamente. &lt;@gregkh&gt; Usted no usaria nombres largos</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> una variable o funcione en el nombre (como "Hungarian notation") esta prohibida</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt; mulix&gt; como deben de ser los parches para limpiar los viejos drivers?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> es aceptado por algunas personas</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; pero algunos mantenedores no quieren cambiar su estilo de escritura. ignoralos :)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">(disculopen hubo split.)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Solo en algunos casos _muy_ raros deberias crear un typedef&nbsp;&nbsp;A una funcion putero es uno de esos </font></tt></td></tr>
+<tr><td colspan=2><tt>  casos raros</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;gcc&gt; por que es tan malo?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; Esconde informacion al programador y hace que haga cosas estupidas</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; como pasar una estructura entera en el stack como un parametro y otras cosas sin sentido</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; de nuevo, typedefs para funciones puntero esta bien</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; pero eso es</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; si recuerdas una regla no escrita, porfavor recuerdala</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">incluso si usted es ingo, el es lentamente cambiando demasiado :) &lt;@gregkh&gt; Solo en _casos_ muy raros </font></tt></td></tr>
+<tr><td colspan=2><tt>  quizas usted crea unos typedef. &lt;@gregkh&gt; Un indicador de funcion es 1 de esos ejemplos. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Moviendo en a mi regla favorita: &lt;@gregkh&gt; - typedef es MAL! &lt;@gregkh&gt; MAL de MAL de MAL de MAL MALO! </font></tt></td></tr>
+<tr><td colspan=2><tt>  &lt;@gregkh&gt; NUNCA USAR typedef EN SU CODIGO!!! &lt;@gregkh&gt; obtenido el? :) </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">--------------------------------------------------------------------------------</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Antónimos</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Yo estoy yendo a descansar para unos pocos minutos para permitir la cogida de traductores arriba, </font></tt></td></tr>
+<tr><td colspan=2><tt>  perdon para escribir tan rapido &lt;@gregkh&gt; &lt; zanshin&gt; que es malo sobre pasando estructuras como parametros? </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">ok, moviendo en, &lt;@gregkh&gt; - no situa "numeros magicos" dentro su codigo. &lt;@gregkh&gt; Si usted esta </font></tt></td></tr>
+<tr><td colspan=2><tt>  yendo a usar un numeric valor, documento el, y hace el un #define para otros para entender que usted esta </tt></td></tr>
+<tr><td colspan=2><tt>  intentando hacer. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">- no pongas "numeros magicos" en tu codigo</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; Si vas a usar un numero como valor, documentalo y haz un #define para otros para entender que </font></tt></td></tr>
+<tr><td colspan=2><tt>  estas tratando de hacer</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; valor numerico queda mejor</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; Si es un numero que un usuario probablemente quiera cambiar, puedes hacerlo tambien como un </font></tt></td></tr>
+<tr><td colspan=2><tt>  valor sysctl(), una opcion desde la linea de comandos, o una opcion del modulo</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; - no pongas un #ifdef en un fichero .c</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; Son permitidos solo en los ficheros .h</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> Usa el pre-procesador para compilar el codigo que no esta configurado y que no usa #ifdef en el body </font></tt></td></tr>
+<tr><td colspan=2><tt>  del codigo para hacer esto</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; :?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; alguna pregunta acerca de esto?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;tiri&gt; Usa el preprocesador para compilar fuera el codigo que no esta configurado dentro, no uses </font></tt></td></tr>
+<tr><td colspan=2><tt>  #ifdef en la cabecera del codigo para hacer esto</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">alguna pregunta?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;snide&gt; QUe hay acerca de #ifdef CONFIG_SMP dentro de mm/slab.c por ejemplo?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> si, en algunos sitios puede ser de ayuda, pero en la mayoria de los casos no lo uses</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Recuerda tambien todas que todas esas reglas son solo guias, tu encontraras sitios donde romper las </font></tt></td></tr>
+<tr><td colspan=2><tt>  reglas, pero trata de seguir las reglas en el 99% de tu codigo</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a"> UNa ultima regla no escrita, usa identificadores labelados para estructuras que utilizaras cuando </font></tt></td></tr>
+<tr><td colspan=2><tt>  compiles</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">and by that I mean the following:</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;@gregkh&gt; struct foo bar = {</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;@gregkh&gt; .a = 24,</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;@gregkh&gt; .b = 42,</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt;@gregkh&gt; };</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">usar el C99 estilo initializers, y no el gnu estilo, como gente esta yendo a traves de el nucleo </font></tt></td></tr>
+<tr><td colspan=2><tt>  completo &lt;@gregkh&gt; y convirtiendose. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">en fin:</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">leer la documentacion/y el estilo del codigo</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">siguiendo</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">scripts/Lident</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">sin usar.. typedef</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">alguna otra pregunta?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">alguna pregunta .. ?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt; snide&gt; como evitar usando #ifdef CONFIG_MI OPCION en un camino practico </font></tt></td></tr>
+<tr><td colspan=2><tt>  entonces [ algun exemple ? ] como un ejemplo, mirar incluir/linux/hiddev.h y </tt></td></tr>
+<tr><td colspan=2><tt>  conductores/usb/entrada/ocultaba_nucleo</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">que obtener compilado fuera si #ifdef CONFIG_USB_HIDDEV no es permitido. </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Yo tambien tengo un papel mas largo que era presentado en ols2002 sobre este </font></tt></td></tr>
+<tr><td colspan=2><tt>  tema en: <a href="http://www.kroah.com/linux/charlas/ols_2002_nucleo_codingstyle_papel/codingsty">http://www.kroah.com/linux/charlas/ols_2002_nucleo_codingstyle_papel/codingsty</a></tt></td></tr>
+<tr><td colspan=2><tt>  le.ps y algun desliza en: <a href="http://www.kroah.com/linux/charlas/ols_2002_nucleo_codingstyl">http://www.kroah.com/linux/charlas/ols_2002_nucleo_codingstyl</a></tt></td></tr>
+<tr><td colspan=2><tt>  e_charla/html/ &lt;@gregkh&gt; &lt; snide&gt; raja tan mejor arriba la .c ficheros ? </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">No, agrietar arriba las funciones, y usar funciones internas estaticas que </font></tt></td></tr>
+<tr><td colspan=2><tt>  hacen nada si la config opcion no es permitida, &lt;@gregkh&gt; entonces en el .c fichero, </tt></td></tr>
+<tr><td colspan=2><tt>  siempre llamada ellas. gcc les compilara fuera a nada si que opcion no es permitida. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">tambien mirar incluir/seguridad.h en el 2.5.51 nucleo, el tiene lotes de </font></tt></td></tr>
+<tr><td colspan=2><tt>  ejemplos de esta si CONFIG_SEGURIDAD no es permitida.</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">&lt; snide&gt; asi usando una funcion que el contenido sera limpiado fuera con un </font></tt></td></tr>
+<tr><td colspan=2><tt>  #ifdef ? En un camino, ver los encima ejemplos para como el trabaja. </tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Porque el, algunas otras preguntas? Si alguien tiene algun mas tarde, sentir </font></tt></td></tr>
+<tr><td colspan=2><tt>  (gratis)libre a (email)correo mi. gregkh: agradece :)</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">en fin .. </font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">Gracias tambien a EMPEROR que a proporcionado una traduccion a español en tiemp </font></tt></td></tr>
+<tr><td colspan=2><tt>  real</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">colorin colorado.. ;)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">si X)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">XD</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">menudo lio que nos armamos antes</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">jijiji</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">que les parecio la conferencia?</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">que despelote de Traduccion</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">4[tiri4] 1gracias.. ;)</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">que programa usaron?</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">dnd</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">tallas que rompen talals ;)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">overflow: nuestro cerebro y un cliente de irc cualquiera</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">:)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">XD</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">si webon..</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">por que decian ".c fichero" ?</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">:S</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">puro copy &amp; paste</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">aunque hubo un pequeño atraso.. ejem.. lorgamos enganchar otra vez</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">al power translator</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">:s</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">LOL</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">dijeron .traductores.. traductores.. lo demas va por ti mano;)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">EMPEROR: si, menos mal que nos dejo tiempo para seguir traduciendo</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">usaron "su cerebro, power traslator, y un cliente de irc cualquiera"</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">no men.. </font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">yo para la siguiente conferencia no podre asistir</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=)</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">a q hora es?</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">tengo mañana examen de lengua (gramatica) X)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">cerebro</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">y una pequeña web ;)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">:p</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">pero igual.. todo esta ahi :D</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">que es lo importante..</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">VicMedina no ibas a traducir tu?</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">yo traduje al principio</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">esto es ayuda de todos.. para que UMEET salga bien.. :)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">tenia que almorzar</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">aqui nadie se gana el premio.. todo el mundo aporta su pedacito de arena.. =)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=) un poquito de ayuda de cada quien</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">gracias VicMedina... un gusto haber trabajado con ud.</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">siento no haber puesto acentos en mis traducciones</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">igual para ud tiri :)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">pero habia que traducir muy rapido</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">xD</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">dnd EMPEROR </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">no te preocupes tiri.. aqui todo el mundo fue a la escuela :p</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">gracias a todos por esta chala</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">EMPEROR: hehe :)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">y por hacerla gratis</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">gracias a la bola!</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>overflow</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">jajaj</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">EMPEROR: queda pendiente las otras</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">hola MJ-usa </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">si ni lo digas :p</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">xDDD</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">aunque ..la del jueves de mi socio no podre traducirsela .. </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">:-( es muy tarde.. pero dejare la pc encendida..para llerla al dia siguiente ;)</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">Yo estaria completamente encantado el sabado de traducir</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">pues hara falta muchos y buenos traductores</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>MJ-usa</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">asi que se esperan voluntarios !</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">aqui estamos de paro</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">asi que ayudo tambien</font></tt></td></tr>
+<tr><th bgcolor="#9b519b"><font color="#ffffff"><tt>SorcereR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#9b519b">alguien esta guardando los logs ?</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>JoelR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">yo me ofrezco</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">yo ayudare en lo que pueda MJesus_ </font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">la traduccion se poine el linea</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">el log completo traducido y corregido</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">ispell / aspell tendran que hacer un trabajo por medio... :)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=) mas unas limpiaditas</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">extras</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">tambien </font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">Victor q pasó q no seguiste?</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">fui a almorzar</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">es en equipos</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">si yo me canso continua otro</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=)</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">jejejej... oka</font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>twin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">hola a todos</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">tiri te vas?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">para los traductores</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">clap clap clap clap clap clap clap clap clap clap</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">MJesus_: nos vemos en la proxima</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">gracias por la oportunidad de ayudar ys e rutil</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">Vic, por supuesto... muchas gracia&nbsp;&nbsp;ati</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">y dentro de poco, hay as oportunidades :))</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">Vic. saludos para ti.. ya nos leeremos ;)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">osea, dentro de dos horas exactamente, es al reves: de español a ingles</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">bueno.. ya termino todo.. </font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">=) si</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">entonces.....</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">se necesita ayuda para limpiar el log?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">lo tienes entero ?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">entero linux y redes ?</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">creo que si</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">cheking...</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">pues no hace falta limpiarlo: lo limpian scrip</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">tambien la tengo toda.. </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">los 2 canales.. </font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">pero si que lo mandaras ahorita mismo, si puedes: a umeet@uninet.edu </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">auqnue hay que prepararlos jeje </font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">no</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">falta un pedazo al comienzo</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">a ver, que mande alguien </font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">de que canal falta ?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">yo tengo .. redes y linux .. en qc no entre </font></tt></td></tr>
+<tr><th bgcolor="#57a657"><font color="#ffffff"><tt>Kefar</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#57a657">que canal VicMedina</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">yo tengo los 3, porsi alguien los necesita...</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">te los puedo mandar, Vic</font></tt></td></tr>
+<tr><th bgcolor="#57a657"><font color="#ffffff"><tt>Kefar</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#57a657">tngo completo #linux</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">los dos</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">qc linux y redes ?</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">linux y redes</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">manda a umeet@uninet.edu por favor</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">faltan como 10-15 lineas al principio</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">los 3 completos (sin limpiar)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">tengo linux y redes sin limpiar...</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">qc no </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">podrian ir avanzando mientras :p</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">FJx que tiene los 3 .... </font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">FJx, si tienes los 3 ..dale..men.. que falta mucha gente por leer.. :) y los temas de conferencias </font></tt></td></tr>
+<tr><td colspan=2><tt>  ..mientras mas rapidos se expongan mejor..</tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">ademas.. sin limpiar.. </font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>VicMedina</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">FJx: freddy pasamelos a mi tambien pana</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">dale, sure</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>MJesus_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">y estan muy sucios ??</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">ya va, un pelo pls...</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>EMPEROR</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">enseguida estoy de vuelta :p</font></tt></td></tr>
+</table>
+
+<br>Generated by irclog2html.pl by <a href="mailto:jdub@NOSPAMaphid.net">Jeff Waugh</a>
+ - find it at <a href="http://freshmeat.net/appindex/2000/03/28/954251322.html">freshmeat.net</a>!
+</tt>
+</body>
+</html>

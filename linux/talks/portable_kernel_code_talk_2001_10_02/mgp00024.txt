@@ -1,0 +1,16 @@
+
+
+
+Writing Portable Linux Drivers
+
+
+
+October 2, 2001
+
+
+Greg Kroah-Hartman
+
+gregkh@us.ibm.com
+greg@kroah.com
+
+

@@ -1,0 +1,14 @@
+
+I want a stable API
+
+user - kernel API
+does not break
+
+in-kernel API
+changes daily
+
+Out-of-the-tree drivers
+get the code into the kernel tree
+
+Binary drivers
+illegal

@@ -1,0 +1,14 @@
+
+When will 2.7 happen?
+
+
+Big intrusive patches that break everything
+page clustering
+timer core rewrite
+
+All 2.6 changes will be merged into 2.7, daily
+
+If 2.7 is unworkable, we delete it
+
+If 2.7 works, we merge to 2.6, or call it 2.8?
+

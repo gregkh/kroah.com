@@ -1,0 +1,23 @@
+linux.conf.au 2003
+File operations
+
+
+
+        /* file ops for the "power" files */
+        static struct file_operations power_file_operations = {
+                .read =         power_read_file,
+                .write =        power_write_file,
+                .open =         default_open,
+                .llseek =       generic_file_llseek,
+        };
+
+
+        static int default_open (struct inode *inode, struct file *file)
+        {
+                if (inode->u.generic_ip)
+                        file->private_data = inode->u.generic_ip;
+
+                return 0;
+        }
+
+

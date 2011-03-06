@@ -1,0 +1,19 @@
+
+Find the endpoint
+
+
+
+gotemp_probe():
+
+        /* find the one control endpoint of this device */
+        endpoint = &interface->cur_altsetting->endpoint[0].desc;
+
+        buffer_size = le16_to_cpu(endpoint->wMaxPacketSize);
+
+        gdev->int_in_buffer = kmalloc(buffer_size, GFP_KERNEL);
+        if (!gdev->int_in_buffer) {
+                dev_err(&interface->dev,
+                        "Could not allocate buffer\n");
+                goto error;
+        }
+

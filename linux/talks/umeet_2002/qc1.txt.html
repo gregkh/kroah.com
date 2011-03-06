@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>#qc.log</title>
+	<meta name="generator" content="irclog2html.pl by Jeff Waugh">
+	<meta name="version" content="Version 0.9 - 5th April 2000">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body text="#000000" bgcolor="#ffffff"><tt>
+<table cellspacing=3 cellpadding=2 border=0>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">Are the rules because Linus wants them that way or are they based on something else?</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">and class if you use c++ i suppose</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">13min too late ;-(</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">although c++ is not used at kernel :-)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">the proper way to break a too long line</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>riel_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">jmgv: the kernel is object oriented in places, for example the VFS</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>riel_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">jmgv: but as Alan said it very nicely, object orientation is in the mind, not in the compiler</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">how mandatory are these rules. I mean,... if i send a patch to be include at kernel, and i use 4 space </font></tt></td></tr>
+<tr><td colspan=2><tt>  tab instead 8 space ones, is it mean the patch could be back to me for that reason?</tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">riel_ okey i see</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>riel_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">jmgv: imagine a driver with 4 different programming styles in one .c file ;)</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>mulix</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">how about patches to clean up the coding style of old drivers?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>mulix</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">are those a waste of time, or appreciated?</font></tt></td></tr>
+<tr><th bgcolor="#8c4a4a"><font color="#ffffff"><tt>mulix</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#8c4a4a">drivers/net/eepro100.c comes to mind...</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">riel_ i see :-) it will be a curious kaos</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">what about the unicity of the different function names all over the code ? is it a good thing, a bad </font></tt></td></tr>
+<tr><td colspan=2><tt>  thing, a have-to ?</tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>bh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">uniqueness maybe?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">yes</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sorry about my english...</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">no problem.</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">so, how about typedef? :)</font></tt></td></tr>
+<tr><th bgcolor="#9b519b"><font color="#ffffff"><tt>davej</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#9b519b">(unless you're ingo)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">why it so evil</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>viXard</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">umm, sorry</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>viXard</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">you meant evil?</font></tt></td></tr>
+<tr><th bgcolor="#a25555"><font color="#ffffff"><tt>boren</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#a25555">hey what about typedef for function pointer definitions?&nbsp;&nbsp;</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">got it</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">what is bad about passing structures as parameters?</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">the stacksize?</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">zanshin: the kernel stack is only 8k...</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">got disconnected sorry [ could someone be kind and msg me the reply -if there where any- ]</font></tt></td></tr>
+<tr><th bgcolor="#4b904b"><font color="#ffffff"><tt>bh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4b904b">you can pass a pointer to the structure, which saves memory, I think</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">k thanks</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">snide: 10:25 &lt;@gregkh:#linux&gt; yes, pick your function names well, and don't make them global unless </font></tt></td></tr>
+<tr><td colspan=2><tt>  they have to be.</tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sarnold: thx</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">any other questions while the translation catches up?</font></tt></td></tr>
+<tr><th bgcolor="#488888"><font color="#ffffff"><tt>riel_</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#488888">sorry about the little split</font></tt></td></tr>
+<tr><th bgcolor="#57a657"><font color="#ffffff"><tt>tiri</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#57a657">It doesn't matter</font></tt></td></tr>
+<tr><th bgcolor="#539e9e"><font color="#ffffff"><tt>viXard</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#539e9e">gregkh you can continue :-)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">btw, how to make a function "global" ? put in in a .h ? or EXPORT ?</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>cdub</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">snide: global within kernel...non static definition in a c file, and an extern in a .h is good enough.</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">but what about #ifdef CONFIG_SMP inside mm/slab.c for exemple</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>cdub</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">EXPORT_SYMBOL is needed if you want modules to be able to use it</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">oops, i'm getting quoted too much...</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">;-)</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">is that the same as: struct foo = {</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">read: func(),</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">}</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">zanshin, that is the GNU version... it is deprecated in favour of the new style..</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>cdub</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">zanshin: yes</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">how to avoid using #ifdef CONFIG_MYOPTION in a practical way then [ any exemple ? ]</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">ah okay</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">any reason for that... just curious.</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">the newer format was standardized in C99.. why they didn't just take the GNU format, I have no idea. :)</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>cdub</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">zanshin: gcc deprepated the use.&nbsp;&nbsp;you get warnings with newer compilers</font></tt></td></tr>
+<tr><th bgcolor="#407a40"><font color="#ffffff"><tt>zanshin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#407a40">I see</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">so better split up the .c files ? </font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">so using a function that the content will be wiped out with an #ifdef ?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gregkh: u should continue the talk, i don't want to hog u ;-)</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">snide: that's it, I'm done unless there are more questions :)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gregkh: ok ;-) so, i'll go through the URL and files that u pointed at</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">one question</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">sure.</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">if i think i can contribute with some other rules i think can improve the code style or....</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gregkh: thx a lot</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">i think one of them can be changed, where i can send my arguments?</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">jmgv: to the linux kernel mailing list, but be prepared to back them up :)</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">:-) okey </font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">jmgv: you aren't going to convince them to switch to C++ :)</font></tt></td></tr>
+<tr><th bgcolor="#5959a9"><font color="#ffffff"><tt>cdub</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5959a9">heh</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sarnold: maybe C# then&nbsp;&nbsp;;-)) </font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">i am starting to be convinced to switch to C :-)</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>raciel</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">hehe, C# would be an option! :)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sarnold: (in link with the Mono talk we had)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">gregkh: just one more</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">&gt; Some notes:</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">&gt; - coding style: linux functions usually have only one return at the end</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">&gt; of the function, and goto internally.</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">see this on the LKML</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">jmgv: C is rather unfrienldy, but it does much less magic behind ur back than C++ ;-) and that's good </font></tt></td></tr>
+<tr><td colspan=2><tt>  for an OS [ IHMO ]</tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">saw</font></tt></td></tr>
+<tr><th bgcolor="#42427e"><font color="#ffffff"><tt>jmgv</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#42427e">snide: sure! </font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">gcc: ah, good point, I'll add that one to my list.&nbsp;&nbsp;It's a good thing to do.</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gcc: it's easier to track the exit point that way ;-)</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">snide: yeah, i allways use this, but always have some one saying that goto is lame</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">although my C professor would jump if he sees a "goto" ;-)</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>raciel</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">gregkh: can you explain me what is data alignment and show me some example of that?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gcc: goto is good if it help to follow a up-down algorithm path</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">raciel: data alignment, like padding or packing data structures?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gcc: quoted from Rusty's inline kernel docbooks</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">;-)</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>raciel</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">gregkh: packing data structures</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: will there be a bibliography web page on the web site ?</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">mmmm</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">there will be whichever the authors provide</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">of course, any links and references provided during the talk will be in the logs</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: sure, but i thought about a web page with all the links collected ;-)</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">raciel: hold on, I have a good reference for that...</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>raciel</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">ok </font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">colledcted or extracted ?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: a page that one can bookmark ;-p</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">raciel: see <a href="http://www.linuxjournal.com/article.php?sid=5783">http://www.linuxjournal.com/article.php?sid=5783</a> for all about that.</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: extracted [ my english is poor ;-( ]</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">mine is also poor</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: seems better than mine ;-p</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">but i do not understand well</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">you are meaning a page with the links of this talk ?</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: u got the point ;-)</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">i don't think so</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">but it sounds as a good idea</font></tt></td></tr>
+<tr><th bgcolor="#5fb4b4"><font color="#ffffff"><tt>twin</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#5fb4b4">hola a todos</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">maybe we should think about it</font></tt></td></tr>
+<tr><th bgcolor="#b86161"><font color="#ffffff"><tt>FJx</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b86161">gregkh, this is a little off-topic question but... can you recommend me any good begginer's book for </font></tt></td></tr>
+<tr><td colspan=2><tt>  Programming in Linux? or just plain ANSI C?</tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">it shouldn't be difficult to extract them</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: i know there isn't one here yet ;-) but i wondered if it is something that will appear ;-p</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">we'l try</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">fernand0: i'll even do it if u want [ by hand, since it's not a HUGE task ;-p ]</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">well, got to work...</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">but just in case ... dowload the logs and grep http the_log.html</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">hehe</font></tt></td></tr>
+<tr><th bgcolor="#854685"><font color="#ffffff"><tt>gcc</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#854685">gregkh: thanks for the lecture... very nice..</font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">gcc: no problem, was fun.&nbsp;&nbsp;you all were an easy audience :)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gcc: yeah, the talks are of a really good quality ;-p</font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps">http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_paper/codingstyle.ps</a> </font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f"><a href="http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_talk/html/">http://www.kroah.com/linux/talks/ols_2002_kernel_codingstyle_talk/html/</a></font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">those are the two urls gregkh mentioned :)</font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">gregkh: execpt me ;-p [ ways too much questions ]</font></tt></td></tr>
+<tr><th bgcolor="#adad5b"><font color="#ffffff"><tt>raciel</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#adad5b">gregkh: other question, what technics do you use to debug your code? kdb? printk..? </font></tt></td></tr>
+<tr><th bgcolor="#97974f"><font color="#ffffff"><tt>sarnold</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#97974f">snide: i didn't think so... one nice feature of IRC conferences is that one can reach high levels of </font></tt></td></tr>
+<tr><td colspan=2><tt>  interactions</tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">there's also other assorted ramblings that I've written lined off of <a href="http://www.kroah.com/linux/">http://www.kroah.com/linux/</a></font></tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sarnold: ow... another valuable URL ;-p </font></tt></td></tr>
+<tr><th bgcolor="#4d4d93"><font color="#ffffff"><tt>gregkh</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#4d4d93">raciel: printk mostly.&nbsp;&nbsp;haven't had to use a debugger yet, I do drivers, so debuggers don't help out </font></tt></td></tr>
+<tr><td colspan=2><tt>  all that much at times with hardware.</tt></td></tr>
+<tr><th bgcolor="#818144"><font color="#ffffff"><tt>snide</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#818144">sarnold: yeah. it's the first IRC conf i'm doing, and it is wonderful ;-p</font></tt></td></tr>
+<tr><th bgcolor="#b15db1"><font color="#ffffff"><tt>fernand0</tt></font></th><td width="100%" bgcolor="#eeeeee"><tt><font color="#b15db1">leaving</font></tt></td></tr>
+</table>
+
+<br>Generated by irclog2html.pl by <a href="mailto:jdub@NOSPAMaphid.net">Jeff Waugh</a>
+ - find it at <a href="http://freshmeat.net/appindex/2000/03/28/954251322.html">freshmeat.net</a>!
+</tt>
+</body>
+</html>

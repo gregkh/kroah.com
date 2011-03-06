@@ -1,0 +1,21 @@
+
+USB event environment
+
+argv[0] = hotplug_path
+argv[1] = usb
+argv[2] = 0
+
+HOME = /
+PATH = /sbin:/bin:/usr/sbin:/usr/bin
+PRODUCT = idVendor/idProduct/bcdDevice
+TYPE = device_class/device_subclass/device_protocol
+ACTION = action
+
+if device_class == 0 then
+INTERFACE = class/subclass/protocol
+
+
+action=(add|remove)
+
+red is actual values
+green is replaced with runtime information

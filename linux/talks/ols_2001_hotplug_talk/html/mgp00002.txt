@@ -1,0 +1,8 @@
+
+Kernel modules now "just work"
+
+
+No more manual configuration
+
+Automatic module loading on demand
+

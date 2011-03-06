@@ -1,0 +1,12 @@
+
+Help ksymoops out
+
+
+mkdir /var/log/ksymoops
+
+Every time a module is loaded /proc/ksymsand /proc/modules is copied there.
+
+-k /var/log/ksymoops/<date>.ksyms
+
+-l /var/log/ksymoops/<date>.modules
+

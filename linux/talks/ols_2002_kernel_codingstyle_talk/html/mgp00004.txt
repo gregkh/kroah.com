@@ -1,0 +1,18 @@
+
+Proven to matter
+
+
+Soloway & Ehrlich:
+     It is not merely a matter of aesthetics that programs
+     should be written in a particular style.  Rather there
+     is a psychological basis for writing programs in a
+     conventional manner: programmers have strong
+     expectations that other programmers will follow these
+     discourse rules.  If the rules are violated, then the
+     utility afforded by the expectations that programmers
+     have built up over time is effectively nullified.
+
+In short, consistency matters.
+
+Lots of other research backs this up.
+

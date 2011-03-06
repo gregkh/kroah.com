@@ -1,0 +1,726 @@
+%%  Documentation/CodingStyle and beyond...
+%%  OLS 2002 talk
+%%  Copyright 2002 Greg Kroah-Hartman
+%%  <greg@kroah.com>
+%%  <gregkh@us.ibm.com>
+%%  Released under the GNU FDL
+%%
+%% use our own settings
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 2, fore "white", back "black", font "thick"
+%default 2 size 7, vgap 10, prefix " "
+%default 3 size 2, bar "gray70", vgap 10
+%default 4 size 5, fore "white", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 5, vgap 40, prefix "  ", icon arc "green" 40
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "yellow" 50
+%tab 3 size 3.5, vgap 40, prefix "            ", icon delta3 "white" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+%font "typewriter"
+Documentation/CodingStyle
+%font "standard", size 5
+and beyond...
+%size 4
+
+
+
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Disclaimer
+
+
+	There is no disclaimer!
+
+	If your code is used as a bad example, go fix it!
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Why care?
+
+
+	"Code formatting doesn't matter."
+
+	"Why is your style better than mine?"
+
+	"Doesn't affect compiled size."
+
+	"Doesn't affect execution speed."
+
+	"K&R style is out of date."
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Proven to matter
+
+
+	Soloway & Ehrlich:
+%size 4
+     It is not merely a matter of aesthetics that programs
+     should be written in a particular style.  Rather there
+     is a psychological basis for writing programs in a
+     conventional manner: programmers have strong
+     expectations that other programmers will follow these
+     discourse rules.  If the rules are violated, then the
+     utility afforded by the expectations that programmers
+     have built up over time is effectively nullified.
+
+	In short, consistency matters.
+
+	Lots of other research backs this up.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+"many eyes"
+
+
+	I want to read your code.
+
+	I want you to read my code.
+
+	I want you to fix my bugs.
+
+	I want you to change my code.
+
+	I want to build on your code.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Style affects productivity
+
+
+	Lets people focus on substance, not style.
+
+	We need productive kernel programmers!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+So what are the rules?
+
+
+
+
+%font "typewriter", size 7
+   Documentation/CodingStyle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Indentation
+
+
+	Use tabs.
+
+	All tabs are 8 characters.
+
+	If your code is indenting too deeply, fix the code.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Indentation - examples
+
+
+	Bad: 
+%font "typewriter"
+		fs/devfs/*
+		drivers/scsi/sg.c
+%size 3.60
+                for (m = 0; (srp = sg_get_nth_request(fp, m)); ++m) {
+                    hp = &srp->header;
+                    new_interface = (hp->interface_id == '\0') ? 0 : 1;
+/* stop indenting so far ... */
+        ...
+        if (srp->done)
+            PRINT_PROC(" dur=%d", hp->duration);
+        ...
+/* reset indenting */
+                }
+
+%font "standard"
+	Good: 
+%font "typewriter"
+		fs/*
+		kernel/*
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Braces
+
+
+	Opening brace last on the line.
+
+	Closing brace first on the line:
+%font "typewriter"
+      if (x is true) {
+              we do y
+      }
+%font "standard"
+
+	Exception for functions:
+%font "typewriter"
+      int function(int x)
+      {
+              body of function
+      }
+%font "standard"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Braces - examples
+
+
+	Bad: 
+%font "typewriter"
+		fs/devfs/*
+%size 3.60
+            if (type == DEVFS_SPECIAL_CHR)
+            {
+                semaphore = &char_semaphore;
+                list = &char_list;
+            }
+            else
+            {
+                semaphore = &block_semaphore;
+                list = &block_list;
+            }   
+%font "standard"
+
+	Good: 
+%font "typewriter"
+		kernel/*.c
+		drivers/scsi/qla1280.c
+%font "standard"
+			thanks to Jes Sorensen
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Automatic code fixer
+
+
+
+
+%font "typewriter", size 7
+           scripts/Lindent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Variable and Function Naming
+
+
+	Be descriptive.
+
+	Be concise.
+
+	No MixedCase.
+
+	No encoding the type within the name.
+
+	Global variables only when necessary.
+
+	Local variables short and to the point.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Naming - examples
+
+
+	Bad: 
+%font "typewriter"
+		CommandAllocationGroupSize
+		DAC960_V1_EnableMemoryMailboxInterface()
+		loop_counter
+
+		drivers/bock/DAC960.*
+%font "standard"
+
+	Good: 
+%font "typewriter"
+		cmd_group_size
+		enable_mem_mailbox()
+		i
+
+		fs/*.c
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Functions
+
+
+	Do one thing, and do it well.
+
+	Short, one or two screens of text.
+
+	OK to have longer function doing small different things.
+
+	If more than 10 local variables, too complex.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Functions - examples
+
+
+	Bad: 
+%font "typewriter"
+		drivers/hotplug/ibmphp_res.c
+			ibmphp_check_resource()
+%cont, font "standard"
+ has 370 lines
+
+%font "typewriter"
+		drivers/usb/serial/usbserial.c
+%font "standard"
+			usb_serial_probe()
+%cont, font "standard"
+ has 21 local variables
+
+
+	Good: 
+%font "typewriter"
+		fs/*.c
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Comments
+
+
+	Good to have, but must be done correctly.
+
+	Bad comments:
+		explain how code works
+		say who wrote the function
+		have last modified date
+		have other trivial things
+
+	Good comments:
+		explain what
+		explain why
+		should be at beginning of function
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Comment format
+
+
+	Kernel-doc, variant of GNOME-doc
+
+	Creates standalone documentation
+%font "typewriter"
+		make psdocs
+		make htmldocs
+
+	Documentation/kernel-doc-nano-HOWTO.txt
+	scripts/kernel-doc
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Function Comment
+
+
+%font "typewriter"
+    /**
+     * my_function - does my stuff
+     * @my_arg: my argument 
+     *
+     * Does my stuff explained.
+     */
+    void my_function (int my_arg)
+    {
+            ...
+    }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Structure Comment
+
+
+%font "typewriter"
+    /**
+     * struct my_struct - short description
+     * @a: first member
+     * @b: second member
+     *
+     * Longer description
+     */
+    struct my_struct {
+            int a;
+            int b;
+    };
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Comments - examples
+
+
+	Bad: 
+%font "typewriter"
+		arch/i386/kernel/mtrr.c
+%font "standard"
+			mix of old and new style comments
+
+%font "typewriter"
+		drivers/scsi/pci2220i.c
+%font "standard"
+			how to 
+%cont, size 4, fore "red"
+NOT
+%cont, size 3.5, fore "white"
+ create function comment blocks
+
+
+	Good: 
+%font "typewriter"
+		drivers/usb/core/*.c
+
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Data Structure requirements
+
+
+	Use reference counting:
+
+        "If another thread can find your data 
+         structure, and you do not have a
+         reference count on it, you almost 
+         certainly have a bug."
+
+	See 
+%cont, font "typewriter", size 4.5
+Documentation/DocBook/kernel-locking.sgml
+
+%font "typewriter"
+	struct sk_buff
+	struct urb
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Unwritten rules
+
+
+	Use code that is already present
+
+		string functions
+
+		byte order functions
+
+		linked lists
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+
+
+
+%size 11
+
+
+%font "typewriter"
+typedef
+%cont, font "standard"
+ is 
+%cont, fore "red"
+evil
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+evil evil evil!
+
+
+	It hides the real type of the variable.
+
+	Allows programmers to get into trouble:
+		large structures on the stack
+		large structures passed as return values
+
+	Can hide long structure definitions:
+		pick a better name
+
+%font "typewriter"
+	typedef
+%cont, font "standard"
+ just to signify a pointer type?
+		could you be lazier?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Well, mostly evil
+
+
+	Base system types
+%font "typewriter"
+		u8, u16, u32, u64, 
+%cont, font "standard"
+ etc.
+%font "typewriter"
+		dev_t
+		list_t
+
+%font "standard"
+	Function pointers
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+typedef - examples
+
+
+	Bad: 
+%font "typewriter"
+		include/raid/md*.h
+%font "standard"
+			every structure has a typedef assigned to it
+
+%font "typewriter"
+		drivers/acpi/include/*.h
+%font "standard"
+			some structures do not have a name, only a 
+%cont, font "typewriter"
+typedef
+
+		drivers/usb/host/usb-uhci.h
+%size 3.5
+             typedef struct {
+                     __u32 link;
+                     __u32 status;
+                     __u32 info;
+                     __u32 buffer;
+             } uhci_td_t, *puhci_td_t;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No magic numbers
+
+
+	A "non-obvious" value that is hard coded
+
+	Fortunately, not many instances
+
+%font "typewriter"
+		drivers/usb/serial/pl2303.c
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No #ifdef in .c files
+
+
+%font "typewriter"
+	#ifdef
+%cont, font "standard"
+ belongs in .h file
+
+	Let the compiler do the work
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No #ifdef in .c files - example
+
+
+%font "standard"
+	Before:
+%font "typewriter"
+		drivers/usb/hid_core.c
+
+%font "typewriter", size 3
+ static void hid_process_event (struct hid_device *hid, struct hid_field *field,
+                                   struct hid_usage *usage, __s32 value)
+ {
+         hid_dump_input(usage, value); 
+         if (hid->claimed & HID_CLAIMED_INPUT)
+                 hidinput_hid_event(hid, field, usage, value);
+ #ifdef CONFIG_USB_HIDDEV
+         if (hid->claimed & HID_CLAIMED_HIDDEV)
+                 hiddev_hid_event(hid, usage->hid, value);
+ #endif
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No #ifdef in .c files - example
+
+%font "standard"
+	After:
+%font "typewriter"
+		include/linux/hiddev.h
+%font "typewriter", size 3
+ #ifdef CONFIG_USB_HIDDEV
+         extern void hiddev_hid_event (struct hid_device *, unsigned int usage,
+                                           int value);
+ #else
+         static inline void hiddev_hid_event (struct hid_device *hid,
+                                                   unsigned int usage, int value)
+                                                  { }
+ #endif
+
+		drivers/usb/hid_core.c
+%font "typewriter", size 3
+ static void hid_process_event (struct hid_device *hid, struct hid_field *field,
+                                   struct hid_usage *usage, __s32 value)
+ {
+         hid_dump_input(usage, value); 
+         if (hid->claimed & HID_CLAIMED_INPUT)
+                 hidinput_hid_event(hid, field, usage, value);
+         if (hid->claimed & HID_CLAIMED_HIDDEV)
+                 hiddev_hid_event(hid, usage->hid, value);
+ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Labeled identifiers explained
+
+
+%font "typewriter"
+       struct foo {
+               int a;
+               int b;
+       };
+
+%font "standard"
+	Old way:
+%font "typewriter"
+       static struct foo bar =
+               {A_INIT, B_INIT};
+
+%font "standard"
+	Labeled way:
+%font "typewriter"
+       static struct foo bar = {
+               a:  A_INIT,
+               b:  B_INIT,
+       };
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Labeled identifiers
+
+
+	Use them in initializers
+
+	Keeps structure changes from breaking code
+
+	If a field is not specified, it is set to zero
+
+	Easier to search for
+
+	Automatic documentation
+
+	OK to use C99 style
+%font "typewriter"
+              .a = A_INIT,
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Labeled identifiers - examples
+
+
+%font "typewriter"
+	struct file_operations
+%font "standard"
+		if fields are not set, default VFS operations are used
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Conclusions
+
+
+	Read 
+%cont, font "typewriter"
+Documentation/CodingStyle
+%cont, font "standard"
+.
+
+	Follow it.
+
+	Use 
+%cont, font "typewriter"
+scripts/Lindent
+%cont, font "standard"
+.
+
+	Do not use 
+%cont, font "typewriter"
+typedef
+%cont, font "standard"
+.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Trademarks
+
+
+		Linux is a registered trademark of Linus Torvalds.
+
+		IBM is a registered trademark of International Business Machines Corporation in the United States and/or other countries.
+
+		Other company, product, and service names may be trademarks or service marks of others.
+
+		This work represents the view of the author and does not necessarily represent the view of IBM.
+
+		But this screen does.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "standard", fore "white", center
+
+
+
+%font "typewriter"
+Documentation/CodingStyle
+%font "standard", size 5
+and beyond...
+%size 4
+
+
+
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+greg@kroah.com
+gregkh@us.ibm.com
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,17 @@
+
+What really happened
+
+       /sys/class/input/
+       |-- event0 -> ../../class/input/input0/event0
+       |-- event1 -> ../../class/input/input1/event1
+       |-- input0
+       |   |-- event0
+       |   `-- mouse0
+       |-- input1
+       |   |-- event1
+       |   |-- mouse1
+       |   `-- ts0
+       |-- mice
+       |-- mouse0 -> ../../class/input/input0/mouse0
+       |-- mouse1 -> ../../class/input/input1/mouse1
+       `-- ts0 -> ../../class/input/input1/ts0

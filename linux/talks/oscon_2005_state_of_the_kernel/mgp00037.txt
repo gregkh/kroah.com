@@ -1,0 +1,13 @@
+
+The near future
+
+Xen
+FUSE
+plan 9 filesystem
+reiser4
+OCFS2
+GFS
+working suspend
+new timer handling
+"real-time"
+easier to use kernel APIs

@@ -1,0 +1,20 @@
+
+PCI event environment
+
+argv[0] = hotplug_path
+argv[1] = pci
+argv[2] = 0
+
+HOME = /
+PATH = /sbin:/bin:/usr/sbin:/usr/bin
+PCI_CLASS = class_code
+PCI_ID = vendor:device
+PCI_SUBSYS_ID = subsystem_vendor:subsystem_device
+PCI_SLOT_NAME = slot_name
+ACTION = action
+
+
+action=(add|remove)
+
+red is actual values
+green is replaced with runtime information

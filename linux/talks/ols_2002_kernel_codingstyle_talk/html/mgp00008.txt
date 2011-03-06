@@ -1,0 +1,10 @@
+
+Indentation
+
+
+Use tabs.
+
+All tabs are 8 characters.
+
+If your code is indenting too deeply, fix the code.
+

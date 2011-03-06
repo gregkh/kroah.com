@@ -1,0 +1,11 @@
+
+Well, mostly evil
+
+
+Base system types
+u8, u16, u32, u64,  etc.
+dev_t
+list_t
+
+Function pointers
+

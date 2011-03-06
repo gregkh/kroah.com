@@ -1,0 +1,17 @@
+
+Other tips - cont
+
+
+Constant strings
+bad:
+             [const] char *foo = "blah";
+good:
+             [const] char foo[] = "blah";
+
+Don't use *sleep_on() as it is racy.
+Use wait_queue or schedule_timeout() instead.
+
+Don't use udelay() for long periods of time.
+
+Use kernel-doc style comments for your public functions and data structures
+See Documentation/kernel-doc-nano-HOWTO.txt

@@ -1,0 +1,9 @@
+
+Patch penguin lkml flame fest
+
+
+release 2.5.3, Feb 2, 2002
+
+BitKeeper is now used by Linus
+
+License weenies get their panties in a bind

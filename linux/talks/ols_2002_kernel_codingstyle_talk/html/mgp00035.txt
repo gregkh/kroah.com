@@ -1,0 +1,11 @@
+
+Conclusions
+
+
+Read Documentation/CodingStyle.
+
+Follow it.
+
+Use scripts/Lindent.
+
+Do not use typedef.

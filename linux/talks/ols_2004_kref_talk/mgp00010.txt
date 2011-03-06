@@ -1,0 +1,9 @@
+
+3 rules of use
+
+
+kref_get() before giving to others
+
+after kref_put() do not touch
+
+serialize last expected kref_put()

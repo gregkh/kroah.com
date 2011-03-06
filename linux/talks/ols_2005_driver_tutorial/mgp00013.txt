@@ -1,0 +1,24 @@
+
+Device specific structure
+
+static int gotemp_probe(struct usb_interface *interface,
+                        const struct usb_device_id *id)
+{
+        struct usb_device *udev = interface_to_usbdev(interface);
+        struct gotemp *gdev;
+
+        gdev = kmalloc(sizeof(struct gotemp), GFP_KERNEL);
+        if (gdev == NULL) {
+                dev_err(&interface->dev, "Out of memory\n");
+                return -ENOMEM;
+        }
+        memset(gdev, 0x00, sizeof(*gdev));
+
+        gdev->udev = usb_get_dev(udev);
+
+        usb_set_intfdata(interface, gdev);
+
+        dev_info(&interface->dev, "USB GoTemp device now attached\n");
+        return 0;
+}
+

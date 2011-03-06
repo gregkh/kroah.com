@@ -1,0 +1,15 @@
+
+How to do it wrong
+
+
+The patch is over there on sf.net
+
+Submit the patch, and then disappear
+
+Ignore any comments
+Our code is wonderful, there's nothing that needs to be changed
+
+Act superior
+We know how to write drivers
+
+

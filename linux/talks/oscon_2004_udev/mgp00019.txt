@@ -1,0 +1,15 @@
+
+Where is it?
+
+
+in your distro
+
+source:
+        kernel.org/pub/linux/utils/kernel/hotplug/
+
+BitKeeper tree:
+        bk://kernel.bkbits.net/gregkh/udev/
+
+mailing list:
+        linux-hotplug-devel@lists.sourceforge.net
+

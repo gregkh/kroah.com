@@ -1,0 +1,633 @@
+%% use our own settings
+#%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+#%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+#%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+#%deffont "typewriter"	xfont "monospace:bold"
+%deffont "typewriter"	xfont "bitstream vera sans mono:bold"
+#%deffont "typewriter"	xfont "bitstream vera sans mono:style=Bold"
+#%deffont "typewriter"	xfont "bitstream vera sans mono"
+%deffont "email"	xfont "bitstream vera sans mono"
+#%deffont "typewriter"	xfont "bitstream sans mono"
+%deffont "standard"	xfont "bitstream charter:style=Bold"
+#%deffont "standard"	xfont "baramond:style=Bold"
+#%deffont "standard"	xfont "P22 Typewriter"
+#%deffont "standard"	xfont "bitstream vera sans"
+#%deffont "standard"	xfont "monospace"
+%deffont "title"	xfont "P22 Typewriter"
+%deffont "knife"	xfont "Knifefight"
+#%deffont "thick"	xfont "bitstream vera sans:bold"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 leftfill, size 1, fore "black", back "white"
+%default 2 size 7.8, vgap 10, prefix " ", fore "black", font "title"
+#%default 3 size 2, bar "gray70", vgap 10, fore "black"
+%default 3 size 2, bar "steel blue", vgap 10, fore "black"
+#%default 4 size 4, fore "white", vgap 10, prefix " ", font "standard", fore "black"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 6.5, font "standard", vgap 20, prefix "   ", icon arc "steel blue" 40
+%tab 2 size 5.0, font "standard", vgap 20, prefix "           ", icon arc "sea green" 50
+%tab 3 size 3.5, font "standard", vgap 20, prefix "                     ", icon arc "violet red" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%fore "black", back "white", center
+%size 16, font "title"
+State of the
+Linux Kernel
+%size 1
+
+
+
+
+
+
+
+%size 5.5
+Yes, we really know what we are doing...
+%font "standard", size 6
+%size 6
+
+
+Greg Kroah-Hartman
+%size 5
+Novell - SuSE Labs
+%size 4
+%font "email"
+gregkh@suse.de
+%font "standard"
+OSCON 2005
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Conclusion
+
+	No more "stable" kernel series
+
+	-stable releases are working
+
+	What you can do:
+		Test the -rc kernels
+		Test the -mm kernels
+
+	No stable in-kernel API.
+
+	Everything subject to change
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+#%fore "black", back "white", left
+%fore "red", back "white", left
+
+%size 7.75, font "standard"
+
+  "Open-source development violates
+   almost all known management
+   theories."
+
+%fore "black", left
+%size 6
+          - Marietta Baba,
+            Dean of the College of Social Science,
+            Michigan State University
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+The past
+
+
+	Even-numbered kernels were 'stable'
+		1.0, 1.2, 2.0, 2.2, 2.4
+
+	Odd-numbered were 'development'
+		1.1, 1.3, 2.1, 2.3, 2.5...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Old development cycle
+
+
+	Start a new development series
+	Feed in patches for some time
+	Freeze features, only accept fixes
+	Wait for things to stabilize
+	Release a new stable series
+	Start over
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+The nightmare that was 2.4
+
+	VM rewrite in 2.4.9
+
+	Distros wanted 2.5 features
+
+	Backport hell
+
+	"enterprise kernels"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+developer structure
+
+#
+#	Core maintainer
+#
+#	Subsystem maintainers
+#
+#	Driver / file maintainers
+#
+#	Developers
+%center
+%newimage -xyscrzoom 80 80 "kernel_devel_flow.eps"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+pre BitKeeper
+
+
+	maintainer send patches to Linus
+
+	wait for next release to see if accepted
+
+	resend any dropped patches
+
+	lather, rinse, repeat
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Patch penguin flame fest
+
+
+	release 2.5.3, Feb 2, 2002
+
+	BitKeeper is now used by Linus
+
+	License weenies went apeshit
+#get their panties in a bind
+%pause
+		They were right
+		But Linux is better for not listening to them
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What BitKeeper changed
+
+	Nightly snapshots of Linus's tree
+
+	Emails of all individual changes
+
+	Faster feedback cycle
+
+	Linus trusts the maintainers now
+
+	Now know what tools work
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.0 December 17, 2003
+
+	680 days of development
+
+	27149 different patches
+
+	1.66 patches per hour
+
+	15,007 files
+
+	5,929,913 lines of code
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Stabilization time
+
+	2.6.1 - January 9, 2004
+		 40,596 lines added  50,838 removed
+
+	2.6.2 - February 3, 2004
+		177,655 lines added  88,369 removed
+
+	2.6.3 - February 17, 2004
+		141,924 lines added  94,321 removed
+
+	2.6.4 - March 10, 2004
+		192,361 lines added  143,740 removed
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Stabilization time ???
+
+	2.6.5 - April 3, 2004
+		101,535 lines added   56,991 removed
+
+	2.6.6 - May 9, 2004
+		173,049 lines added  104,312 removed
+
+	2.6.7 - June 16, 2004
+		175,409 lines added  157,607 removed
+
+	2.6.8 - August 13, 2004
+		250,569 lines added  153,188 removed
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Kernel Summit 2004
+
+
+	8 months of 2.6 development
+
+	1,253,098 lines added
+
+	849,366 lines removed
+
+	~ 1/3 kernel touched
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+It was decreed
+
+
+	No separate development branch
+
+	Everything goes into 2.6
+
+	-mm is for testing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+We merrily go along
+
+
+	2.6.9 - October 18, 2004
+		260,926 lines added  131,570 removed
+
+	2.6.10 - December 24, 2005
+		322,353 lines added  289,814 removed
+
+#	2.6.11 - March 4, 2005
+#		297,259 lines added  168,725 removed
+#
+#patch-2.6.12    5,445 files changed, 337092 insertions(+), 183305 deletions(-)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Not working out
+
+
+	Too long between kernel releases
+
+	Too much unchecked change
+
+	Loosing users trust
+
+	Security updates?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Need to fix this
+
+
+	Linus proposed odd/even releases
+		development odd
+		stable even
+
+	Much complaining
+
+	Why not just do point releases?
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Why no point releases
+
+	It is very hard
+
+	What is a bugfix?
+
+	Everyone thinks their fix is essential
+
+	Rewrites of the IDE layer have been considered "essential"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+We need to fix this
+%font "standard", size 4.5, left
+
+    Subject: Re: RFD kernel release numbering
+    From: Jeff Garzik
+
+    We have all these problems precisely because _nobody_
+    is saying "I'm only going to accept bug fixes".  
+    We _need_ some amount of release engineering.
+    Right now we basically have none.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No one is that foolish
+%font "standard", size 4.5, left
+
+    Subject: Re: RFD kernel release numbering
+    From: Linus Torvalds
+
+    I agree that this is one of the main problems.
+
+    But look at how to solve it. The _logical_ solution is 
+    to have a third line of defense: we have the -mm trees
+    (wild and wacky patches), and we have my tree (hopefully
+    not wacky any more), and it would be good to have a
+    third level tree (which I'm just not interested in, 
+    because that one doesn't do any development any more)
+    which only takes the "so totally not wild that it's
+    really boring" patches.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No one is that foolish
+%font "standard", size 4.5, left
+
+   <Linus continued>
+
+   I'll tell you what the problem is: I don't think you'll
+   find anybody to do the parallell "only trivial patches" tree.
+   They'll go crazy in a couple of weeks. Why? Because it's a
+   _damn_ hard problem. Where do you draw the line? What's
+   an acceptable patch? And if you get it wrong, people will
+   complain _very_ loudly, since by now you've "promised" them
+   a kernel that is better than the mainline.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+No one is that foolish
+%font "standard", size 4.5, left
+
+   <Linus continued>
+
+   In other words: there's almost zero glory, there are no
+   interesting problems, and there will absolutely be people
+   who claim that you're a dick-head and worse, probably 
+   on a weekly basis.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Two suckers step up
+%font "standard", size 4.5, left
+
+    Subject: Re: RFD kernel release numbering
+    From: Greg KH
+
+    Well, I'm one person who has said that this would be a very
+    tough problem to solve.  And hey, I like tough problems, so
+    I'll volunteer to start this.  If I burn out, I'll take the
+    responsibility of finding someone else to take it over.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Two suckers step up
+%font "standard", size 4.5, left
+
+    Subject: Re: RFD kernel release numbering
+    From: Chris Wright
+
+    Andres Salomon (-as patches) and I have been talking about
+    that at least regarding security fixes.  It's worth trying
+    in a more complete and formalized way.
+    Guess I can be branded a sucker ;-)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.x.y
+
+
+	Security releases.
+
+	Bug fixes.
+
+	Strict rules on what can go in.
+
+	Public review process of patches.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Will it work?
+
+
+	2.6.11 - March 4, 2005
+		297,259 lines added  168,725 removed
+
+	2.6.12 - June 17, 2005
+		337,092 lines added  183,305 removed
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.11.y
+
+
+	12 releases
+
+	507 lines added
+
+	303 lines removed
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.12.y
+
+
+	3 releases
+
+	169 lines added
+
+	199 lines removed
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Kernel Summit 2005
+
+
+	People not testing -rc releases
+
+	Complaints about bugs
+
+	Lots of "churn" in -rc kernels
+
+	What to do?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+After 2.6.x is released
+
+	Major patch flood in first week.
+		must have been in -mm for testing
+
+	-rc1 kernel is released
+
+	Treat this as a "Release Candidate"
+
+	Bug fixes only.
+
+	No using git to send bugs.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What happened to BitKeeper?
+
+%font "standard", size 4.5, left
+
+    Subject: Kernel SCM saga
+    From: Linus Torvalds
+
+    Ok, as a number of people are already aware (and in some
+    cases have been aware over the last several weeks), we've
+    been trying to work out a conflict over BK usage over the
+    last month or two (and it feels like longer ;). That hasn't
+    been working out, and as a result, the kernel team is looking
+    at alternatives.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+What the kernel needs
+
+	no central repository
+		each copy is self contained
+
+	fast import of patches
+
+	handle lots of changesets
+
+	fast import of patches
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+git
+
+
+%font "standard", size 5, left
+   "Linus has just done one of those impossible things - 
+    he's completely changed the focus of everyone who
+    was working on that kernel thing to working on a scm
+    instead"
+                         --- Russell King
+
+
+#%font "typewriter", size 6, center
+#www.kernel.org/git/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+How you can help
+
+
+	Test the -rc kernels
+
+	Test the -mm kernels
+
+	Complain if you have problems
+		linux-kernel mailing list
+		bugzilla.kernel.org
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+2.6.13
+
+	inotify
+	Xtensa architecture
+	Kexec/kdump
+	Execute-in-place
+	devfs disabled
+	Selectable timer interrupt frequency
+	Time-sharing CFQ I/O scheduler
+	Manual driver binding
+	Infiniband user-space verbs
+	Voluntary preemption
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+The near future
+
+	Xen
+	FUSE
+	plan 9 filesystem
+	reiser4
+	OCFS2
+	GFS
+	working suspend
+	new timer handling
+	"real-time"
+	easier to use kernel APIs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+I want a stable API
+
+	user - kernel API
+		does not break
+
+	in-kernel API
+		changes daily
+
+	Out-of-the-tree drivers
+		get the code into the kernel tree
+
+	Binary drivers
+		illegal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Everyone else does it!
+
+
+
+
+%font "typewriter", size 7, center
+stable_api_nonsense.txt
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+
+Conclusion
+
+	No more "stable" kernel series
+
+	-stable releases are working
+
+	What you can do:
+		Test the -rc kernels
+		Test the -mm kernels
+
+	No stable in-kernel API.
+
+	Everything subject to change
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

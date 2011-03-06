@@ -1,0 +1,12 @@
+Linux Driver Model
+past, present, and future
+
+
+
+
+
+
+
+Greg Kroah-Hartman
+Novell - SuSE Labs
+gregkh@suse.de

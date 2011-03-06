@@ -1,0 +1,11 @@
+
+git
+
+
+   "Linus has just done one of those impossible things - 
+    he's completely changed the focus of everyone who
+    was working on that kernel thing to working on a scm
+    instead"
+                         --- Russell King
+
+

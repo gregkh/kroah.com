@@ -1,0 +1,17 @@
+
+Rename your network connections
+
+
+
+
+ #!/bin/sh
+ if [ "$1" = "network" ]; then
+     if [ "$ACTION" = "register" ]; then
+         nameif -r $INTERFACE -c /etc/mactab
+     fi
+ fi
+
+
+
+
+thanks to Sukadev Bhattiprolu

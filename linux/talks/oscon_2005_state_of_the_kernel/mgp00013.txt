@@ -1,0 +1,15 @@
+
+Stabilization time ???
+
+2.6.5 - April 3, 2004
+101,535 lines added   56,991 removed
+
+2.6.6 - May 9, 2004
+173,049 lines added  104,312 removed
+
+2.6.7 - June 16, 2004
+175,409 lines added  157,607 removed
+
+2.6.8 - August 13, 2004
+250,569 lines added  153,188 removed
+

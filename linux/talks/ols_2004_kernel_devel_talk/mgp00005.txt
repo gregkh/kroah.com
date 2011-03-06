@@ -1,0 +1,11 @@
+
+unexpected consequences
+
+
+bk provided an up-to-hour copy of Linus's tree
+
+-bk nightly snapshots
+
+bk2cvs, bk2svn
+
+bkcommits-head mailing list

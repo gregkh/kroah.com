@@ -1,0 +1,20 @@
+
+Create the urb
+
+
+
+gotemp_probe():
+
+        gdev->int_in_urb = usb_alloc_urb(0, GFP_KERNEL);
+        if (!gdev->int_in_urb) {
+                dev_err(&interface->dev, "No free urbs available\n");
+                goto error;
+        }
+        usb_fill_int_urb(gdev->int_in_urb, udev,
+                         usb_rcvintpipe(udev,
+                                        endpoint->bEndpointAddress),
+                         gdev->int_in_buffer, buffer_size,
+                         read_int_callback, gdev,
+                         endpoint->bInterval);
+
+

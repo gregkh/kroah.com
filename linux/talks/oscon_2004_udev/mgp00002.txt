@@ -1,0 +1,14 @@
+
+/dev
+
+
+how userspace talks to devices
+
+all devices need a major and minor number
+       brw-------    1 gregkh   disk       3,   0 Jan 30 02:24 /dev/hda
+       brw-------    1 gregkh   disk       3,  64 Jan 30 02:24 /dev/hdb
+       crw-rw-rw-    1 root     uucp     188,   0 Jan 30 02:24 /dev/ttyUSB0
+       crw-rw-rw-    1 root     uucp     188,   1 Jan 30 02:24 /dev/ttyUSB1
+
+new major and minor number freeze during 2.3
+

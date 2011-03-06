@@ -1,0 +1,9 @@
+
+Native compiler data sizes
+
+
+int is guarenteed to be at least 32 bits.
+
+sizeof(pointer) != sizeof(unsigned int)
+
+sizeof(pointer) == sizeof(unsigned long)

@@ -1,0 +1,9 @@
+
+How to use it (cont.)
+
+
+increment the count before giving it to anyone else:
+     kref_get(&foo->kref);
+
+decrement the count when you are finished with it:
+     kref_put(&foo->kref, foo_release);

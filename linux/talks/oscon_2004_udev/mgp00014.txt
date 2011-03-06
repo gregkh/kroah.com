@@ -1,0 +1,26 @@
+
+udev rules config file
+
+ # Looking for scsi bus id 42:0:0:1
+ BUS="scsi", PROGRAM="/bin/echo -n test-%b", RESULT="test-42:0:0:1", NAME="%c"
+
+ # A usb camera.
+ BUS="usb", SYSFS{vendor}="FUJIFILM", SYSFS{model}="M100", NAME="camera%n"
+
+ # USB Epson printer to be called lp_epson
+ BUS="usb", SYSFS_serial="HXOLL0012202323480", NAME="lp_epson"
+
+ # sound card with PCI bus id 00:0b.0 to be the first sound card
+ BUS="pci", ID="00:0b.0", NAME="dsp"
+
+ # sound card with PCI bus id 00:07.1 to be the second sound card
+ BUS="pci", ID="00:07.1", NAME="dsp1" 
+
+ # USB mouse plugged into the third port of the first hub to be called mouse0
+ BUS="usb", PLACE="1.3", NAME="mouse0"
+
+ # USB tablet plugged into the third port of the second hub to be called mouse1
+ BUS="usb", PLACE="2.3", NAME="mouse1"
+
+ # ttyUSB1 should always be called treo300
+ KERNEL="ttyUSB1", NAME="treo300"

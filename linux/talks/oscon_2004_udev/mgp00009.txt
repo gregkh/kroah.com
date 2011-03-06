@@ -1,0 +1,15 @@
+
+udev's goals
+
+
+run in userspace
+
+create a dynamic /dev
+
+allow everyone to not care about major/minor numbers
+
+provide LSB standard names
+
+provide consistent device naming if wanted
+
+easy to use

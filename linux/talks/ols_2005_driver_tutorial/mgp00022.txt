@@ -1,0 +1,14 @@
+
+Submit the urb
+
+
+
+init_dev():
+
+        /* kick off interrupt urb */
+        retval = usb_submit_urb(gdev->int_in_urb, GFP_KERNEL);
+        if (retval)
+                dev_err(&gdev->udev->dev, 
+                        "Error %d submitting interrupt urb\n",
+                        retval);
+

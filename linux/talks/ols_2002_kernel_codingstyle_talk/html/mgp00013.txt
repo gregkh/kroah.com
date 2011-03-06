@@ -1,0 +1,16 @@
+
+Variable and Function Naming
+
+
+Be descriptive.
+
+Be concise.
+
+No MixedCase.
+
+No encoding the type within the name.
+
+Global variables only when necessary.
+
+Local variables short and to the point.
+

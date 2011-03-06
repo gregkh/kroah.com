@@ -1,0 +1,11 @@
+
+Kernel Summit 2005
+
+
+People not testing -rc releases
+
+Complaints about bugs
+
+Lots of "churn" in -rc kernels
+
+What to do?

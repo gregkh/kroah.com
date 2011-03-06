@@ -1,0 +1,10 @@
+
+The nightmare that was 2.4
+
+VM rewrite in 2.4.9
+
+Distros wanted 2.5 features
+
+Backport hell
+
+"enterprise kernels"

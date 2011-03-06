@@ -1,0 +1,13 @@
+
+Main udev config file
+
+
+/etc/udev/udev.conf
+location of /dev
+location of udev database
+location of rules files
+location of permission files
+default mode
+default owner
+default group
+logging enabled or not

@@ -1,0 +1,17 @@
+
+the future
+
+
+hotplug kernel patches
+SCSI
+better PCMCIA support
+IDE
+PCI and cPCI
+CPU
+Docking station (-ac kernel now)
+
+enhanced script support
+
+better distro support
+
+obsoleted by ACPI?

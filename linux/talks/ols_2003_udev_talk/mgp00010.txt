@@ -1,0 +1,12 @@
+
+three major pieces
+
+
+namedev
+handle all device naming issues
+
+libsysfs
+access sysfs in a standard way
+
+udev
+dynamic replacement for /dev

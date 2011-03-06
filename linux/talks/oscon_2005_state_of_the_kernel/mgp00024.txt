@@ -1,0 +1,11 @@
+
+Two suckers step up
+
+    Subject: Re: RFD kernel release numbering
+    From: Greg KH
+
+    Well, I'm one person who has said that this would be a very
+    tough problem to solve.  And hey, I like tough problems, so
+    I'll volunteer to start this.  If I burn out, I'll take the
+    responsibility of finding someone else to take it over.
+

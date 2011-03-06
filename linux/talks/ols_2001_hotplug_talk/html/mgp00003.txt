@@ -1,0 +1,11 @@
+
+Been done before
+
+
+/etc/pcmcia/config
+
+modules.conf
+
+Both maintained by hand
+
+

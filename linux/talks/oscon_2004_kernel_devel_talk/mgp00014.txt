@@ -1,0 +1,13 @@
+
+Summary
+
+
+The kernel developers like how this is all working.
+
+No stable in-kernel API, get used to it.
+
+Drivers outside of the tree are on their own.
+get your code into the kernel!
+
+Everything subject to change at any time
+

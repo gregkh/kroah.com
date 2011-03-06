@@ -1,0 +1,638 @@
+%%  Putting a filesystem into a device driver
+%%  linux.conf.au 2003 talk
+%%  Copyright 2003 Greg Kroah-Hartman
+%%  <greg@kroah.com>
+%%  <gregkh@us.ibm.com>
+%%  Released under the GNU FDL
+%%
+%% use our own settings
+%deffont "standard"   tfont "standard.ttf",   tmfont "kochi-mincho.ttf"
+%deffont "thick"      tfont "thick.ttf",      tmfont "goth.ttf"
+%deffont "typewriter" tfont "typewriter.ttf", tmfont "goth.ttf"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings per each line numbers.
+%%
+%default 1 right, size 2, fore "yellow", back "black", font "typewriter"
+%default 2 leftfill, size 7, fore "white", vgap 10, prefix " ", font "thick"
+%default 3 size 2, bar "gray70", vgap 10, font "standard"
+%default 4 size 5, fore "white", vgap 30, prefix " ", font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Default settings that are applied to TAB-indented lines.
+%%
+#%tab 1 size 5, vgap 40, prefix "  ", icon box "green" 50
+%tab 1 size 5, vgap 40, prefix "  ", icon arc "green" 40
+%tab 2 size 4, vgap 40, prefix "      ", icon arc "yellow" 50
+%tab 3 size 3.5, vgap 40, prefix "            ", icon delta3 "white" 40
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "thick", fore "white", center
+
+
+
+Putting a filesystem
+into a 
+device driver
+%size 4
+
+
+
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+greg@kroah.com
+gregkh@us.ibm.com
+
+http://www.kroah.com/linux/
+
+
+%fore "yellow"
+linux.conf.au 2003
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Why put a filesystem into a driver?
+
+
+	No more new major/minor numbers allowed:
+
+%size 4
+     Linus Torvalds has requested a moratorium on
+     new device number assignments. His hope is that
+     a new and better method for device space handing
+     will emerge as a result.
+       -- H. Peter Anvin on lkml, May 14, 2001
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Advantages
+
+
+	no ioctl() calls needed
+		but can be used if necessary
+
+	devices accessable to scripts
+
+	no new major/minor number needed
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Disadvantages
+
+
+	more complex driver
+		for 2.5 libfs helps out a lot
+
+	have to mount the filesystem somewhere
+
+	user training
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Example - pcihpfs
+
+%font "typewriter"
+%size 3
+                     /proc/bus/pci/slots/
+                     |-- slot3
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   `-- power
+                     |-- slot4
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   `-- power
+                     |-- slot5
+                     |   |-- adapter
+                     |   |-- attention
+                     |   |-- cur_bus_speed
+                     |   |-- latch
+                     |   |-- max_bus_speed
+                     |   |-- power
+                     |   `-- test
+                     `-- slot6
+                         ...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Example - usbfs
+
+
+%font "typewriter"
+%size 3
+                     /proc/bus/usb/
+                     |-- 001
+                     |   |-- 001
+                     |   |-- 002
+                     |   |-- 003
+                     |   |-- 004
+                     |   `-- 005
+                     |-- 002
+                     |   |-- 001
+                     |   `-- 002
+                     `-- devices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+How
+
+
+	create 
+%cont, font "typewriter"
+struct file_system_type
+%font "standard"
+
+	register filesystem
+
+	mount filesystem
+
+	create superblock
+
+	create files
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create struct file_system_type
+
+
+	2.5 kernel
+%font "typewriter"
+%size 4
+        static struct file_system_type pcihpfs_type = {
+                .owner =        THIS_MODULE,
+                .name =         "pcihpfs",
+                .get_sb =       pcihpfs_get_sb,
+                .kill_sb =      kill_litter_super, 
+        };      
+%font "standard"
+
+	2.2 and 2.4 kernel
+%font "typewriter"
+%size 4
+        static DECLARE_FSTYPE(pcihpfs_type,
+                                 "pcihpfs",
+                                 pcihpfs_read_super,
+                                 FS_SINGLE | FS_LITTER);
+%font "standard"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Tell the kernel about the filesystem
+
+
+	register the filesystem
+%font "typewriter"
+%size 4
+        result = register_filesystem(&pcihpfs_fs_type);
+        if (result) {
+                err("register_filesystem failed with"
+                    " %d\n", result);
+                goto exit;
+        }
+%font "standard"
+
+	unregister the filesystem
+%font "typewriter"
+%size 4
+        unregister_filesystem(&pcihpfs_fs_type);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Mount the filesystem
+
+
+	Three common ways
+		do it yourself
+%font "typewriter"
+%size 4
+        sysfs_mount = kern_mount(&sysfs_fs_type);
+        if (IS_ERR(sysfs_mount)) {
+                printk(KERN_ERR "sysfs: could not mount!\n");
+                err = PTR_ERR(sysfs_mount);
+                sysfs_mount = NULL;
+        }
+%font "standard"
+
+		let the user do it
+			not recommended
+
+		only mount when really needed
+			complex, steal the 
+%cont, font "typewriter"
+usbfs
+%cont, font "standard"
+ code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create the superblock
+
+
+%font "typewriter"
+%size 4
+        static struct super_block *pcihpfs_get_sb (
+                struct file_system_type *fs_type,
+                int flags, char *dev_name, void *data)
+        {
+                return get_sb_single(fs_type,
+                                        flags,
+                                        data,
+                                        pcihpfs_fill_super);
+        }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create the superblock - cont.
+
+%font "typewriter"
+%size 3 
+static int pcihpfs_fill_super(struct super_block *sb, void *data, int silent)
+{       
+        struct inode *inode;
+        struct dentry *root;
+        
+        sb->s_blocksize = PAGE_CACHE_SIZE;
+        sb->s_blocksize_bits = PAGE_CACHE_SHIFT;
+        sb->s_magic = PCIHPFS_MAGIC;
+        sb->s_op = &pcihpfs_ops;
+
+        inode = pcihpfs_get_inode(sb, S_IFDIR | 0755, 0);
+        if (!inode) {
+                dbg("%s: could not get inode!\n",__FUNCTION__);
+                return -ENOMEM;
+        }       
+                
+        root = d_alloc_root(inode);
+        if (!root) {
+                dbg("%s: could not get root dentry!\n",__FUNCTION__);
+                iput(inode);
+                return -ENOMEM;
+        }
+        sb->s_root = root;
+        return 0;
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create an inode
+
+%font "typewriter"
+%size 2.75
+static struct inode *usbfs_get_inode (struct super_block *sb, int mode, dev_t dev)
+{                               
+        struct inode *inode = new_inode(sb);
+        if (inode) {            
+                inode->i_mode = mode;
+                inode->i_uid = current->fsuid;
+                inode->i_gid = current->fsgid;
+                inode->i_blksize = PAGE_CACHE_SIZE;
+                inode->i_blocks = 0;
+                inode->i_rdev = NODEV;
+                inode->i_atime = inode->i_mtime = inode->i_ctime = CURRENT_TIME;
+                switch (mode & S_IFMT) {
+                default:
+                        init_special_inode(inode, mode, dev); 
+                        break;
+                case S_IFREG: 
+                        inode->i_fop = &default_file_operations;
+                        break;
+                case S_IFDIR: 
+                        inode->i_op = &usbfs_dir_inode_operations;
+                        inode->i_fop = &simple_dir_operations;
+                        /* directory inodes start off with i_nlink == 2 (for "." entry) */
+                        inode->i_nlink++;
+                        break; 
+                }
+        }       
+        return inode;   
+}                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create a file
+
+%font "typewriter"
+%size 3
+
+
+
+       slot->power_dentry = fs_create_file ("power",
+                                                S_IFREG | S_IRUGO | S_IWUSR,
+                                                slot->dir_dentry,
+                                                slot,
+                                                &power_file_operations);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create a file - cont.
+
+%font "typewriter"
+%size 3 
+static struct dentry *fs_create_file (const char *name, mode_t mode,
+                                          struct dentry *parent, void *data,
+                                          struct file_operations *fops,
+                                          uid_t uid, gid_t gid)
+{
+        struct dentry *dentry;
+        int error;
+
+        dbg("creating file '%s'",name);
+
+        error = fs_create_by_name (name, mode, parent, &dentry);
+        if (error) {
+                dentry = NULL;
+        } else {
+                if (dentry->d_inode) {
+                        if (data)
+                                dentry->d_inode->u.generic_ip = data;
+                        if (fops)
+                                dentry->d_inode->i_fop = fops;
+                        dentry->d_inode->i_uid = uid;
+                        dentry->d_inode->i_gid = gid;
+                }
+        }
+
+        return dentry;
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create a file - cont.
+
+%font "typewriter"
+%size 3
+static int fs_create_by_name (const char *name, mode_t mode,
+                                 struct dentry *parent, struct dentry **dentry)
+{
+        int error = 0;
+
+        /* If the parent is not specified, we create it in the root.
+         * We need the root dentry to do this, which is in the super 
+         * block. A pointer to that is in the struct vfsmount that we
+         * have around.
+         */
+        if (!parent ) {
+                if (usbfs_mount && usbfs_mount->mnt_sb) {
+                        parent = usbfs_mount->mnt_sb->s_root;
+                }
+        }
+
+        if (!parent) {
+                dbg("Ah! can not find a parent!");
+                return -EFAULT;
+        }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Create a file - cont.
+
+%font "typewriter"
+%size 3
+
+
+        *dentry = NULL;
+        down(&parent->d_inode->i_sem);
+        *dentry = get_dentry (parent, name);
+        if (!IS_ERR(dentry)) {
+                if ((mode & S_IFMT) == S_IFDIR)
+                        error = usbfs_mkdir (parent->d_inode, *dentry, mode);
+                else
+                        error = usbfs_create (parent->d_inode, *dentry, mode);
+        } else
+                error = PTR_ERR(dentry);
+
+        up(&parent->d_inode->i_sem);
+
+        return error;
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+File operations
+
+
+
+%font "typewriter"
+%size 3
+        /* file ops for the "power" files */
+        static struct file_operations power_file_operations = {
+                .read =         power_read_file,
+                .write =        power_write_file,
+                .open =         default_open,
+                .llseek =       generic_file_llseek,
+        };
+
+
+        static int default_open (struct inode *inode, struct file *file)
+        {
+                if (inode->u.generic_ip)
+                        file->private_data = inode->u.generic_ip;
+
+                return 0;
+        }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+File operations - read
+
+%font "typewriter"
+%size 3
+static ssize_t power_read_file (struct file *file, char *buf, size_t count,
+                                   loff_t *offset)
+{
+        struct hotplug_slot *slot = file->private_data;
+        unsigned char *page;
+        int retval;
+        int len;
+        u8 value;
+
+        if (*offset < 0)
+                return -EINVAL;
+        if (count == 0 || count > 16384)
+                return 0;
+        if (*offset != 0)
+                return 0;
+        
+        if (slot == NULL)
+                return -ENODEV;
+
+        page = (unsigned char *)__get_free_page(GFP_KERNEL);
+        if (!page)
+                return -ENOMEM;
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+File operations - read cont.
+
+%font "typewriter"
+%size 3
+
+        retval = get_power_status (slot, &value);
+        if (retval)
+                goto exit;
+        len = sprintf (page, "%d\n", value);
+
+        if (copy_to_user (buf, page, len)) {
+                retval = -EFAULT;
+                goto exit;
+        }
+        *offset += len;
+        retval = len;
+
+exit:
+        free_page((unsigned long)page);
+        return retval;
+}
+%font "standard"
+
+	Result
+%font "typewriter"
+%size 4
+        $ cat /proc/bus/pci/slots/slot2/power
+        1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+File operations - write
+
+%font "typewriter"
+%size 3
+static ssize_t power_write_file (struct file *file, const char *ubuff,
+                                    size_t count, loff_t *offset)
+{
+        struct hotplug_slot *slot = file->private_data;
+        char *buff;
+        unsigned long lpower;
+        u8 power;
+        int retval = 0;
+
+        if (*offset < 0) return -EINVAL;
+        if (count == 0 || count > 16384) return 0;
+        if (*offset != 0) return 0;
+
+        if (slot == NULL)
+                return -ENODEV;
+
+        buff = kmalloc (count + 1, GFP_KERNEL);
+        if (!buff)
+                return -ENOMEM;
+        memset (buff, 0x00, count + 1);
+
+        if (copy_from_user ((void *)buff, (void *)ubuff, count)) {
+                retval = -EFAULT;
+                goto exit;
+        }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+File operations - write cont.
+
+%font "typewriter"
+%size 3
+        lpower = simple_strtoul (buff, NULL, 10);
+        power = (u8)(lpower & 0xff);
+
+        if (!try_module_get(slot->ops->owner)) {
+                retval = -ENODEV;
+                goto exit;
+        }
+        switch (power) {
+                case 0:
+                        if (slot->ops->disable_slot)
+                                retval = slot->ops->disable_slot(slot);
+                        break;
+                case 1:
+                        if (slot->ops->enable_slot)
+                                retval = slot->ops->enable_slot(slot);
+                        break;
+                default:
+                        err ("Illegal value specified for power\n");
+                        retval = -EINVAL;
+        }
+        module_put(slot->ops->owner);
+exit:
+        kfree (buff);
+        if (retval)
+                return retval;
+        return count;
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+linux.conf.au 2003
+Deleting files
+
+%font "typewriter"
+%size 3
+static void fs_remove_file (struct dentry *dentry)
+{
+        struct dentry *parent = dentry->d_parent;
+        
+        if (!parent || !parent->d_inode)
+                return;
+        
+        down(&parent->d_inode->i_sem);
+        if (usbfs_positive(dentry)) {
+                if (dentry->d_inode) {
+                        if (S_ISDIR(dentry->d_inode->i_mode))
+                                usbfs_rmdir(parent->d_inode, dentry);
+                        else
+                                usbfs_unlink(parent->d_inode, dentry);
+                dput(dentry);
+                }
+        }
+        up(&parent->d_inode->i_sem);
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%page
+%nodefault
+%size 7, font "thick", fore "white", center
+
+
+
+Putting a filesystem
+into a 
+device driver
+%size 4
+
+
+
+
+
+Greg Kroah-Hartman
+%size 3
+%font "typewriter"
+
+greg@kroah.com
+gregkh@us.ibm.com
+
+http://www.kroah.com/linux/
+
+
+%fore "yellow"
+linux.conf.au 2003
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

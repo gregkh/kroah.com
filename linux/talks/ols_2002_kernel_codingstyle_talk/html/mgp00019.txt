@@ -1,0 +1,14 @@
+
+Function Comment
+
+
+    /**
+     * my_function - does my stuff
+     * @my_arg: my argument 
+     *
+     * Does my stuff explained.
+     */
+    void my_function (int my_arg)
+    {
+            ...
+    }

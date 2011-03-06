@@ -1,0 +1,12 @@
+linux.conf.au 2003
+Create a file
+
+
+
+
+       slot->power_dentry = fs_create_file ("power",
+                                                S_IFREG | S_IRUGO | S_IWUSR,
+                                                slot->dir_dentry,
+                                                slot,
+                                                &power_file_operations);
+

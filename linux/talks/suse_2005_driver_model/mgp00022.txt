@@ -1,0 +1,14 @@
+
+TODO
+
+
+implement nested class devices
+
+add kobject to class interfaces
+
+convert input patches
+
+work with fb/drm developers
+
+convert block?
+

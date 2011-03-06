@@ -1,0 +1,24 @@
+
+No #ifdef in .c files - example
+
+After:
+include/linux/hiddev.h
+ #ifdef CONFIG_USB_HIDDEV
+         extern void hiddev_hid_event (struct hid_device *, unsigned int usage,
+                                           int value);
+ #else
+         static inline void hiddev_hid_event (struct hid_device *hid,
+                                                   unsigned int usage, int value)
+                                                  { }
+ #endif
+
+drivers/usb/hid_core.c
+ static void hid_process_event (struct hid_device *hid, struct hid_field *field,
+                                   struct hid_usage *usage, __s32 value)
+ {
+         hid_dump_input(usage, value); 
+         if (hid->claimed & HID_CLAIMED_INPUT)
+                 hidinput_hid_event(hid, field, usage, value);
+         if (hid->claimed & HID_CLAIMED_HIDDEV)
+                 hiddev_hid_event(hid, usage->hid, value);
+ }

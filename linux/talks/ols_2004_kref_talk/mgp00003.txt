@@ -1,0 +1,7 @@
+
+Reference counting is essential
+
+
+keeps memory leaks from happening
+
+protects from accessing freed memory
