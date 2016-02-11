@@ -57,7 +57,7 @@ sub send_message
 	%mail = (	To	=>	$to,
 			From	=>	$from,
 			CC	=>	$cc,
-			Subject	=>	$subject,
+			Subject	=>	$initial_subject,
 			Message	=>	$message,
 			'Reply-to'	=>	$from,
 			'In-Reply-To'	=>	$reply_to,
